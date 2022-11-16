@@ -2,8 +2,8 @@ const ligueParisienne = [
   {
     ligue: "ligue_Parisienne",
     type: "match",
-    round: "Poulle Mouillée",
-    group: "groupe A",
+    round: "GroupStage",
+    group: "Poulle Mouillée",
     nomEquipeA: "Les mystiques",
     nomEquipeB: "Badger Hunter",
     joueursEquipeA: ["Tristan Prouteau", "Jerome renimel"],
