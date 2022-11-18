@@ -14,14 +14,17 @@ const userSchema = mongoose.Schema({
   }, //********New modif
   pseudo: {
     type: String,
-    required: true,
     minLength: 4,
     maxLength: 30,
     unique: true,
   },
+  name: {
+    type: String,
+    unique: true,
+  },
   password: { type: String, required: true },
+  scoreArray: [(type = Number)],
   scoreIdArray: [(type = String)],
-  scoreArray: [(type = String)],
   test: [(type = String)],
 });
 

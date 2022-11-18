@@ -122,19 +122,6 @@ exports.closeBet = (req, res, next) => {
   UserBet.find({ gameID: req.params.id }, (err, docs) => {
     if (!err) {
       docs.forEach((element) => {
-        console.log(
-          point(
-            getSuccess(
-              req.body.finalScoreEquipeA,
-              req.body.finalScoreEquipeB,
-              element.betScoreEquipeA,
-              element.betScoreEquipeB
-            ),
-            winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
-            element.coteEquipeA,
-            element.coteEquipeB
-          )
-        );
         User.updateOne(
           { _id: element.userId },
           {
@@ -150,13 +137,22 @@ exports.closeBet = (req, res, next) => {
                 element.coteEquipeA,
                 element.coteEquipeB
               ),
+              scoreIdArray: element.gameID,
             },
-            $push: { scoreIdArray: element.gameID },
-            $push: { test: "test" },
           }
         )
-          .then(() => console.log("userBet modified"))
+          .then(() => console.log("scoreArray pushed"))
           .catch((error) => res.status(401).json({ error }));
+
+        // User.updateOne(
+        //   { _id: element.userId },
+        //   {
+
+        //     $push: { scoreIdArray: element.gameID },
+        //   }
+        // )
+        //   .then(() => console.log("scoreArray"))
+        //   .catch((error) => res.status(401).json({ error }));
 
         UserBet.updateOne(
           { _id: element._id },

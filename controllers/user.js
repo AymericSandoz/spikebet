@@ -22,6 +22,7 @@ exports.signup = (req, res, next) => {
         email: req.body.email,
         password: hash,
         pseudo: req.body.pseudo,
+        name: req.body.name,
       });
       user
         .save()
@@ -61,5 +62,15 @@ exports.login = (req, res, next) => {
         error: "Mot de passe ou identifiant incorrect !",
       });
     }
+  });
+};
+
+exports.getAllUsers = (req, res, next) => {
+  console.log("guépard");
+  User.find((err, docs) => {
+    if (!err) {
+      res.send(docs);
+      console.log(docs);
+    } else res.send("Erreur :" + err);
   });
 };

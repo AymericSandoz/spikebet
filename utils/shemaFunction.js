@@ -4,6 +4,14 @@ const getSuccess = (
   betScoreEquipeA,
   betScoreEquipeB
 ) => {
+  console.log(
+    "finalScoreEquipeA - finalScoreEquipeB:",
+    finalScoreEquipeA - finalScoreEquipeB
+  );
+  console.log(
+    "betScoreEquipeA - betScoreEquipeB:",
+    betScoreEquipeA - betScoreEquipeB
+  );
   if (
     (finalScoreEquipeA - finalScoreEquipeB) *
       (betScoreEquipeA - betScoreEquipeB) >=
