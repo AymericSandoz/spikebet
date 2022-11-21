@@ -33,5 +33,12 @@ const point = (success, winner, coteEquipeA, coteEquipeB) => {
     } else return coteEquipeB;
   } else return 0;
 };
+const arraySum = (array) => {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum;
+};
 
-module.exports = { point, winner, getSuccess };
+module.exports = { point, winner, getSuccess, arraySum };

@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const { arraySum } = require("../utils/shemaFunction");
 //Inscriptions des utilisateurs
 exports.signup = (req, res, next) => {
   const signUpErrors = (errors) => {
@@ -72,5 +72,15 @@ exports.getAllUsers = (req, res, next) => {
       res.send(docs);
       console.log(docs);
     } else res.send("Erreur :" + err);
+  });
+};
+
+exports.fetchCoins = (req, res, next) => {
+  console.log("req.auth.userId", req.auth.userId);
+
+  User.findOne({ _id: req.auth.userId }, (err, docs) => {
+    if (!err) {
+      res.status(200).json(arraySum(docs.scoreArray));
+    } else res.status(404).json("Erreur :" + err);
   });
 };
