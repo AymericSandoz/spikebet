@@ -75,7 +75,7 @@ exports.getAllUsers = (req, res, next) => {
   });
 };
 
-exports.fetchCoins = (req, res, next) => {
+exports.getUser = (req, res, next) => {
   console.log("req.auth.userId", req.auth.userId);
 
   User.findOne({ _id: req.auth.userId }, (err, docs) => {
@@ -83,4 +83,15 @@ exports.fetchCoins = (req, res, next) => {
       res.status(200).json(docs);
     } else res.status(404).json("Erreur :" + err);
   });
+};
+
+exports.updateProfil = (req, res, next) => {
+  console.log("req.auth.userId", req.auth.userId);
+
+  User.updateOne(
+    { _id: req.auth.userId },
+    { ...req.body, _id: req.auth.userId }
+  )
+    .then(() => res.status(201).json("object modified !"))
+    .catch((error) => res.status(401).json({ error }));
 };

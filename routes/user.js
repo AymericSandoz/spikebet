@@ -9,5 +9,7 @@ const auth = require("../middleware/auth"); //authentifications
 router.post("/register", userCtrl.signup); //Inscriptions
 router.post("/login", userCtrl.login); //Connexion
 router.get("/getAllUsers", userCtrl.getAllUsers);
-router.get("/fetchCoins", auth, userCtrl.fetchCoins);
+router.get("/getUser", auth, userCtrl.getUser);
+router.put("/updateProfil", auth, userCtrl.updateProfil);
+
 module.exports = router; //exportations de notre routeur

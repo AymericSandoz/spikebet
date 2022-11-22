@@ -244,7 +244,8 @@ exports.closeBet = (req, res, next) => {
     { new: true }
   )
     .then((doc) => {
-      console.log("Bet modified");
+      console.log("Bet closed");
+      res.status(200).json("bet closed");
     })
     .catch();
 };
