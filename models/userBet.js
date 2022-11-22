@@ -31,6 +31,8 @@ const userBetSchema = mongoose.Schema(
     betScoreEquipeA: { type: Number, required: true },
     betScoreEquipeB: { type: Number, required: true },
     live: { type: String, default: "open" },
+
+    mise: { type: Number, required: true },
     success: {
       type: String,
 

@@ -80,7 +80,7 @@ exports.fetchCoins = (req, res, next) => {
 
   User.findOne({ _id: req.auth.userId }, (err, docs) => {
     if (!err) {
-      res.status(200).json(arraySum(docs.scoreArray));
+      res.status(200).json(docs);
     } else res.status(404).json("Erreur :" + err);
   });
 };

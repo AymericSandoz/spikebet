@@ -3,7 +3,13 @@ const User = require("../models/user");
 const UserBet = require("../models/UserBet");
 const mongoose = require("mongoose");
 const { updateOne } = require("../models/bet");
-const { getSuccess, point, winner } = require("../utils/shemaFunction");
+const {
+  getSuccess,
+  point,
+  winner,
+  calculTotalCoins,
+} = require("../utils/shemaFunction");
+const user = require("../models/user");
 // const LPGroup = require("../models/ligue_parisienne_group");
 // const LPteamName = require("../models/ligue_parisienne_team_name");
 // const LP = require("../models/ligue_parisienne_all_bets");
@@ -72,8 +78,21 @@ exports.modifyBet = (req, res, next) => {
 
 //créer un bet
 exports.bet = (req, res, next) => {
+  User.findOne({ _id: req.auth.userId }, (err, docs) => {
+    if (!err) {
+      if (
+        req.body.mise <
+        calculTotalCoins(docs.mise, docs.miseArray, docs.scoreArray)
+      ) {
+        res.status(404).json({
+          error: "Fond insuffisant",
+        });
+      }
+    } else res.send("Erreur :" + err);
+  });
+
   var userBet = new UserBet({ ...req.body, userId: req.auth.userId });
-  console.log("userBet:", userBet);
+  console.log("userBet:", req.body);
   userBet
     .save()
     .then(() => {
@@ -81,10 +100,30 @@ exports.bet = (req, res, next) => {
       console.log("bet saved");
     })
     .catch((error) => {
+      console.log(error);
       res.status(404).json({
         error: error,
       });
     });
+
+  User.findOneAndUpdate(
+    { _id: req.auth.userId },
+    {
+      $push: {
+        miseArray: req.body.mise,
+        scoreIdArray: req.body.gameID,
+      },
+    },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        console.log(error);
+        res.status(400).json(err);
+      } else {
+        console.log("miseArray et scoreIdArray : ", docs);
+      }
+    }
+  );
 
   Bet.findOneAndUpdate(
     { _id: req.body.gameID },
@@ -97,6 +136,7 @@ exports.bet = (req, res, next) => {
     { new: true },
     function (err, docs) {
       if (err) {
+        console.log(error);
         res.status(400).json(err);
       } else {
         res.status(201).json({ docs });
@@ -126,18 +166,23 @@ exports.closeBet = (req, res, next) => {
           { _id: element.userId },
           {
             $push: {
-              scoreArray: point(
-                getSuccess(
-                  req.body.finalScoreEquipeA,
-                  req.body.finalScoreEquipeB,
-                  element.betScoreEquipeA,
-                  element.betScoreEquipeB
-                ),
-                winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
-                element.coteEquipeA,
-                element.coteEquipeB
-              ),
-              scoreIdArray: element.gameID,
+              scoreArray:
+                point(
+                  getSuccess(
+                    req.body.finalScoreEquipeA,
+                    req.body.finalScoreEquipeB,
+                    element.betScoreEquipeA,
+                    element.betScoreEquipeB
+                  ),
+                  winner(
+                    req.body.finalScoreEquipeA,
+                    req.body.finalScoreEquipeB
+                  ),
+                  element.coteEquipeA,
+                  element.coteEquipeB
+                ) * element.mise,
+              // miseArray: element.mise,
+              // scoreIdArray: element.gameID,
             },
           }
         )
@@ -167,17 +212,18 @@ exports.closeBet = (req, res, next) => {
               element.betScoreEquipeA,
               element.betScoreEquipeB
             ),
-            point: point(
-              getSuccess(
-                req.body.finalScoreEquipeA,
-                req.body.finalScoreEquipeB,
-                element.betScoreEquipeA,
-                element.betScoreEquipeB
-              ),
-              winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
-              element.coteEquipeA,
-              element.coteEquipeB
-            ),
+            point:
+              point(
+                getSuccess(
+                  req.body.finalScoreEquipeA,
+                  req.body.finalScoreEquipeB,
+                  element.betScoreEquipeA,
+                  element.betScoreEquipeB
+                ),
+                winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
+                element.coteEquipeA,
+                element.coteEquipeB
+              ) * element.mise,
           }
         )
           .then(() => console.log("youhou"))

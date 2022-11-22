@@ -23,11 +23,13 @@ const userSchema = mongoose.Schema({
     unique: true,
   },
   password: { type: String, required: true },
-  scoreArray: {
-    type: Array,
-    default: [50],
-  },
+  scoreArray: [(type = Number)],
+  miseArray: [(type = Number)],
   scoreIdArray: [(type = String)],
+  coins: {
+    type: Number,
+    default: 50,
+  },
 });
 
 userSchema.plugin(uniqueValidator);

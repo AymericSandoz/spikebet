@@ -41,4 +41,19 @@ const arraySum = (array) => {
   return sum;
 };
 
-module.exports = { point, winner, getSuccess, arraySum };
+const calculTotalCoins = (coins, miseArray, scoreArray) => {
+  let miseArraySum = 0;
+  for (let i = 0; i < miseArray.length; i++) {
+    miseArraySum += miseArray[i];
+  }
+
+  let miseScoreArray = 0;
+  for (let i = 0; i < scoreArray.length; i++) {
+    miseScoreArray += scoreArray[i];
+  }
+
+  let totalCoins = miseScoreArray - miseArraySum + coins;
+  return totalCoins;
+};
+
+module.exports = { point, winner, getSuccess, arraySum, calculTotalCoins };
