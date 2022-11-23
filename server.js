@@ -2,7 +2,7 @@ const express = require("express"); //framework qui permet de coder plus rapidem
 require("dotenv").config({ path: "./config/.env" });
 const userRoutes = require("./routes/user");
 const betRoutes = require("./routes/bet");
-
+// const test = require("./my-app/public/ind")
 const path = require("path"); //accéder au path de notre serveur :
 
 const requireAuth = require("./middleware/requireAuth");
@@ -25,9 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static("./my-app/public"));
+app.use(express.static("public"));
 app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
+  res.sendFile("index.html", { root: path.join(__dirname, "public") });
 });
 
 app.post("/jwtid", requireAuth, (req, res) => {
