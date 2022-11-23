@@ -9,8 +9,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "ng build",
-  "heroku-postbuild": "ng build --prod"
+    
+    "heroku-postbuild": "cd my-app && npm install --only=dev && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
