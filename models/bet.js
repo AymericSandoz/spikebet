@@ -13,7 +13,7 @@ const betSchema = mongoose.Schema(
     joueursEquipeB: { type: Array },
     coteEquipeA: { type: Number },
     coteEquipeB: { type: Number },
-    live: { type: String },
+    live: { type: String, default: "open" },
     usersBet: [(type = String)],
     arrayVictoireEquipePrediction: [(type = String)],
   },
