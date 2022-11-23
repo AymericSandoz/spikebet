@@ -1,18 +1,13 @@
 const Bet = require("../models/bet");
 const User = require("../models/user");
-const UserBet = require("../models/UserBet");
+const UserBet = require("../models/userBet");
 const mongoose = require("mongoose");
-const { updateOne } = require("../models/bet");
 const {
   getSuccess,
   point,
   winner,
   calculTotalCoins,
 } = require("../utils/shemaFunction");
-const user = require("../models/user");
-// const LPGroup = require("../models/ligue_parisienne_group");
-// const LPteamName = require("../models/ligue_parisienne_team_name");
-// const LP = require("../models/ligue_parisienne_all_bets");
 
 exports.getAllBets = (req, res, next) => {
   console.log("guépard");
