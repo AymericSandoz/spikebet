@@ -35,7 +35,7 @@ const Home = () => {
   const getBets = (e) => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getLigueParisienne`,
+      url: `api/bet/getLigueParisienne`,
     })
       .then((res) => {
         setBets(res.data);

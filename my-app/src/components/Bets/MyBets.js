@@ -24,7 +24,7 @@ const MyBets = () => {
   const getMyBets = (e) => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getMyBets`,
+      url: `api/bet/getMyBets`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {

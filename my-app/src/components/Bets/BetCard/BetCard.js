@@ -62,7 +62,7 @@ const BetCard = ({ bet, getBets }) => {
     alert("Confirmer ? ");
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/`,
+      url: `api/bet/`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
       data: {
         gameID: bet._id,

@@ -14,7 +14,7 @@ const App = () => {
     await axios({
       method: "post",
 
-      url: "http://localhost:5000/jwtid",
+      url: "/jwtid",
       data: {
         token: localStorage.getItem("token"),
       },
@@ -32,7 +32,7 @@ const App = () => {
     await axios({
       method: "get",
 
-      url: "http://localhost:5000/api/user/getUser",
+      url: "api/user/getUser",
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
 
       //withCredentials: true,

@@ -85,7 +85,7 @@ const SignInForm = () => {
 
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}api/user/login`,
+      url: `api/user/login`,
 
       data: {
         email: email,

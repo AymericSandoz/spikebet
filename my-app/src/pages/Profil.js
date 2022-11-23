@@ -17,7 +17,7 @@ const Profil = () => {
     await axios({
       method: "get",
 
-      url: "http://localhost:5000/api/user/getUser",
+      url: "api/user/getUser",
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
 
       //withCredentials: true,
@@ -52,7 +52,7 @@ const Profil = () => {
 
     await axios({
       method: "put",
-      url: `${process.env.REACT_APP_SERVER_URL}api/user/updateProfil`,
+      url: `api/user/updateProfil`,
 
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
       data: {

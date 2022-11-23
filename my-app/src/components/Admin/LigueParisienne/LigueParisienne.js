@@ -35,7 +35,7 @@ const LigueParisienne = () => {
   const getBets = (e) => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getLigueParisienne`,
+      url: `api/bet/getLigueParisienne`,
     })
       .then((res) => {
         console.log("coucou", res.data);
@@ -56,7 +56,7 @@ const LigueParisienne = () => {
     }
     axios({
       method: "put",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/modifyBet/${bet._id}`,
+      url: `api/bet/modifyBet/${bet._id}`,
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -101,7 +101,7 @@ const LigueParisienne = () => {
 
     axios({
       method: "put",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/closeBet/${bet._id}`,
+      url: `api/bet/closeBet/${bet._id}`,
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
