@@ -1,0 +1,121 @@
+.left-nav-container {
+    position: -webkit-sticky;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    padding-top: 50px;
+    width: 200px;
+    z-index: 3;
+    background-color: $black;
+    ;
+    opacity: 0.95;
+    color: white;
+    margin-top: 59px;
+    box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+    z-index: 7;
+
+    @include mobile-only {
+        display: none;
+
+    }
+
+
+
+    .sidebar-item,
+    h2 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: white;
+        height: 40px;
+        padding-left: 20px;
+        font-size: 16px;
+        font-weight: normal;
+
+
+        @include mobile-only {
+            padding-left: 0;
+        }
+
+    }
+
+    .lefnav-level-1 {
+        font-size: 20px;
+
+    }
+
+    .lefnav-level-2 {
+        margin-left: 10px;
+        font-size: 17px;
+
+    }
+
+    .lefnav-level-3 {
+        margin-left: 20px;
+        font-size: 16px;
+
+    }
+
+    .lefnav-level-1,
+    .lefnav-level-2,
+    .lefnav-level-3 {
+        @include mobile-only {
+            font-size: 15px;
+            margin: 0;
+        }
+    }
+
+    section {
+        // background-color: $color-1;
+        border-radius: 8px;
+        margin-right: 10px;
+        margin-left: 10px;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+
+        @include mobile-only {
+            border-top: none;
+            border-bottom: none;
+            // border-right: 2px solid black;
+            // border-left: 2px solid black;
+
+        }
+
+    }
+
+
+
+    .icon {
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        color: gold;
+    }
+}
+
+.left-nav-small-screen {
+    display: none;
+    box-shadow: 10px 10px 10px 10px rgba(9, 9, 9, 0.8);
+    background-color: $color-1;
+
+    @include mobile-only {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        top: 100%;
+        width: 100%;
+        height: 80px;
+        margin-top: -80px;
+        padding: 5px;
+        opacity: 0.9;
+    }
+
+
+
+
+}

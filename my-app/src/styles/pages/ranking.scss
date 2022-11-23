@@ -1,0 +1,12 @@
+.ranking {
+    margin-top: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 200px 10px 100px 210px;
+    justify-content: center;
+    align-items: flex-start;
+
+    @include mobile-only {
+        margin: 120px 20px 30px 20px;
+    }
+}
