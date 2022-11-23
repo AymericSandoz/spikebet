@@ -25,6 +25,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static("./my-app/public"));
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
+});
+
 app.post("/jwtid", requireAuth, (req, res) => {
   console.log("requireauth marche");
 });
