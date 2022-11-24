@@ -8,7 +8,6 @@ const Logout = () => {
       localStorage.clear();
 
       navigate("/log");
-      window.location = "/log";
     }
   };
 
