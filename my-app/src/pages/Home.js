@@ -97,7 +97,15 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <Log />
+        <>
+          {
+            <p>
+              EKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+              KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+            </p>
+          }
+          <Log />
+        </>
       )}
       {/* <LeftNav /> */}
     </>

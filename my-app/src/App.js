@@ -14,7 +14,7 @@ const App = () => {
     await axios({
       method: "post",
 
-      url: `${process.env.REACT_APP_SERVER_URL}jwtid`,
+      url: `/jwtid`,
       data: {
         token: localStorage.getItem("token"),
       },
