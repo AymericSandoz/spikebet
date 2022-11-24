@@ -16,11 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.get("/", (req, res) => {
 //   res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
 // });
-app.use(express.static(path.join(__dirname, "my-app/build")));
+// app.use(express.static(path.join(__dirname, "my-app/build")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
+// });
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //accéder à notre API depuis n'importe quelle origine ( '*' )

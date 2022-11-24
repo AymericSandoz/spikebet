@@ -41,6 +41,9 @@
         text-align: center;
         color: red;
 
+        @include mobile-only {
+            color: gold;
+        }
     }
 
     .group-name {
@@ -77,6 +80,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @include mobile-only {
+            background-color: $color-4;
+            border: $color-4 1px solid;
+        }
     }
 
     .already-bet {
@@ -181,6 +189,11 @@
         margin: auto;
         box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
         border: none;
+
+        @include mobile-only {
+            background-color: gold;
+        }
+
     }
 
 
