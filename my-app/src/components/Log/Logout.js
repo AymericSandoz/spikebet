@@ -10,8 +10,9 @@ const Logout = () => {
   const clearToken = () => {
     if (window.confirm("Voulez-vous vous déconnectez ?")) {
       localStorage.clear();
-      uid.updateToken();
+      //uid.updateToken();
       navigate("/log");
+      window.location("/");
     }
   };
 
