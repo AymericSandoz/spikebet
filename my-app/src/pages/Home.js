@@ -90,7 +90,6 @@ const Home = () => {
       {uid.uid ? (
         <>
           <LeftNav />
-          {<p>ESPECE DE LAPINOU GROSSS</p>}
           <div className="home">
             {betsToDisplay.length > 0 &&
               sortBetArray(uid.uid, betsToDisplay).map((bet) => {
@@ -104,15 +103,7 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <>
-          {
-            <p>
-              EKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-              KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-            </p>
-          }
-          <Log />
-        </>
+        <Log />
       )}
       {/* <LeftNav /> */}
     </>
