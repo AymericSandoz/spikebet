@@ -75,10 +75,12 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const SignInForm = () => {
+  console.log("SignInForm");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
+    console.log("handleLogin");
     e.preventDefault();
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
@@ -93,7 +95,7 @@ const SignInForm = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        console.log("handleLoginres", res);
 
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email;
