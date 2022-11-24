@@ -13,6 +13,8 @@ import LeftNav from "../components/Navbar/Leftnav";
 import { sortBetArray } from "../utils/Utils";
 
 const Home = () => {
+  console.log("Home");
+
   const [competition, setCompetition] = useState("Ligue parisienne");
   const [numberOfGroup, setNumberOfGroup] = useState();
 
