@@ -11,8 +11,8 @@ const Logout = () => {
     if (window.confirm("Voulez-vous vous déconnectez ?")) {
       localStorage.clear();
       //uid.updateToken();
-      navigate("/log");
-      window.location("/");
+      //navigate("/log");
+      window.location.href("/");
     }
   };
 
