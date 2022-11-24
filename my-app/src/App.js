@@ -14,7 +14,7 @@ const App = () => {
     await axios({
       method: "post",
 
-      url: "/jwtid",
+      url: `/jwtid`,
       data: {
         token: localStorage.getItem("token"),
       },
@@ -22,7 +22,9 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        setUid(res.data);
+        if (uid.message != "jwt malformed") {
+          setUid(res.data);
+        }
       })
       .catch((err) => console.log("No token "));
   };

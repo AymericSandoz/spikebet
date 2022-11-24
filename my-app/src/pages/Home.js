@@ -27,7 +27,10 @@ const Home = () => {
   const [betsToDisplay, setBetsToDisplay] = useState([]);
 
   const uid = useContext(UidContext);
-  console.log(uid);
+  console.log(uid.uid);
+  console.log(uid.message);
+  console.log(uid.name);
+  console.log(uid.message == "jwt malformed");
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
