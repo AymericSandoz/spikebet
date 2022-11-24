@@ -90,7 +90,7 @@ const SignInForm = () => {
 
     axios({
       method: "post",
-      url: `api/user/login`, //${process.env.REACT_APP_SERVER_URL}
+      url: `${process.env.REACT_APP_SERVER_URL}api/user/login`, //${process.env.REACT_APP_SERVER_URL}
 
       data: {
         email: email,
@@ -107,11 +107,11 @@ const SignInForm = () => {
           console.log(uid);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("pseudo", res.data.pseudo);
-          console.log("updateToken");
-          // uid.updateToken();
-          console.log("updateCoins");
+          // console.log("updateToken");
+          uid.updateToken();
+          // console.log("updateCoins");
           uid.updateCoins();
-          console.log(uid);
+          // console.log(uid);
           navigate("/");
         }
       })

@@ -11,6 +11,7 @@ const App = () => {
 
   // useEffect(() => {
   const fetchToken = async () => {
+    console.log("fetchToken");
     await axios({
       method: "post",
 
@@ -39,7 +40,7 @@ const App = () => {
     await axios({
       method: "get",
 
-      url: `api/user/getUser`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/user/getUser`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
 
       //withCredentials: true,
@@ -63,10 +64,17 @@ const App = () => {
   }
 
   function updateToken() {
+    console.log("updateToken");
     fetchToken();
   }
+
+  function destroyToken() {
+    setUid(null);
+  }
   return (
-    <UidContext.Provider value={{ uid, coins, updateCoins, updateToken }}>
+    <UidContext.Provider
+      value={{ uid, coins, updateCoins, updateToken, destroyToken }}
+    >
       <Routes />
     </UidContext.Provider>
   );

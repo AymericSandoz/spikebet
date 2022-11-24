@@ -33,9 +33,9 @@ const Home = () => {
     return new URLSearchParams(useLocation().search);
   }
   let query = useQuery();
-  console.log(query);
+
   let GroupName = query.get("groupName");
-  console.log(GroupName);
+
   const getBets = (e) => {
     console.log("getBets");
     axios({
