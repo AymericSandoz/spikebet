@@ -103,7 +103,7 @@ const SignInForm = () => {
         } else {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("pseudo", res.data.pseudo);
-          window.location = "/";
+          //window.location = "/";
         }
       })
       .catch((err) => {
