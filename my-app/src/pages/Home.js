@@ -37,11 +37,13 @@ const Home = () => {
   let GroupName = query.get("groupName");
   console.log(GroupName);
   const getBets = (e) => {
+    console.log("getBets");
     axios({
       method: "get",
       url: `api/bet/getLigueParisienne`,
     })
       .then((res) => {
+        console.log("get bets res data", res.data);
         setBets(res.data);
         setBetsToDisplay(res.data);
         setLoadBets(false);
