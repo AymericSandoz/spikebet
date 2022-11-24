@@ -28,9 +28,7 @@ const Home = () => {
 
   const uid = useContext(UidContext);
   console.log(uid.uid);
-  console.log(uid.message);
-  console.log(uid.name);
-  console.log(uid.message == "jwt malformed");
+
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
@@ -85,6 +83,7 @@ const Home = () => {
       {uid.uid ? (
         <>
           <LeftNav />
+          {<p>ESPECE DE LAPINOU GROSSS</p>}
           <div className="home">
             {betsToDisplay.length > 0 &&
               sortBetArray(uid.uid, betsToDisplay).map((bet) => {
