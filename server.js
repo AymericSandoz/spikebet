@@ -12,6 +12,11 @@ var bodyParser = require("body-parser");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.use(express.static("./my-app/public"));
+// app.get("/", (req, res) => {
+//   res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
+// });
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //accéder à notre API depuis n'importe quelle origine ( '*' )
   res.setHeader(
@@ -25,11 +30,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, "my-app/build")));
-// Handles any requests that don't match the ones above
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
-});
+// app.use(express.static(path.join(__dirname, "my-app/build")));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
+// });
 
 app.post("/jwtid", requireAuth, (req, res) => {
   console.log("requireauth marche");

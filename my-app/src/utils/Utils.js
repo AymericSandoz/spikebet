@@ -34,8 +34,11 @@ export const CalculTotalCoins = (coins, miseArray, scoreArray) => {
 //sort array according to bet closed bet and bet already bet
 export const sortBetArray = (uid, array) => {
   //
-
+  console.log("uid", uid);
+  console.log("array", array);
+  console.log("array", array);
   for (let i = 0; i < array.length; i++) {
+    console.log("array[i].usersBet", array[i].usersBet);
     if (array[i].usersBet.includes(uid)) {
       array[i].position = 3;
     } else if (array[i].live === "closed") {
