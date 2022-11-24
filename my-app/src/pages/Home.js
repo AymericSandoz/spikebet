@@ -59,19 +59,23 @@ const Home = () => {
       getBets();
     }
     if (GroupName && bets) {
+      console.log("bimbim 1");
       if (GroupName === "Ligue Parisienne") {
+        console.log("bimbim 4");
         setBetsToDisplay(
           bets.filter(function (data) {
             return data.ligue === GroupName;
           })
         );
       } else if (GroupName === "autres") {
+        console.log("bimbim 2");
         setBetsToDisplay(
           bets.filter(function (data) {
             return data.type === "autre";
           })
         );
       } else {
+        console.log("bimbim 3");
         setBetsToDisplay(
           bets.filter(function (data) {
             return data.group === GroupName;

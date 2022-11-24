@@ -16,11 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.get("/", (req, res) => {
 //   res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
 // });
-app.use(express.static(path.join(__dirname, "my-app/build")));
+//app.use(express.static(path.join(__dirname, "my-app/build")));
+app.use(express.static(path.join(__dirname, "build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
+// });
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //accéder à notre API depuis n'importe quelle origine ( '*' )
@@ -41,6 +42,10 @@ app.post(`/jwtid`, requireAuth, (req, res) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/bet", betRoutes);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 // app.use("/images", express.static(path.join(__dirname, "images"))); //Cela indique à Express qu'il faut gérer la ressource images de manière statique (un sous-répertoire de notre répertoire de base, __dirname) à chaque fois qu'elle reçoit une requête vers la route /images.
 
 // console.log(path.join(path.join(__dirname, "images")));
