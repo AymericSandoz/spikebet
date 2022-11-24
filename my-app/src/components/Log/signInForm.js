@@ -101,9 +101,9 @@ const SignInForm = () => {
           emailError.innerHTML = res.data.errors.email;
           passwordError.innerHTML = res.data.errors.password;
         } else {
+          window.location = "/";
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("pseudo", res.data.pseudo);
-          //window.location = "/";
         }
       })
       .catch((err) => {
