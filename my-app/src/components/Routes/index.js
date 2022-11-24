@@ -9,6 +9,7 @@ import LeftNav from "../Navbar/Leftnav";
 import About from "../../pages/About";
 import Profil from "../../pages/Profil";
 import Ranking from "../Ranking/Ranking";
+
 const index = () => {
   return (
     <BrowserRouter>

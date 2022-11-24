@@ -71,14 +71,17 @@
 
 // export default SignInForm;
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UidContext } from "../AppContext";
 
 const SignInForm = () => {
   console.log("SignInForm");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  const uid = useContext(UidContext);
   const handleLogin = (e) => {
     console.log("handleLogin");
     e.preventDefault();
@@ -101,9 +104,11 @@ const SignInForm = () => {
           emailError.innerHTML = res.data.errors.email;
           passwordError.innerHTML = res.data.errors.password;
         } else {
-          window.location = "/";
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("pseudo", res.data.pseudo);
+          uid.updateToken();
+          uid.updateCoins();
+          window.location = "/";
         }
       })
       .catch((err) => {

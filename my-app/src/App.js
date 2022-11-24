@@ -56,8 +56,12 @@ const App = () => {
   function updateCoins() {
     fetchCoins();
   }
+
+  function updateToken() {
+    fetchToken();
+  }
   return (
-    <UidContext.Provider value={{ uid, coins, updateCoins }}>
+    <UidContext.Provider value={{ uid, coins, updateCoins, updateToken }}>
       <Routes />
     </UidContext.Provider>
   );
