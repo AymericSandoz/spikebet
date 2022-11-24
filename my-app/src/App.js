@@ -14,7 +14,7 @@ const App = () => {
     await axios({
       method: "post",
 
-      url: `/jwtid`,
+      url: `${process.env.REACT_APP_SERVER_URL}jwtid`,
       data: {
         token: localStorage.getItem("token"),
       },
@@ -24,7 +24,7 @@ const App = () => {
       .then((res) => {
         console.log("fetch token res", res);
         if (res.message != "jwt malformed") {
-          console.log(res.data);
+          console.log("!jwt malformed");
           setUid(res.data);
         }
       })
@@ -36,7 +36,7 @@ const App = () => {
     await axios({
       method: "get",
 
-      url: `${process.env.REACT_APP_SERVER_URL}api/user/getUser`,
+      url: `api/user/getUser`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
 
       //withCredentials: true,
