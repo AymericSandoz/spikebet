@@ -9,7 +9,6 @@ const App = () => {
   const [uid, setUid] = useState(null);
   const [coins, setCoins] = useState(null);
   console.log("App.js");
-  // useEffect(() => {
   const fetchToken = async () => {
     console.log("fetchToken");
     await axios({
@@ -34,7 +33,6 @@ const App = () => {
         console.log("No token ");
       });
   };
-  fetchToken();
 
   const fetchCoins = async () => {
     await axios({
@@ -65,9 +63,11 @@ const App = () => {
       })
       .catch((err) => console.log("No coins "));
   };
-  fetchCoins();
+  useEffect(() => {
+    fetchToken();
 
-  // }, [uid]);
+    fetchCoins();
+  }, [uid]);
   function updateCoins() {
     console.log("updateCoins");
     fetchCoins();
