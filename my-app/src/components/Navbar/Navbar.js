@@ -68,7 +68,7 @@ export default function Navbar() {
                 </li>
               )}
               <li className="coins">
-                {uid &&
+                {uid.coins &&
                   uid.coins.toFixed(
                     0 //
                   )}{" "}
