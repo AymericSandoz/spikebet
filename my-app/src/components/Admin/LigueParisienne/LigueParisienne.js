@@ -9,20 +9,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminLeftNav from "../../Navbar/AdminLeftNav";
 import { IsAdmin } from "../../../utils/Utils";
 import Home from "../../../pages/Home";
+import AdminBetcard from "../AdminCard/AdminCardLigueParisienne";
+
 const LigueParisienne = () => {
-  const [competition, setCompetition] = useState("Ligue parisienne");
-  const [numberOfGroup, setNumberOfGroup] = useState();
-  const [GroupNames, setGroupNames] = useState([]);
-  const [teams, setTeams] = useState([]);
+  // const [competition, setCompetition] = useState("Ligue parisienne");
+  // const [numberOfGroup, setNumberOfGroup] = useState();
+  // const [GroupNames, setGroupNames] = useState([]);
+  // const [teams, setTeams] = useState([]);
 
   const [error, setError] = useState("");
 
   const [loadBets, setLoadBets] = useState(true);
   const [bets, setBets] = useState([]);
-  const [teamAcote, setTeamACote] = useState();
-  const [teamBcote, setTeamBCote] = useState();
-  const [teamAscore, setTeamAscore] = useState();
-  const [teamBscore, setTeamBscore] = useState();
+  // const [teamAcote, setTeamACote] = useState();
+  // const [teamBcote, setTeamBCote] = useState();
+  // const [teamAscore, setTeamAscore] = useState();
+  // const [teamBscore, setTeamBscore] = useState();
 
   const [betsToDisplay, setBetsToDisplay] = useState([]);
   function useQuery() {
@@ -49,76 +51,76 @@ const LigueParisienne = () => {
       });
   };
 
-  const modifyBet = (bet) => {
-    if (!teamAcote || !teamBcote) {
-      alert("aucune côte rentrée");
-      return "aucune côte rentrée";
-    }
-    axios({
-      method: "put",
-      url: `api/bet/modifyBet/${bet._id}`,
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+  // const modifyBet = (bet) => {
+  //   if (!teamAcote || !teamBcote) {
+  //     alert("aucune côte rentrée");
+  //     return "aucune côte rentrée";
+  //   }
+  //   axios({
+  //     method: "put",
+  //     url: `api/bet/modifyBet/${bet._id}`,
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
 
-      data: {
-        // // type: "match",
-        // // ligue: "parisienne",
-        // // round: "groupStage",
-        // // nomEquipeA: bet.nomEquipeA,
-        // // joueursEquipeA: bet.joueursEquipeA,
-        // scoreEquipeA: teamAscore,
-        // // nomEquipeB: bet.nomEquipeB,
-        // scoreEquipeB: teamBscore,
-        // // joueursEquipeB: bet.joueursEquipeB,
-        coteEquipeA: teamAcote,
-        coteEquipeB: teamBcote,
-      },
-    })
-      .then((res) => {
-        console.log("coucou", res.data);
-        alert("Côte mise à jour");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //     data: {
+  //       // // type: "match",
+  //       // // ligue: "parisienne",
+  //       // // round: "groupStage",
+  //       // // nomEquipeA: bet.nomEquipeA,
+  //       // // joueursEquipeA: bet.joueursEquipeA,
+  //       // scoreEquipeA: teamAscore,
+  //       // // nomEquipeB: bet.nomEquipeB,
+  //       // scoreEquipeB: teamBscore,
+  //       // // joueursEquipeB: bet.joueursEquipeB,
+  //       coteEquipeA: teamAcote,
+  //       coteEquipeB: teamBcote,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       console.log("coucou", res.data);
+  //       alert("Côte mise à jour");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const closeBet = (bet) => {
-    if (!teamAscore || !teamBscore) {
-      alert("aucun score rentré");
-      return "aucun score rentré";
-    }
+  // const closeBet = (bet) => {
+  //   if (!teamAscore || !teamBscore) {
+  //     alert("aucun score rentré");
+  //     return "aucun score rentré";
+  //   }
 
-    if (teamAscore == teamBscore) {
-      alert("match nul impossible");
-      return "match nul impossible";
-    }
-    if (window.confirm("Confirmer?")) {
-    } else {
-      return "abort";
-    }
+  //   if (teamAscore == teamBscore) {
+  //     alert("match nul impossible");
+  //     return "match nul impossible";
+  //   }
+  //   if (window.confirm("Confirmer?")) {
+  //   } else {
+  //     return "abort";
+  //   }
 
-    axios({
-      method: "put",
-      url: `api/bet/closeBet/${bet._id}`,
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+  //   axios({
+  //     method: "put",
+  //     url: `api/bet/closeBet/${bet._id}`,
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
 
-      data: {
-        finalScoreEquipeA: teamAscore,
-        finalScoreEquipeB: teamBscore,
-      },
-    })
-      .then((res) => {
-        alert("bet closed");
-        getBets();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //     data: {
+  //       finalScoreEquipeA: teamAscore,
+  //       finalScoreEquipeB: teamBscore,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       alert("bet closed");
+  //       getBets();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   useEffect(() => {
     if (loadBets) {
@@ -148,6 +150,7 @@ const LigueParisienne = () => {
         );
       }
     }
+    console.log(betsToDisplay);
   }, [loadBets, bets, GroupName]);
 
   return (
@@ -155,6 +158,7 @@ const LigueParisienne = () => {
       {IsAdmin() ? (
         <>
           <AdminLeftNav />
+
           <div className="admin-bets">
             {betsToDisplay.length > 0 &&
               betsToDisplay
@@ -162,21 +166,10 @@ const LigueParisienne = () => {
                 .map((bet) => {
                   return (
                     <>
-                      <li className="admin-bet-card" key={bet._id}>
-                        {/* <h3>
-                  {bet.nomEquipeA}-{bet.nomEquipeB}
-                </h3>
-
-                <p>{bet.group}</p>
-
-                <p>{bet.nomEquipeA}</p>
-                <p>{bet.joueursEquipeA[0]}</p>
-                <p>{bet.joueursEquipeA[1]}</p>
-                <p>{bet.nomEquipeB}</p>
-                <p>{bet.joueursEquipeB[0]}</p>
-                <p>{bet.joueursEquipeB[1]}</p>
-                <p>{teamAcote ? teamAcote : bet.coteEquipeA}</p>
-                <p>{teamBcote ? teamBcote : bet.coteEquipeB}</p> */}
+                      <AdminBetcard bet={bet} key={bet._id} getBets={getBets} />
+                      {/* <li className="admin-bet-card" key={bet._id}>
+                       
+                        {bet._id}
                         <h3 className="team-name">
                           {bet.nomEquipeA} - {bet.nomEquipeB}
                         </h3>
@@ -255,7 +248,7 @@ const LigueParisienne = () => {
                             <FontAwesomeIcon icon={faLock} /> CLOSED
                           </p>
                         )}
-                      </li>
+                      </li> */}
                     </>
                   );
                 })}

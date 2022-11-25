@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 
 import { UidContext } from "../components/AppContext";
 export const IsAdmin = () => {
+  console.log("isAdmin");
+
   const uid = useContext(UidContext);
+  console.log(uid);
   const admin_user_id = `${process.env.REACT_APP_ADMIN_USER_ID}`;
 
+  console.log(admin_user_id === uid.uid ? true : false);
   return admin_user_id === uid.uid ? true : false;
 };
 
