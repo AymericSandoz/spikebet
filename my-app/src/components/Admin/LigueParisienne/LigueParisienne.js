@@ -124,7 +124,10 @@ const LigueParisienne = () => {
     if (loadBets) {
       getBets();
     }
+
+    console.log("useeffect");
     if (GroupName && bets) {
+      console.log("requiinnnnnnnnnnnnnn");
       if (GroupName === "Ligue Parisienne") {
         setBetsToDisplay(
           bets.filter(function (data) {
