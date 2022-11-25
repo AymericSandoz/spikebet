@@ -70,7 +70,7 @@
 
 
 
-    @media screen and (max-width: 550px) {
+    @include mobile-only {
         .hamburger {
             display: block;
         }
@@ -82,8 +82,8 @@
             left: 0;
             width: 100%;
             //height: calc(100vh - 60px);
-            background-color: $color-1;
-            border-top: 1px solid black;
+            background-color: $black;
+            //border-top: 1px solid black;
             display: none;
             padding-bottom: 5px;
         }
@@ -91,6 +91,10 @@
         .navigation-menu li {
             text-align: center;
             margin: 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .navigation-menu li a {
@@ -99,8 +103,16 @@
             padding: 1.5rem 0;
             color: white;
             font-weight: bold;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        .icon {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
 
 
         .navigation-menu.expanded ul {

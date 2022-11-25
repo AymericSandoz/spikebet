@@ -7,13 +7,13 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-min-width: 300px;
+    min-width: 250px;
 
 
 
 
     @include mobile-only {
-        margin: 30px 30px 70px 30px;
+        margin: 10px 10px 70px 10px;
     }
 
 

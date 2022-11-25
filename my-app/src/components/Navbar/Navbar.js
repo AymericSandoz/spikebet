@@ -62,7 +62,7 @@ export default function Navbar() {
                     to="/admin?groupName=Ligue Parisienne"
                     aria-label="Lien page resevé aux administrateurs"
                   >
-                    <FontAwesomeIcon icon={faLock} /> Admin
+                    <FontAwesomeIcon icon={faLock} className={"icon"} /> Admin
                   </NavLink>
                 </li>
               )}
@@ -70,7 +70,11 @@ export default function Navbar() {
                 {uid.coins.toFixed(
                   0 //
                 )}{" "}
-                <FontAwesomeIcon icon={faCoins} color="gold" />
+                <FontAwesomeIcon
+                  icon={faCoins}
+                  className={"icon"}
+                  color="gold"
+                />
               </li>
 
               <li>

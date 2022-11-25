@@ -27,10 +27,16 @@ $shadow: rgb(219, 218, 218);
 
 
 ///breakpooints
-$breakpoints: ( "mobile":750px, "tablette":950px);
+$breakpoints: ("mobile":750px, "tablette":950px);
 /*RESPONSIVE : Mixines utilisées pour les media queries*/
 
 @mixin mobile-only {
+    @media screen and (max-width: map-get($breakpoints, mobile)) {
+        @content
+    }
+}
+
+@mixin mobile-tablette-only {
     @media screen and (max-width: map-get($breakpoints, mobile)) {
         @content
     }

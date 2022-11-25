@@ -56,7 +56,7 @@ const Ranking = () => {
   const getUsers = (e) => {
     axios({
       method: "get",
-      url: `api/user/getAllUsers`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/user/getAllUsers`,
     })
       .then((res) => {
         let newArray = returnScoreArray(res.data);

@@ -40,7 +40,7 @@ const Home = () => {
     console.log("getBets");
     axios({
       method: "get",
-      url: `api/bet/getLigueParisienne`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getLigueParisienne`,
     })
       .then((res) => {
         console.log("get bets res data", res.data);
@@ -95,7 +95,7 @@ const Home = () => {
               sortBetArray(uid.uid, betsToDisplay).map((bet) => {
                 return (
                   <>
-                    <BetCard bet={bet} getBets={getBets} />
+                    <BetCard bet={bet} getBets={getBets} key={bet._id} />
                   </>
                 );
               })}

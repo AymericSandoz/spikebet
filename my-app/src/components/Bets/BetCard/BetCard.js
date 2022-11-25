@@ -9,12 +9,23 @@ import React, {
 import axios from "axios";
 import { UidContext } from "../../AppContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCoins, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faCircleCheck,
+  faCoins,
+  faSmile,
+  faSmileWink,
+  faUser,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 const BetCard = ({ bet, getBets }) => {
   const [teamAscore, setTeamAscore] = useState(Number);
   const [teamBscore, setTeamBscore] = useState(Number);
   const [mise, setMise] = useState(Number);
+  const [error, setError] = useState(String);
   const [confirmationBox, showConfirmationBox] = useState(false);
+  const [validation, showValidation] = useState(false);
+
   //const [userBets, setUserBets] = useState([]);
   const uid = useContext(UidContext);
 
@@ -30,39 +41,46 @@ const BetCard = ({ bet, getBets }) => {
     result.B = betArray.filter((value) => value === "B").length;
     return result;
   };
-  const betScore = (bet) => {
-    ////validation
+
+  const checkForBetError = (bet) => {
     if (!teamAscore || !teamBscore) {
       alert("aucun score rentré");
+      setError("Hop hop hop, t'as pas oublié de rentrer le score ?");
       return "aucun score rentré";
-    }
-    if (!mise) {
-      alert("aucune mise rentrée");
+    } else if (!mise || mise == 0) {
+      //alert("aucune mise rentrée");
+      console.log("wtf");
+      setError("Tu dois rentrer une mise");
       return "aucune mise rentrée";
-    }
-    if (teamAscore == teamBscore) {
-      alert("T'es bourré ou quoi ? Les matchs nul n'existe pas");
+    } else if (teamAscore == teamBscore) {
+      //alert("T'es bourré ou quoi ? Les matchs nul n'existe pas");
+      setError("T'es bourré ou quoi ? Les matchs nul n'existe pas");
       return "match nul impossible";
-    }
-
-    if (mise > uid.coins) {
-      alert("Petit filou, tu ne peux pas te permettre un tel paris");
+    } else if (mise > uid.coins) {
+      //alert("Petit filou, tu ne peux pas te permettre un tel paris");
+      setError("Petit filou, tu ne peux pas te permettre un tel paris");
       return "Fond insuffisant";
-    }
-
-    if (teamAscore > 5 || teamBscore > 5) {
-      alert("T'exagères pas un peu sur les scores ? C'est pas du tennis");
+    } else if (teamAscore > 5 || teamBscore > 5) {
+      //alert("T'exagères pas un peu sur les scores ? C'est pas du tennis");
+      setError("T'exagères pas un peu sur les scores ? C'est pas du tennis");
       return "Score > 5";
     }
+
+    setError(null);
+    showConfirmationBox(true);
+  };
+  const betScore = (bet) => {
+    ////validation
+
     if (teamAscore > teamBscore) {
       var victoireEquipePrediction = "A";
     } else {
-      var victoireEquipePrediction = "B";
+      victoireEquipePrediction = "B";
     }
-    alert("Confirmer ? ");
+
     axios({
       method: "post",
-      url: `api/bet/`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
       data: {
         gameID: bet._id,
@@ -83,11 +101,19 @@ const BetCard = ({ bet, getBets }) => {
       },
     })
       .then((res) => {
-        alert("Paris pris en compte ");
+        showValidation(true);
         //setUserBets(res.data.docs.usersBet);
-        getBets();
-        uid.updateCoins();
-        showConfirmationBox(false);
+
+        setTimeout(() => {
+          getBets();
+          uid.updateCoins();
+          showConfirmationBox(false);
+          showConfirmationBox(false);
+          setError(null);
+          setMise(null);
+          setTeamAscore(null);
+          setTeamBscore(null);
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -175,20 +201,23 @@ const BetCard = ({ bet, getBets }) => {
                     <FontAwesomeIcon icon={faCoins} className="icon" />
                   </span>
                 </div>
-                <button className="btn-parier" onClick={() => betScore(bet)}>
-                  {/* showConfirmationBox(true)*/}
+                <button
+                  className="btn-parier"
+                  onClick={() => checkForBetError(bet)}
+                >
+                  {/* betScore(bet)*/}
                   Parier
                 </button>
-                {/* {confirmationBox && (
-                  <div classname="confirmation-box">
-                    <p>Confirmez votre paris ? (dffff)</p>
-                    <p> Résultat : {bet.nomEquipeA} {teamAscore} - {teamBscore}{" "}{bet.nomEquipeB}</p>
-                    <p> Mise : {mise} </p>
-                  </div>
-                )} */}
+                {error && (
+                  <span className="bet-error">
+                    {" "}
+                    {error} <FontAwesomeIcon icon={faSmileWink} />{" "}
+                  </span>
+                )}
               </div>
             )
         }
+
         {bet.live !== "closed" &&
           bet.usersBet.includes(uid.uid) && ( //userBets.includes(uid.uid) ||
             <p className="already-bet">
@@ -201,6 +230,45 @@ const BetCard = ({ bet, getBets }) => {
           </p>
         )}
       </li>
+      {confirmationBox && (
+        <div className="confirmation-box">
+          {!validation && (
+            <>
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="icon xmark-icon"
+                onClick={() => showConfirmationBox(false)}
+              />
+              <p className="confirm">Confirmez votre paris ? </p>
+
+              <div className="result">
+                {bet.nomEquipeA} {teamAscore} - {teamBscore} {bet.nomEquipeB}
+              </div>
+              <div className="mise">
+                {" "}
+                <p>Mise :</p>{" "}
+                <span>
+                  {mise}{" "}
+                  <FontAwesomeIcon icon={faCoins} className="icon coin-icon" />
+                </span>
+              </div>
+              <div className="gain">
+                <p> Gain potentiel :</p>{" "}
+                <span>
+                  {mise * Math.max(bet.coteEquipeA, bet.coteEquipeB)}{" "}
+                  <FontAwesomeIcon icon={faCoins} className="icon coin-icon" />
+                </span>
+              </div>
+              <button className="btn-confirmer" onClick={() => betScore(bet)}>
+                Confirmer
+              </button>
+            </>
+          )}
+          {validation && (
+            <FontAwesomeIcon icon={faCircleCheck} className="check-icon" />
+          )}
+        </div>
+      )}
     </>
   );
 };

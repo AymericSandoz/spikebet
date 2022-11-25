@@ -24,7 +24,7 @@ const MyBets = () => {
   const getMyBets = (e) => {
     axios({
       method: "get",
-      url: `api/bet/getMyBets`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getMyBets`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
@@ -68,7 +68,7 @@ const MyBets = () => {
             betsToDisplay.map((bet) => {
               return (
                 <>
-                  <MyBetCard bet={bet} />
+                  <MyBetCard bet={bet} key={bet._id} />
                 </>
               );
             })}
