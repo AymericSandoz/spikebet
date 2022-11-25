@@ -162,7 +162,7 @@ const LigueParisienne = () => {
                 .map((bet) => {
                   return (
                     <>
-                      <li className="admin-bet-card" key={bet.nomEquipeA}>
+                      <li className="admin-bet-card" key={bet._id}>
                         {/* <h3>
                   {bet.nomEquipeA}-{bet.nomEquipeB}
                 </h3>
