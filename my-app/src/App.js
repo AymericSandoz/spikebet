@@ -7,8 +7,8 @@ import { CalculTotalCoins } from "./utils/Utils";
 
 const App = () => {
   const [uid, setUid] = useState(null);
-  const [coins, setCoins] = useState(0);
-
+  const [coins, setCoins] = useState(null);
+  console.log("App.js");
   // useEffect(() => {
   const fetchToken = async () => {
     console.log("fetchToken");
@@ -23,7 +23,7 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        console.log("fetch token res", res);
+        //console.log("fetch token res", res);
         if (res.message != "jwt malformed") {
           console.log("!jwt malformed");
           setUid(res.data);
@@ -46,6 +46,7 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
+        console.log("SET coins ", res.data);
         setCoins(
           CalculTotalCoins(
             res.data.coins,
@@ -53,13 +54,22 @@ const App = () => {
             res.data.scoreArray
           )
         );
+        console.log(
+          "aaaaaaaaaaaa:",
+          CalculTotalCoins(
+            res.data.coins,
+            res.data.miseArray,
+            res.data.scoreArray
+          )
+        );
       })
-      .catch((err) => console.log("No token "));
+      .catch((err) => console.log("No coins "));
   };
   fetchCoins();
 
   // }, [uid]);
   function updateCoins() {
+    console.log("updateCoins");
     fetchCoins();
   }
 

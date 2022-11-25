@@ -41,6 +41,7 @@ const Home = () => {
     axios({
       method: "get",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/getLigueParisienne`,
+      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
         console.log("get bets res data", res.data);

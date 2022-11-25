@@ -18,6 +18,7 @@ import { IsAdmin } from "../../utils/Utils";
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const uid = useContext(UidContext);
+  console.log("NAVBAR uid", uid);
 
   return (
     <nav className="navigation">
@@ -67,9 +68,10 @@ export default function Navbar() {
                 </li>
               )}
               <li className="coins">
-                {uid.coins.toFixed(
-                  0 //
-                )}{" "}
+                {uid &&
+                  uid.coins.toFixed(
+                    0 //
+                  )}{" "}
                 <FontAwesomeIcon
                   icon={faCoins}
                   className={"icon"}

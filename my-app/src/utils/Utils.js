@@ -28,17 +28,19 @@ export const CalculTotalCoins = (coins, miseArray, scoreArray) => {
   }
 
   let totalCoins = miseScoreArray - miseArraySum + coins;
+
+  console.log(totalCoins);
   return totalCoins;
 };
 
 //sort array according to bet closed bet and bet already bet
 export const sortBetArray = (uid, array) => {
   //
-  console.log("uid", uid);
-  console.log("array", array);
-  console.log("array", array);
+  console.log("uid UTILS", uid);
+  // console.log("array", array);
+  // console.log("array", array);
   for (let i = 0; i < array.length; i++) {
-    console.log("array[i].usersBet", array[i].usersBet);
+    //console.log("array[i].usersBet", array[i].usersBet);
     if (array[i].usersBet.includes(uid)) {
       array[i].position = 3;
     } else if (array[i].live === "closed") {
@@ -47,5 +49,6 @@ export const sortBetArray = (uid, array) => {
       array[i].position = 1;
     }
   }
+
   return array.sort((a, b) => (a.position < b.position ? -1 : 1));
 };

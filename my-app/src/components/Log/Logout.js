@@ -11,7 +11,9 @@ const Logout = () => {
     if (window.confirm("Voulez-vous vous déconnectez ?")) {
       localStorage.clear();
       uid.destroyToken();
+      console.log(uid);
       navigate("/");
+      setTimeout(console.log(uid), 1000);
     }
   };
 
