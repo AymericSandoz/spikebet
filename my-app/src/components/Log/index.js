@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import SignInForm from "./signInForm";
 import SignUpForm from "./signUpForm";
-
+//import spikeImg from "../../images/spikeball-pro-kit-tournament-edition-513c58__1_-removebg-preview.png";
 const Log = (props) => {
   const [signUpModal, setSignUpModal] = useState(props.signup);
   const [signInModal, setSignInModal] = useState(props.signin);
@@ -23,6 +23,7 @@ const Log = (props) => {
   };
   return (
     <div className="connection-form">
+      {/* <img className="spike" src={spikeImg} alt="spikeball" /> */}
       <div className="form-container">
         <ul>
           <li

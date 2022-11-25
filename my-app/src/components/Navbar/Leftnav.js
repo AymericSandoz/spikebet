@@ -81,7 +81,7 @@ const LeftNav = () => {
         <br />
         <section>
           <NavLink className={"sidebar-item lefnav-level-1"} to="/ranking">
-            Classement{" "}
+            <span></span>Classement{" "}
             <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
           </NavLink>
         </section>
@@ -92,7 +92,8 @@ const LeftNav = () => {
             className={"sidebar-item lefnav-level-2"}
             to="/?groupName=Ligue Parisienne"
           >
-            Ligue Parisienne
+            <span>Match</span>
+            <FontAwesomeIcon icon={faTrophy} className="icon" />
           </NavLink>
         </section>
         <section>
@@ -100,14 +101,14 @@ const LeftNav = () => {
             className="sidebar-item lefnav-level-1"
             to="/MyBets?live=All"
           >
-            Mes Paris <br />
+            <span>Mes Paris</span>
             <FontAwesomeIcon icon={faMoneyBill1Wave} className="icon" />
           </NavLink>
         </section>
         <br />
         <section>
           <NavLink className={"sidebar-item lefnav-level-1"} to="/ranking">
-            Classement <br />
+            <span>Classement</span>
             <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
           </NavLink>
         </section>

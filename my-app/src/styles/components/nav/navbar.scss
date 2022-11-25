@@ -39,6 +39,7 @@
     .navigation-menu li {
         list-style-type: none;
         margin: 0 1rem;
+        cursor: pointer;
     }
 
     .navigation-menu li a {
@@ -46,6 +47,7 @@
         display: block;
         width: 100%;
         color: white;
+        cursor: pointer;
 
     }
 

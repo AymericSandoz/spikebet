@@ -61,6 +61,11 @@ const AdminBetCard = ({ bet, getBets }) => {
       alert("match nul impossible");
       return "match nul impossible";
     }
+
+    if (teamAscore < 0 || teamBscore < 0) {
+      alert("score négatif impossible");
+      return "score négatif impossible";
+    }
     if (window.confirm("Confirmer?")) {
     } else {
       return "abort";

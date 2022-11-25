@@ -31,6 +31,11 @@
         height: auto;
         filter: brightness(0);
 
+        @include mobile-only {
+
+            display: none;
+        }
+
     }
 
     @include mobile-only {

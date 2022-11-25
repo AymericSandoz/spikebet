@@ -10,6 +10,7 @@ import {
   faUser,
   faCoins,
   faBaseball,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,7 +38,7 @@ export default function Navbar() {
         }}
       >
         {/* hamburger svg code... */}
-        <FontAwesomeIcon icon={faBaseball} />
+        <FontAwesomeIcon icon={faBars} />
       </button>
       <div
         className={
@@ -94,7 +95,7 @@ export default function Navbar() {
           {!uid.uid ? (
             <li>
               <NavLink exact to="/log" aria-label="Lien page d'acceuil">
-                Connexion/Inscription
+                Inscription / Connexion
               </NavLink>
             </li>
           ) : (

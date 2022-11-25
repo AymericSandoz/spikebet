@@ -15,18 +15,27 @@
 
     @include mobile-only {
         margin: 10px;
+
     }
 
     .user-name {
         grid-column: 1;
         grid-row: 1;
 
+        @include mobile-only {
+            font-size: 12px;
+
+        }
     }
 
     .user-pseudo {
         grid-column: 1;
         grid-row: 2;
 
+        @include mobile-only {
+            font-size: 12px;
+
+        }
     }
 
     .user-score {
