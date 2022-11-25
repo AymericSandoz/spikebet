@@ -17,16 +17,20 @@ const Profil = () => {
     await axios({
       method: "get",
 
-      url: "api/user/getUser",
+      url: `${process.env.REACT_APP_SERVER_URL}api/user/getUser`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
 
       //withCredentials: true,
     })
       .then((res) => {
+        console.log(res.data);
         setUser(res.data);
+        setEmail(res.data.email);
+        setPseudo(res.data.pseudo);
+        setName(res.data.name);
         setLoadUser(false);
       })
-      .catch((err) => console.log("err"));
+      .catch((err) => console.log(err));
   };
 
   const handleRegister = async (e) => {
@@ -83,44 +87,45 @@ const Profil = () => {
 
   return (
     <>
-      <form action="" onSubmit={handleRegister} id="update-profil-form">
-        <label htmlFor="pseudo">Pseudo</label>
-        <br />
-        <input
-          type="text"
-          name="pseudo"
-          id="pseudo"
-          onChange={(e) => setPseudo(e.target.value)}
-          value={pseudo}
-          placeholder={user.pseudo}
-        />
-        <div className="pseudo error"></div>
-        <br />
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
-          type="text"
-          name="email"
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          placeholder={user.email}
-        />
-        <div className="name error"></div>
-        <br />
-        <label htmlFor="name">name</label>
-        <br />
-        <input
-          type="text"
-          name="name"
-          id="name"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          placeholder={user.name}
-        />
-        <div className="email error"></div>
-        <br />
-        {/* <label htmlFor="password">Mot de passe</label>
+      {user && (
+        <form action="" onSubmit={handleRegister} id="update-profil-form">
+          <label htmlFor="pseudo">Pseudo</label>
+          <br />
+          <input
+            type="text"
+            name="pseudo"
+            id="pseudo"
+            onChange={(e) => setPseudo(e.target.value)}
+            value={pseudo}
+            placeholder={user.pseudo}
+          />
+          <div className="pseudo error"></div>
+          <br />
+          <label htmlFor="email">Email</label>
+          <br />
+          <input
+            type="text"
+            name="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder={user.email}
+          />
+          <div className="name error"></div>
+          <br />
+          <label htmlFor="name">name</label>
+          <br />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            placeholder={user.name}
+          />
+          <div className="email error"></div>
+          <br />
+          {/* <label htmlFor="password">Mot de passe</label>
         <br />
         <input
           type="password"
@@ -142,12 +147,13 @@ const Profil = () => {
         />
         <div className="password-confirm error"></div>
         <br /> */}
-        <input
-          className="btn btn-update"
-          type="submit"
-          value="Valider modification"
-        />
-      </form>
+          <input
+            className="btn btn-update"
+            type="submit"
+            value="Valider modification"
+          />
+        </form>
+      )}
     </>
   );
 };

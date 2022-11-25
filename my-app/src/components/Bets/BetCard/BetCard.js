@@ -18,6 +18,7 @@ import {
   faUser,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import RPLogo from "../../../images/Roundnet_Paris.png";
 const BetCard = ({ bet, getBets }) => {
   const [teamAscore, setTeamAscore] = useState(Number);
   const [teamBscore, setTeamBscore] = useState(Number);
@@ -44,7 +45,7 @@ const BetCard = ({ bet, getBets }) => {
 
   const checkForBetError = (bet) => {
     if (!teamAscore || !teamBscore) {
-      alert("aucun score rentré");
+      //alert("aucun score rentré");
       setError("Hop hop hop, t'as pas oublié de rentrer le score ?");
       return "aucun score rentré";
     } else if (!mise || mise == 0) {
@@ -124,6 +125,13 @@ const BetCard = ({ bet, getBets }) => {
   return (
     <>
       <li className="bet-card" key={bet._id}>
+        {bet.ligue == "Ligue Parisienne" && (
+          <img
+            className="Logo-club Logo-RP"
+            src={RPLogo}
+            alt="Logo Roundnet Paris"
+          />
+        )}
         <h3 className="team-name">
           {bet.nomEquipeA} - {bet.nomEquipeB}
         </h3>

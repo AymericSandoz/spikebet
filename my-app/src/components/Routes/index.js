@@ -22,7 +22,7 @@ const index = () => {
         <Route path="/log" element={<Log />} />
         <Route path="/myBets" element={<MyBets />} />
         <Route path="/about" element={<About />} />
-        {/* <Route path="/profil" element={<Profil />} /> */}
+        <Route path="/profil" element={<Profil />} />
         <Route path="/ranking" element={<Ranking />} />
       </Routes>
     </BrowserRouter>
