@@ -132,50 +132,74 @@ const SignUpForm = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const terms = document.getElementById("terms");
+    // const terms = document.getElementById("terms");
     const pseudoError = document.querySelector(".pseudo.error");
     const emailError = document.querySelector(".email.error");
+    const nameError = document.querySelector(".name.error");
     const passwordError = document.querySelector(".password.error");
     const passwordConfirmError = document.querySelector(
       ".password-confirm.error"
     );
-    const termsError = document.querySelector(".terms.error");
+    pseudoError.innerHTML = "";
+    emailError.innerHTML = "";
+    nameError.innerHTML = "";
+    passwordError.innerHTML = "";
+    passwordConfirmError.innerHTML = "";
+    //const termsError = document.querySelector(".terms.error");
 
     passwordConfirmError.innerHTML = "";
-    termsError.innerHTML = "";
+    //termsError.innerHTML = "";
 
-    if (password !== controlPassword || !terms.checked) {
-      if (password !== controlPassword)
-        passwordConfirmError.innerHTML =
-          "Les mots de passe ne correspondent pas";
-
-      if (!terms.checked)
-        termsError.innerHTML = "Veuillez valider les conditions générales";
-    } else {
-      await axios({
-        method: "post",
-        url: `${process.env.REACT_APP_SERVER_URL}api/user/register`,
-        data: {
-          pseudo,
-          email,
-          password,
-          name,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.data.errors) {
-            pseudoError.innerHTML = res.data.errors.pseudo;
-            emailError.innerHTML = res.data.errors.email;
-            passwordError.innerHTML = res.data.errors.password;
-          } else {
-            setFormSubmit(true);
-          }
-        })
-        .catch((err) => console.log(err));
+    if (password !== controlPassword) {
+      passwordConfirmError.innerHTML = "Les mots de passe ne correspondent pas";
+      return "Les mots de passe ne correspondent pas";
     }
-  };
 
+    //     if (!terms.checked) {
+    //       termsError.innerHTML = "Veuillez valider les conditions générales";
+    //       return "Veuillez valider les conditions générales"
+    // }
+
+    if (password.length < 4) {
+      passwordError.innerHTML = "Le mdp doit contenir au moins 4 caractères";
+      return "Le mdp doit contenir au moins 4 caractères";
+    }
+
+    if (name.length < 1) {
+      nameError.innerHTML = "Veuillez remplir un nom";
+      return "Veuillez remplir un nom";
+    }
+    if (email.length < 1) {
+      emailError.innerHTML = "Veuillez remplir un email";
+      return "Veuillez remplir un email";
+    }
+    if (pseudo.length < 4) {
+      pseudoError.innerHTML = "Le pseudo doit contenir au moins 4 caractères";
+      return "Le pseudo doit contenir au moins 4 caractères";
+    }
+
+    await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_SERVER_URL}api/user/register`,
+      data: {
+        pseudo,
+        email,
+        password,
+        name,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.data.pseudo || res.data.email) {
+          pseudoError.innerHTML = res.data.pseudo;
+          emailError.innerHTML = res.data.email;
+          //passwordError.innerHTML = res.data.error.password;
+        } else {
+          setFormSubmit(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       {formSubmit ? (
@@ -208,7 +232,7 @@ const SignUpForm = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
-          <div className="name error"></div>
+          <div className="email error"></div>
           <br />
           <label htmlFor="name">name</label>
           <br />
@@ -219,7 +243,7 @@ const SignUpForm = () => {
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
-          <div className="email error"></div>
+          <div className="name error"></div>
           <br />
           <label htmlFor="password">Mot de passe</label>
           <br />
@@ -243,15 +267,15 @@ const SignUpForm = () => {
           />
           <div className="password-confirm error"></div>
           <br />
-          <input type="checkbox" id="terms" />
+          {/* <input type="checkbox" id="terms" />
           <label htmlFor="terms">
             J'accepte les{" "}
             <a href="/" target="_blank" rel="noopener noreferrer">
               conditions générales
             </a>
           </label>
-          <div className="terms error"></div>
-          <br />
+          <div className="terms error"> </div>
+          <br /> */}
           <input
             className="btn btn-inscription"
             type="submit"
