@@ -263,7 +263,9 @@ const BetCard = ({ bet, getBets }) => {
               <div className="gain">
                 <p> Gain potentiel :</p>{" "}
                 <span>
-                  {mise * Math.max(bet.coteEquipeA, bet.coteEquipeB)}{" "}
+                  {teamAscore > teamBscore
+                    ? mise * teamAscore
+                    : mise * teamBscore}{" "}
                   <FontAwesomeIcon icon={faCoins} className="icon coin-icon" />
                 </span>
               </div>
