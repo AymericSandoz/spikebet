@@ -29,8 +29,9 @@ const userBetSchema = mongoose.Schema(
     joueursEquipeB: { type: Array, required: true },
     coteEquipeA: { type: Number, required: true },
     coteEquipeB: { type: Number, required: true },
-    betScoreEquipeA: { type: Number, required: true },
-    betScoreEquipeB: { type: Number, required: true },
+    victoireEquipePrediction: { type: String },
+    //betScoreEquipeA: { type: Number, required: true },
+    //betScoreEquipeB: { type: Number, required: true },
     live: { type: String, default: "open" },
 
     mise: { type: Number, required: true },

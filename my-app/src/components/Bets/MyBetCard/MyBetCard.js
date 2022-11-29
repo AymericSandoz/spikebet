@@ -10,7 +10,7 @@ import axios from "axios";
 import { UidContext } from "../../AppContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
@@ -94,19 +94,39 @@ const MyBetCard = ({ bet }) => {
               {"-"}
               {bet.finalScoreEquipeB}
             </div>
-            <div className="user-bet user-bet">
-              {"Ton paris : "} {bet.betScoreEquipeA}
-              {"-"}
-              {bet.betScoreEquipeB}
+            {/* <div className="user-bet user-bet">
+              {"Ton paris : "}{" "}
+              {bet.victoireEquipePrediction == "A"
+                ? bet.nomEquipeA
+                : bet.nomEquipeB}
+            </div> */}
+            <div className="user-gain">
+              {bet.success == "true" && (
+                <span>
+                  {"+"}
+                  {bet.point - bet.mise}
+                  <FontAwesomeIcon icon={faCoins} className={"icon"} />
+                </span>
+              )}
+              {bet.success == "false" && (
+                <span>
+                  {"-"}
+                  {bet.mise}
+                  <FontAwesomeIcon icon={faCoins} className={"icon"} />
+                </span>
+              )}
             </div>
           </>
         )}
         {bet.live === "open" && (
           <>
             <div className="user-bet center-user-bet">
-              {"Ton paris : "} {bet.betScoreEquipeA}
-              {"-"}
-              {bet.betScoreEquipeB}
+              {"Ton paris : "}
+              {bet.victoireEquipePrediction == "A"
+                ? bet.nomEquipeA
+                : bet.nomEquipeB}
+              {/* {"-"}
+              {bet.betScoreEquipeB} */}
             </div>
           </>
         )}

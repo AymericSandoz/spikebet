@@ -1,24 +1,35 @@
 const getSuccess = (
   finalScoreEquipeA,
   finalScoreEquipeB,
-  betScoreEquipeA,
-  betScoreEquipeB
+  victoireEquipePrediction
 ) => {
   console.log(
-    "finalScoreEquipeA - finalScoreEquipeB:",
-    finalScoreEquipeA - finalScoreEquipeB
+    "getSuccess : ",
+    finalScoreEquipeA,
+    finalScoreEquipeB,
+    victoireEquipePrediction
   );
-  console.log(
-    "betScoreEquipeA - betScoreEquipeB:",
-    betScoreEquipeA - betScoreEquipeB
-  );
+
   if (
-    (finalScoreEquipeA - finalScoreEquipeB) *
-      (betScoreEquipeA - betScoreEquipeB) >=
-    1
-  )
+    finalScoreEquipeA > finalScoreEquipeB &&
+    victoireEquipePrediction == "A"
+  ) {
+    console.log(
+      "(finalScoreEquipeA > finalScoreEquipeB && victoireEquipePrediction == A)"
+    );
     return "true";
-  else return "false";
+  } else if (
+    finalScoreEquipeA < finalScoreEquipeB &&
+    victoireEquipePrediction == "B"
+  ) {
+    console.log(
+      "(finalScoreEquipeA <finalScoreEquipeB && victoireEquipePrediction == B"
+    );
+    return "true";
+  } else {
+    console.log("get succes --> false");
+    return "false";
+  }
 };
 
 const winner = (finalScoreEquipeA, finalScoreEquipeB) => {
@@ -27,6 +38,7 @@ const winner = (finalScoreEquipeA, finalScoreEquipeB) => {
 };
 
 const point = (success, winner, coteEquipeA, coteEquipeB) => {
+  console.log("point shemaUtils :", success, winner, coteEquipeA, coteEquipeB);
   if (success == "true") {
     if (winner == "A") {
       return coteEquipeA;

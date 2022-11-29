@@ -54,7 +54,7 @@ export default function Navbar() {
                   to="/?groupName=Ligue Parisienne"
                   aria-label="Lien page d'acceuil"
                 >
-                  Acceuil
+                  Accueil
                 </NavLink>
               </li>
               {IsAdmin() && (

@@ -157,6 +157,21 @@ exports.closeBet = (req, res, next) => {
   UserBet.find({ gameID: req.params.id }, (err, docs) => {
     if (!err) {
       docs.forEach((element) => {
+        console.log("element:", element);
+        console.log("userbet.find");
+        console.log(
+          "pointttt:",
+          point(
+            getSuccess(
+              req.body.finalScoreEquipeA,
+              req.body.finalScoreEquipeB,
+              element.victoireEquipePrediction
+            ),
+            winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
+            element.coteEquipeA,
+            element.coteEquipeB
+          ) * element.mise
+        );
         User.updateOne(
           { _id: element.userId },
           {
@@ -166,8 +181,7 @@ exports.closeBet = (req, res, next) => {
                   getSuccess(
                     req.body.finalScoreEquipeA,
                     req.body.finalScoreEquipeB,
-                    element.betScoreEquipeA,
-                    element.betScoreEquipeB
+                    element.victoireEquipePrediction
                   ),
                   winner(
                     req.body.finalScoreEquipeA,
@@ -204,16 +218,14 @@ exports.closeBet = (req, res, next) => {
             success: getSuccess(
               req.body.finalScoreEquipeA,
               req.body.finalScoreEquipeB,
-              element.betScoreEquipeA,
-              element.betScoreEquipeB
+              element.victoireEquipePrediction
             ),
             point:
               point(
                 getSuccess(
                   req.body.finalScoreEquipeA,
                   req.body.finalScoreEquipeB,
-                  element.betScoreEquipeA,
-                  element.betScoreEquipeB
+                  element.victoireEquipePrediction
                 ),
                 winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
                 element.coteEquipeA,
