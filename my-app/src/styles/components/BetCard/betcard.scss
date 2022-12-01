@@ -154,8 +154,15 @@
         }
 
         .bet-clicked {
-            filter: contrast(1);
 
+            background-color: $color-4;
+
+        }
+
+        .bet-clicked .bet-zone-team-name,
+        .bet-clicked .team-cote {
+
+            color: white;
 
         }
 
@@ -175,7 +182,7 @@
         opacity: 0.9;
         grid-row: 1;
 
-        filter: contrast(0.9);
+
 
         @include mobile-only {
             width: 90%;
@@ -191,6 +198,8 @@
             align-items: center;
             font-size: 0.7em;
             white-space: nowrap;
+
+
 
         }
 
@@ -210,10 +219,11 @@
             align-items: center;
 
 
+
         }
 
         &:hover {
-            filter: contrast(1);
+            filter: contrast(0.6);
         }
     }
 
@@ -247,7 +257,13 @@
             padding-right: 4px;
             align-items: center;
         }
+
+        .icon {
+            margin-left: 2px;
+        }
     }
+
+
 
 
     .player {
