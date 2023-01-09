@@ -9,7 +9,8 @@ const stuffCtrl = require("../controllers/bet");
 
 //Routes
 
-router.get("/", stuffCtrl.getAllBets); //Récupération de tous les bets
+router.get("/", stuffCtrl.getAllBets);
+router.get("/combined", stuffCtrl.getAllCombinedBets); //Récupération de tous les bets
 router.put("/modifyBet/:id", stuffCtrl.modifyBet);
 router.post("/", auth, stuffCtrl.bet);
 router.get("/getLigueParisienne", stuffCtrl.getLigueParisienne);

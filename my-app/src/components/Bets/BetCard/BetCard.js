@@ -10,6 +10,7 @@ import axios from "axios";
 import { UidContext } from "../../AppContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowAltCircleRight,
   faCheck,
   faCircleCheck,
   faCoins,
@@ -19,6 +20,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import RPLogo from "../../../images/Roundnet_Paris.png";
+import { useNavigate } from "react-router-dom";
 const BetCard = ({ bet, getBets }) => {
   //const [teamAscore, setTeamAscore] = useState(Number);
   //const [teamBscore, setTeamBscore] = useState(Number);
@@ -30,6 +32,12 @@ const BetCard = ({ bet, getBets }) => {
 
   //const [userBets, setUserBets] = useState([]);
   const uid = useContext(UidContext);
+
+  let navigate = useNavigate();
+  const logRedirection = () => {
+    let path = `/log`;
+    navigate(path);
+  };
 
   const TeamBetPrediction = (betArray) => {
     let result = new Object();
@@ -169,7 +177,6 @@ const BetCard = ({ bet, getBets }) => {
             <p className="bet-zone-team-name">{bet.nomEquipeA}</p>
             <p className="team-A-cote team-cote">{bet.coteEquipeA}</p>
           </div>
-
           <div
             className={
               victoriousTeam && victoriousTeam == "B"
@@ -181,7 +188,6 @@ const BetCard = ({ bet, getBets }) => {
             <p className="bet-zone-team-name">{bet.nomEquipeB}</p>
             <p className="team-B-cote team-cote">{bet.coteEquipeB}</p>
           </div>
-
           {bet.arrayVictoireEquipePrediction.length > 0 && (
             <p className="winner-prediction-A winner-prediction">
               {TeamBetPrediction(bet.arrayVictoireEquipePrediction).Apc.toFixed(
@@ -207,41 +213,41 @@ const BetCard = ({ bet, getBets }) => {
             </p>
           )}
 
-          {
+          {uid.uid &&
             //!userBets.includes(uid.uid) &&
             !bet.usersBet.includes(uid.uid) &&
-              bet.live !== "closed" && ( //!userBets.includes(uid) && !bet.usersBet.includes(uid)
-                <>
-                  <div className="mise">
-                    <input
-                      type="number"
-                      onChange={(e) => setMise(e.target.value)}
-                      placeholder="Mise"
-                      max={uid.coins}
-                      min="0"
-                    />
+            bet.live !== "closed" && ( //!userBets.includes(uid) && !bet.usersBet.includes(uid)
+              <>
+                <div className="mise">
+                  <input
+                    type="number"
+                    onChange={(e) => setMise(e.target.value)}
+                    placeholder="Mise"
+                    max={uid.coins}
+                    min="0"
+                  />
 
-                    <span>
-                      {mise}
-                      <FontAwesomeIcon icon={faCoins} className="icon" />
-                    </span>
-                  </div>
-                  <button
-                    className="btn-parier"
-                    onClick={() => checkForBetError(bet)}
-                  >
-                    {/* betScore(bet)*/}
-                    Parier
-                  </button>
-                  {error && (
-                    <span className="bet-error">
-                      {" "}
-                      {error} <FontAwesomeIcon icon={faSmileWink} />{" "}
-                    </span>
-                  )}
-                </>
-              )
-          }
+                  <span>
+                    {mise}
+                    <FontAwesomeIcon icon={faCoins} className="icon" />
+                  </span>
+                </div>
+
+                <button
+                  className="btn-parier"
+                  onClick={() => checkForBetError(bet)}
+                >
+                  {/* betScore(bet)*/}
+                  Parier
+                </button>
+                {error && (
+                  <span className="bet-error">
+                    {" "}
+                    {error} <FontAwesomeIcon icon={faSmileWink} />{" "}
+                  </span>
+                )}
+              </>
+            )}
         </div>
 
         {bet.live !== "closed" &&
@@ -255,6 +261,13 @@ const BetCard = ({ bet, getBets }) => {
             <FontAwesomeIcon icon={faCheck} /> CLOSED
           </p>
         )}
+        {/* {!uid.uid && bet.live !== "closed" && (
+          <button href="" className="connection-link" onClick={logRedirection}>
+            {" "}
+            connecte toi pour parier{" "}
+            <FontAwesomeIcon icon={faArrowAltCircleRight} />
+          </button>
+        )} */}
       </li>
       {confirmationBox && (
         <div className="confirmation-box">

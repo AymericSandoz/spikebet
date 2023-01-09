@@ -1,6 +1,7 @@
 const Bet = require("../models/bet");
 const User = require("../models/user");
 const UserBet = require("../models/userBet");
+const CombinedBet = require("../models/CombinedBet");
 const mongoose = require("mongoose");
 const {
   getSuccess,
@@ -255,4 +256,14 @@ exports.closeBet = (req, res, next) => {
       res.status(200).json("bet closed");
     })
     .catch();
+};
+
+exports.getAllCombinedBets = (req, res, next) => {
+  console.log("getAllCombinedBets");
+  Bet.find((err, docs) => {
+    if (!err) {
+      res.send(docs);
+      console.log(docs);
+    } else res.send("Erreur :" + err);
+  });
 };

@@ -88,24 +88,20 @@ const Home = () => {
 
   return (
     <>
-      {uid.uid ? (
-        <>
-          <LeftNav />
-          <div className="home">
-            {betsToDisplay.length > 0 &&
-              sortBetArray(uid.uid, betsToDisplay).map((bet) => {
-                return (
-                  <>
-                    <BetCard bet={bet} getBets={getBets} key={bet._id} />
-                  </>
-                );
-              })}
-            <br />
-          </div>
-        </>
-      ) : (
-        <Log />
-      )}
+      <>
+        <div className="home">
+          {betsToDisplay.length > 0 &&
+            sortBetArray(uid.uid, betsToDisplay).map((bet) => {
+              return (
+                <>
+                  <BetCard bet={bet} getBets={getBets} key={bet._id} />
+                </>
+              );
+            })}
+          <br />
+        </div>
+      </>
+
       {/* <LeftNav /> */}
     </>
   );

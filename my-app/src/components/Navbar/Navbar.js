@@ -57,6 +57,11 @@ export default function Navbar() {
                   Accueil
                 </NavLink>
               </li>
+              <li>
+                <NavLink exact to="/combined" aria-label="Lien page combinée">
+                  Grille
+                </NavLink>
+              </li>
               {IsAdmin() && (
                 <li>
                   <NavLink

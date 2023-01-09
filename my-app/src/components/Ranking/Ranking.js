@@ -80,24 +80,19 @@ const Ranking = () => {
 
   return (
     <>
-      {uid.uid ? (
-        <>
-          <LeftNav />
-          <div className="ranking">
-            {users.length > 0 &&
-              users.map((user, index) => {
-                return (
-                  <>
-                    <UserCard user={user} index={index} />
-                  </>
-                );
-              })}
-            <br />
-          </div>
-        </>
-      ) : (
-        <Log />
-      )}
+      <>
+        <div className="ranking">
+          {users.length > 0 &&
+            users.map((user, index) => {
+              return (
+                <>
+                  <UserCard user={user} index={index} />
+                </>
+              );
+            })}
+          <br />
+        </div>
+      </>
     </>
   );
 };

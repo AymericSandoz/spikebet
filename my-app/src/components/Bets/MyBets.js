@@ -7,6 +7,8 @@ import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
 import MyBetCard from "../Bets/MyBetCard/MyBetCard";
 import LeftNav from "../Navbar/Leftnav";
+
+import Log from "../../components/Log";
 const MyBets = () => {
   const [error, setError] = useState("");
 
@@ -61,20 +63,24 @@ const MyBets = () => {
 
   return (
     <>
-      <>
-        <LeftNav />
-        <div className="my-bets">
-          {betsToDisplay.length > 0 &&
-            betsToDisplay.map((bet) => {
-              return (
-                <>
-                  <MyBetCard bet={bet} key={bet._id} />
-                </>
-              );
-            })}
-          <br />
-        </div>
-      </>
+      {uid.uid ? (
+        <>
+          <LeftNav />
+          <div className="my-bets">
+            {betsToDisplay.length > 0 &&
+              betsToDisplay.map((bet) => {
+                return (
+                  <>
+                    <MyBetCard bet={bet} key={bet._id} />
+                  </>
+                );
+              })}
+            <br />
+          </div>
+        </>
+      ) : (
+        <Log />
+      )}
     </>
   );
 };

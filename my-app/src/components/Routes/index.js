@@ -9,13 +9,14 @@ import LeftNav from "../Navbar/Leftnav";
 import About from "../../pages/About";
 import Profil from "../../pages/Profil";
 import Ranking from "../Ranking/Ranking";
+import CombinedBet from "../../pages/CombinedBet";
 
 const index = () => {
   return (
     <BrowserRouter>
       <Navbars />
       {/* <Sidebar /> */}
-      {/* <LeftNav /> */}
+      <LeftNav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<CreateBet />} />
@@ -24,6 +25,7 @@ const index = () => {
         <Route path="/about" element={<About />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/ranking" element={<Ranking />} />
+        <Route path="/combined" element={<CombinedBet />} />
       </Routes>
     </BrowserRouter>
   );
