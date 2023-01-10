@@ -57,11 +57,11 @@ export default function Navbar() {
                   Accueil
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink exact to="/combined" aria-label="Lien page combinée">
                   Grille
                 </NavLink>
-              </li>
+              </li> */}
               {IsAdmin() && (
                 <li>
                   <NavLink
@@ -87,7 +87,7 @@ export default function Navbar() {
 
               <li>
                 <NavLink exact to="/about" aria-label="Lien page about">
-                  About
+                  Application version Beta
                 </NavLink>
               </li>
             </>

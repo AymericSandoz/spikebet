@@ -1,7 +1,7 @@
 const Bet = require("../models/bet");
 const User = require("../models/user");
 const UserBet = require("../models/userBet");
-const CombinedBet = require("../models/CombinedBet");
+const CombinedBet = require("../models/combinedBet");
 const mongoose = require("mongoose");
 const {
   getSuccess,
