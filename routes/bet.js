@@ -10,10 +10,15 @@ const stuffCtrl = require("../controllers/bet");
 //Routes
 
 router.get("/", stuffCtrl.getAllBets);
-router.get("/combined", stuffCtrl.getAllCombinedBets); //Récupération de tous les bets
+router.get("/surveys", stuffCtrl.getAllSurveys);
+router.put("/survey/:id", auth, stuffCtrl.voteSurvey);
+router.get("/combinedBets", stuffCtrl.getAllCombinedBets);
+router.post("/combinedBets/:id", auth, stuffCtrl.CombinedBets);
+
 router.put("/modifyBet/:id", stuffCtrl.modifyBet);
 router.post("/", auth, stuffCtrl.bet);
-router.get("/getLigueParisienne", stuffCtrl.getLigueParisienne);
 router.get("/getMyBets", auth, stuffCtrl.getMyBets);
 router.put("/closeBet/:id", auth, stuffCtrl.closeBet);
+router.put("/closeCombinedBet/:id", auth, stuffCtrl.closeCombinedBet);
+
 module.exports = router; //exportations de notre routeur

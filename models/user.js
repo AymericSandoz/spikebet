@@ -26,6 +26,25 @@ const userSchema = mongoose.Schema({
   scoreArray: [(type = Number)],
   miseArray: [(type = Number)],
   scoreIdArray: [(type = String)],
+
+  // betsArray: { type: Array, default: [] },
+  betsArray: [
+    {
+      mise: Number,
+      type: String, //game, combined, rank
+      gameId: String,
+      score: Number,
+      state: { type: String, default: "open" },
+    },
+  ],
+  combinedBetsArray: [
+    {
+      gameId: String,
+      score: Number,
+    },
+  ],
+  combinedBetsArrayId: [(type = String)],
+
   coins: {
     type: Number,
     default: 50,

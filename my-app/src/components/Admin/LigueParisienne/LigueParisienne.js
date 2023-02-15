@@ -31,16 +31,16 @@ const LigueParisienne = () => {
     return new URLSearchParams(useLocation().search);
   }
   let query = useQuery();
-  console.log(query.get("groupName"));
-  let GroupName = query.get("groupName");
+  let betType = query.get("betType");
+  let betCompetition = query.get("competition");
+  let betGroupName = query.get("groupName");
 
   const getBets = (e) => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/getLigueParisienne`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet`,
     })
       .then((res) => {
-        console.log("coucou", res.data);
         setBets(res.data);
         setBetsToDisplay(res.data);
         setLoadBets(false);
@@ -51,107 +51,27 @@ const LigueParisienne = () => {
       });
   };
 
-  // const modifyBet = (bet) => {
-  //   if (!teamAcote || !teamBcote) {
-  //     alert("aucune côte rentrée");
-  //     return "aucune côte rentrée";
-  //   }
-  //   axios({
-  //     method: "put",
-  //     url: `api/bet/modifyBet/${bet._id}`,
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-
-  //     data: {
-  //       // // type: "match",
-  //       // // ligue: "parisienne",
-  //       // // round: "groupStage",
-  //       // // nomEquipeA: bet.nomEquipeA,
-  //       // // joueursEquipeA: bet.joueursEquipeA,
-  //       // scoreEquipeA: teamAscore,
-  //       // // nomEquipeB: bet.nomEquipeB,
-  //       // scoreEquipeB: teamBscore,
-  //       // // joueursEquipeB: bet.joueursEquipeB,
-  //       coteEquipeA: teamAcote,
-  //       coteEquipeB: teamBcote,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log("coucou", res.data);
-  //       alert("Côte mise à jour");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // const closeBet = (bet) => {
-  //   if (!teamAscore || !teamBscore) {
-  //     alert("aucun score rentré");
-  //     return "aucun score rentré";
-  //   }
-
-  //   if (teamAscore == teamBscore) {
-  //     alert("match nul impossible");
-  //     return "match nul impossible";
-  //   }
-  //   if (window.confirm("Confirmer?")) {
-  //   } else {
-  //     return "abort";
-  //   }
-
-  //   axios({
-  //     method: "put",
-  //     url: `api/bet/closeBet/${bet._id}`,
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-
-  //     data: {
-  //       finalScoreEquipeA: teamAscore,
-  //       finalScoreEquipeB: teamBscore,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       alert("bet closed");
-  //       getBets();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
   useEffect(() => {
     if (loadBets) {
       getBets();
     }
 
-    console.log("useeffect");
-    if (GroupName && bets) {
-      console.log("requiinnnnnnnnnnnnnn");
-      if (GroupName === "Ligue Parisienne") {
-        setBetsToDisplay(
-          bets.filter(function (data) {
-            return data.ligue === GroupName;
-          })
-        );
-      } else if (GroupName === "autres") {
-        setBetsToDisplay(
-          bets.filter(function (data) {
-            return data.type === "autre";
-          })
-        );
-      } else {
-        setBetsToDisplay(
-          bets.filter(function (data) {
-            return data.group === GroupName;
-          })
-        );
+    if (betType && bets) {
+      if (betType === "bet") {
+        let filteredBets = bets.filter(function (data) {
+          return data.ligue === betCompetition; ///remplacer ligue par competitition serait plus logique
+        });
+        setBetsToDisplay(filteredBets);
+
+        if (betGroupName) {
+          filteredBets = filteredBets.filter(function (data) {
+            return data.group === betGroupName; ///remplacer ligue par competitition serait plus logique
+          });
+          setBetsToDisplay(filteredBets);
+        }
       }
     }
-    console.log(betsToDisplay);
-  }, [loadBets, bets, GroupName]);
+  }, [loadBets, bets, betType, betCompetition, betGroupName]);
 
   return (
     <>
@@ -167,88 +87,6 @@ const LigueParisienne = () => {
                   return (
                     <>
                       <AdminBetcard bet={bet} key={bet._id} getBets={getBets} />
-                      {/* <li className="admin-bet-card" key={bet._id}>
-                       
-                        {bet._id}
-                        <h3 className="team-name">
-                          {bet.nomEquipeA} - {bet.nomEquipeB}
-                        </h3>
-                        <h4 className="competition-name"> {bet.ligue}</h4>
-                        <h5 className="group-name"> {bet.group}</h5>
-                        <div className="team-A-container  team-container">
-                          <p className="team-A-player1">
-                            {bet.joueursEquipeA[0]}
-                          </p>
-                          <p className="team-A-player2">
-                            {" "}
-                            {bet.joueursEquipeA[1]}
-                          </p>
-                        </div>
-                        <div className="team-B-container  team-container">
-                          <p className="team-B-player1">
-                            {bet.joueursEquipeB[0]}
-                          </p>
-                          <p className="team-B-player2">
-                            {" "}
-                            {bet.joueursEquipeB[1]}
-                          </p>
-                        </div>
-
-                        <input
-                          type="number"
-                          className="bet-cote"
-                          onChange={(e) => setTeamACote(e.target.value)}
-                          placeholder={teamAcote ? teamAcote : bet.coteEquipeA}
-                        />
-                        <input
-                          type="number"
-                          className="bet-cote"
-                          onChange={(e) => setTeamBCote(e.target.value)}
-                          placeholder={teamBcote ? teamBcote : bet.coteEquipeB}
-                        />
-                        <input
-                          type="number"
-                          className="score"
-                          onChange={(e) => setTeamAscore(e.target.value)}
-                          placeholder={
-                            bet.finalScoreEquipeA
-                              ? bet.finalScoreEquipeA
-                              : "score"
-                          }
-                        />
-                        <input
-                          type="number"
-                          className="score"
-                          onChange={(e) => setTeamBscore(e.target.value)}
-                          placeholder={
-                            bet.finalScoreEquipeB
-                              ? bet.finalScoreEquipeB
-                              : "score"
-                          }
-                        />
-
-                        {bet.live !== "closed" && (
-                          <>
-                            <button
-                              className="btn btn-modif-cote"
-                              onClick={() => modifyBet(bet)}
-                            >
-                              modifier
-                            </button>
-                            <button
-                              className="btn btn-cloturer-paris"
-                              onClick={() => closeBet(bet)}
-                            >
-                              clôturer
-                            </button>
-                          </>
-                        )}
-                        {bet.live === "closed" && (
-                          <p className="already-bet">
-                            <FontAwesomeIcon icon={faLock} /> CLOSED
-                          </p>
-                        )}
-                      </li> */}
                     </>
                   );
                 })}

@@ -5,55 +5,65 @@ import {
   faTrophy,
   faRankingStar,
   faMoneyBill1Wave,
+  faSquarePollVertical,
+  faObjectGroup,
 } from "@fortawesome/free-solid-svg-icons";
 const LeftNav = () => {
   return (
     <>
-      <div className="left-nav-container left-nav-big-screen">
+      <div className="left-nav-container left-nav-big-screen admin-nav">
         <section>
           <h2 className=" sidebar-item lefnav-level-1">
-            Compétition
+            Compétitions
             <FontAwesomeIcon icon={faTrophy} className={"icon"} />
           </h2>
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/?groupName=Ligue Parisienne"
+            to="/?betType=bet&competition=Ligue Parisienne"
           >
             Ligue Parisienne
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-3"}
-            to="/?groupName=Poulpe"
+            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poulpe"
             state={{ group: "Poulpe" }}
           >
             Poulpe
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-3"}
-            to="/?groupName=Poule au Pot"
+            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule au Pot"
             state={{ group: "Poule au Pot" }}
           >
             Poule au Pot
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-3"}
-            to="/?groupName=Poule Mouillée"
+            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule Mouillée"
             state={{ group: "Poule Mouillée" }}
           >
             Poule Mouillée
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-3"}
-            to="/?groupName=Poule Pondeuse"
+            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule Pondeuse"
             state={{ group: "Poule Pondeuse" }}
           >
             Poule Pondeuse
           </NavLink>
+
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/?groupName=All"
+            to="/?betType=bet&competition=Rennes"
           >
-            Autres
+            Rennes
+          </NavLink>
+          <NavLink className={"sidebar-item lefnav-level-1"} to="/combinedBets">
+            Combinés <FontAwesomeIcon icon={faObjectGroup} className={"icon"} />
+          </NavLink>
+          <NavLink className={"sidebar-item lefnav-level-1"} to="/survey">
+            Sondages{" "}
+            <FontAwesomeIcon icon={faSquarePollVertical} className={"icon"} />
           </NavLink>
         </section>
         <br />
@@ -90,7 +100,7 @@ const LeftNav = () => {
         <section>
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/?groupName=Ligue Parisienne"
+            to="/?betType=Ligue Parisienne"
           >
             <span>Match</span>
             <FontAwesomeIcon icon={faTrophy} className="icon" />

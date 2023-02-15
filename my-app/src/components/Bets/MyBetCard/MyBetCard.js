@@ -104,14 +104,14 @@ const MyBetCard = ({ bet }) => {
               {bet.success == "true" && (
                 <span>
                   {"+"}
-                  {bet.point - bet.mise}
+                  {(bet.point - bet.mise).toFixed(0)}
                   <FontAwesomeIcon icon={faCoins} className={"icon"} />
                 </span>
               )}
               {bet.success == "false" && (
                 <span>
                   {"-"}
-                  {bet.mise}
+                  {bet.mise.toFixed(0)}
                   <FontAwesomeIcon icon={faCoins} className={"icon"} />
                 </span>
               )}

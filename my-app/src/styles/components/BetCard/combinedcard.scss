@@ -1,0 +1,105 @@
+.combined-betcard {
+    width: 400px;
+
+
+    background-color: #383232;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+    border-radius: 15px;
+    padding: 20px 20px 10px 20px;
+    opacity: 0.9;
+    margin: 30px;
+    margin-top: 90px;
+    position: relative;
+
+
+    .combined-bet {
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        grid-template-rows: 25px 25px 75px auto;
+    }
+
+    .team-name {
+        grid-column: 1 / 3;
+        grid-row: 1;
+        text-align: center;
+
+
+        @include mobile-only {
+            margin-bottom: 10px;
+        }
+
+
+    }
+
+    .competition-name {
+        grid-column: 1 / 3;
+        grid-row: 2;
+        text-align: center;
+        color: red;
+
+        @include mobile-only {
+            color: gold;
+        }
+    }
+
+    .team-container {
+        width: 200px;
+        grid-row: 3;
+        text-align: center;
+        display: grid;
+        grid-template-rows: 25px 20px;
+        // margin-top: -30px;
+        align-items: center;
+        width: 70%;
+        height: 50px;
+        margin: auto;
+        border-radius: 3px;
+        text-align: center;
+        background-color: white;
+        color: $color-1;
+        ;
+        border: $color-4 1px solid;
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        @include mobile-only {
+            width: 140px;
+        }
+    }
+
+    .clicked {
+        opacity: 0.8;
+    }
+
+    .prize {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-confirmer {
+        width: 30%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        margin: auto;
+        box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+        border: none;
+        margin-top: 10px;
+
+        @include mobile-only {
+            background-color: gold;
+        }
+    }
+}

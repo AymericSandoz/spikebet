@@ -9,23 +9,22 @@ import Log from "../components/Log";
 
 const CombinedBet = () => {
   console.log("Home");
-  const [bets, setBets] = useState([]);
-  const [loadBets, setLoadBets] = useState(true);
+  const [combinedBets, setCombinedBets] = useState([]);
+  const [loadCombinedBets, setLoadCombinedBets] = useState(true);
 
   const uid = useContext(UidContext);
 
-  const getBets = (e) => {
-    console.log("getBets");
+  const getCombinedBets = (e) => {
+    console.log("getCombinedBets");
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/combined`,
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/combinedBets`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
-        console.log("get bets res data", res.data);
-        setBets(res.data);
-
-        setLoadBets(false);
+        setCombinedBets(res.data);
+        console.log(res.data);
+        setLoadCombinedBets(false);
       })
       .catch((err) => {
         console.log(err);
@@ -33,24 +32,24 @@ const CombinedBet = () => {
   };
 
   useEffect(() => {
-    if (loadBets) {
-      getBets();
+    if (loadCombinedBets) {
+      getCombinedBets();
     }
-  }, [loadBets, bets]);
+  }, [loadCombinedBets, combinedBets]);
 
   return (
     <>
       {uid.uid ? (
         <>
-          <div className="home">
-            {bets.length > 0 &&
-              bets.map((bet) => {
+          <div className="combined-bets">
+            {combinedBets.length > 0 &&
+              combinedBets.map((combinedBet) => {
                 return (
                   <>
                     <CombinedBetCard
-                      bet={bet}
-                      getBets={getBets}
-                      key={bet._id}
+                      combinedBet={combinedBet}
+                      getCombinedBets={getCombinedBets}
+                      key={combinedBets._id}
                     />
                   </>
                 );

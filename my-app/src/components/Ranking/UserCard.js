@@ -1,7 +1,7 @@
-import { faCoins, faMedal } from "@fortawesome/free-solid-svg-icons";
+import { faCoins, faMedal, faStar } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CalculTotalCoins } from "../../utils/Utils";
+import { CalculTotalCoins, calculScore } from "../../utils/Utils";
 const UserCard = ({ user, index }) => {
   console.log(user);
 
@@ -13,6 +13,7 @@ const UserCard = ({ user, index }) => {
         {CalculTotalCoins(user.coins, user.miseArray, user.scoreArray).toFixed(
           0
         )}{" "}
+        {calculScore(user.betsArray).toFixed(0)}{" "}
         <FontAwesomeIcon icon={faCoins} color="gold" />
       </div>
       <div className="user-bet-rank">

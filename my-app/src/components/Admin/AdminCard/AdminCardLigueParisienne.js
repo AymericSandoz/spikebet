@@ -29,15 +29,6 @@ const AdminBetCard = ({ bet, getBets }) => {
       },
 
       data: {
-        // // type: "match",
-        // // ligue: "parisienne",
-        // // round: "groupStage",
-        // // nomEquipeA: bet.nomEquipeA,
-        // // joueursEquipeA: bet.joueursEquipeA,
-        // scoreEquipeA: teamAscore,
-        // // nomEquipeB: bet.nomEquipeB,
-        // scoreEquipeB: teamBscore,
-        // // joueursEquipeB: bet.joueursEquipeB,
         coteEquipeA: teamAcote,
         coteEquipeB: teamBcote,
       },
@@ -94,21 +85,6 @@ const AdminBetCard = ({ bet, getBets }) => {
 
   return (
     <li className="admin-bet-card" key={bet._id}>
-      {/* <h3>
-                  {bet.nomEquipeA}-{bet.nomEquipeB}
-                </h3>
-
-                <p>{bet.group}</p>
-
-                <p>{bet.nomEquipeA}</p>
-                <p>{bet.joueursEquipeA[0]}</p>
-                <p>{bet.joueursEquipeA[1]}</p>
-                <p>{bet.nomEquipeB}</p>
-                <p>{bet.joueursEquipeB[0]}</p>
-                <p>{bet.joueursEquipeB[1]}</p>
-                <p>{teamAcote ? teamAcote : bet.coteEquipeA}</p>
-                <p>{teamBcote ? teamBcote : bet.coteEquipeB}</p> */}
-
       <h3 className="team-name">
         {bet.nomEquipeA} - {bet.nomEquipeB}
       </h3>

@@ -51,7 +51,7 @@ export default function Navbar() {
               <li>
                 <NavLink
                   exact
-                  to="/?groupName=Ligue Parisienne"
+                  to="/?betType=bet&competition=Ligue Parisienne"
                   aria-label="Lien page d'acceuil"
                 >
                   Accueil
@@ -66,7 +66,7 @@ export default function Navbar() {
                 <li>
                   <NavLink
                     exact
-                    to="/admin?groupName=Ligue Parisienne"
+                    to="/admin?betType=bet&competition=Ligue Parisienne"
                     aria-label="Lien page resevé aux administrateurs"
                   >
                     <FontAwesomeIcon icon={faLock} className={"icon"} /> Admin

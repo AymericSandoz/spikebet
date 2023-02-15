@@ -65,7 +65,7 @@ const MyBets = () => {
     <>
       {uid.uid ? (
         <>
-          <LeftNav />
+          {/* <LeftNav /> */}
           <div className="my-bets">
             {betsToDisplay.length > 0 &&
               betsToDisplay.map((bet) => {

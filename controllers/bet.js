@@ -1,7 +1,10 @@
 const Bet = require("../models/bet");
+const Survey = require("../models/othersTypeOfBets/survey");
 const User = require("../models/user");
 const UserBet = require("../models/userBet");
-const CombinedBet = require("../models/combinedBet");
+const CombinedBet = require("../models/othersTypeOfBets/combinedBets");
+const UserCombinedBet = require("../models/othersTypeOfBets/usercombinedbet");
+
 const mongoose = require("mongoose");
 const {
   getSuccess,
@@ -20,14 +23,24 @@ exports.getAllBets = (req, res, next) => {
   });
 };
 
-exports.getLigueParisienne = (req, res, next) => {
-  console.log("guépard");
-  Bet.find((err, docs) => {
+exports.getAllSurveys = (req, res, next) => {
+  console.log("surveys");
+  Survey.find((err, docs) => {
     if (!err) {
       res.send(docs);
+      console.log(docs);
     } else res.send("Erreur :" + err);
   });
 };
+
+// exports.getLigueParisienne = (req, res, next) => {
+//   console.log("guépard");
+//   Bet.find((err, docs) => {
+//     if (!err) {
+//       res.send(docs);
+//     } else res.send("Erreur :" + err);
+//   });
+// };
 
 /////////////////////Obtenir ses propres paris : intéressant, à ne pas supprimer
 // exports.getMyBets = (req, res, next) => {
@@ -72,6 +85,41 @@ exports.modifyBet = (req, res, next) => {
     .catch((error) => res.status(401).json({ error }));
 };
 
+//Voter lor d'un survey
+exports.voteSurvey = (req, res, next) => {
+  console.log("vote survey");
+  Survey.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        arrayVotersId: req.auth.userId,
+      },
+    }
+  )
+    .then(() => console.log("arrayVotersId filled!"))
+    .catch((error) => {
+      console.log(error);
+      res.status(401).json({ error });
+    });
+
+  Survey.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        userChoice: {
+          userId: req.auth.userId,
+          answer: req.body.userChoice,
+        },
+      },
+    }
+  )
+    .then(() => res.status(201).json("survey send !"))
+    .catch((error) => {
+      console.log(error);
+      res.status(401).json({ error });
+    });
+};
+
 //créer un bet
 exports.bet = (req, res, next) => {
   User.findOne({ _id: req.auth.userId }, (err, docs) => {
@@ -88,7 +136,6 @@ exports.bet = (req, res, next) => {
   });
 
   var userBet = new UserBet({ ...req.body, userId: req.auth.userId });
-  console.log("userBet:", req.body);
   userBet
     .save()
     .then(() => {
@@ -108,6 +155,28 @@ exports.bet = (req, res, next) => {
       $push: {
         miseArray: req.body.mise,
         scoreIdArray: req.body.gameID,
+      },
+    },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        console.log(error);
+        res.status(400).json(err);
+      } else {
+        console.log("miseArray et scoreIdArray : ", docs);
+      }
+    }
+  );
+
+  User.findOneAndUpdate(
+    { _id: req.auth.userId },
+    {
+      $push: {
+        betsArray: {
+          gameId: req.body.gameID,
+          mise: req.body.mise,
+          type: game,
+        }, //inserted data is the object to be inserted
       },
     },
     { new: true },
@@ -158,21 +227,6 @@ exports.closeBet = (req, res, next) => {
   UserBet.find({ gameID: req.params.id }, (err, docs) => {
     if (!err) {
       docs.forEach((element) => {
-        console.log("element:", element);
-        console.log("userbet.find");
-        console.log(
-          "pointttt:",
-          point(
-            getSuccess(
-              req.body.finalScoreEquipeA,
-              req.body.finalScoreEquipeB,
-              element.victoireEquipePrediction
-            ),
-            winner(req.body.finalScoreEquipeA, req.body.finalScoreEquipeB),
-            element.coteEquipeA,
-            element.coteEquipeB
-          ) * element.mise
-        );
         User.updateOne(
           { _id: element.userId },
           {
@@ -197,6 +251,31 @@ exports.closeBet = (req, res, next) => {
           }
         )
           .then(() => console.log("scoreArray pushed"))
+          .catch((error) => res.status(401).json({ error }));
+
+        User.findOneAndUpdate(
+          { _id: element.userId, "betsArray.gameId": req.params.id },
+          {
+            $set: {
+              "betsArray.$.score":
+                point(
+                  getSuccess(
+                    req.body.finalScoreEquipeA,
+                    req.body.finalScoreEquipeB,
+                    element.victoireEquipePrediction
+                  ),
+                  winner(
+                    req.body.finalScoreEquipeA,
+                    req.body.finalScoreEquipeB
+                  ),
+                  element.coteEquipeA,
+                  element.coteEquipeB
+                ) * element.mise,
+              "betsArray.$.state": "closed",
+            },
+          }
+        )
+          .then(() => console.log("test betsarray closed pushed"))
           .catch((error) => res.status(401).json({ error }));
 
         // User.updateOne(
@@ -259,11 +338,95 @@ exports.closeBet = (req, res, next) => {
 };
 
 exports.getAllCombinedBets = (req, res, next) => {
-  console.log("getAllCombinedBets");
-  Bet.find((err, docs) => {
+  CombinedBet.find((err, docs) => {
     if (!err) {
-      res.send(docs);
       console.log(docs);
+      res.send(docs);
     } else res.send("Erreur :" + err);
   });
+};
+
+exports.CombinedBets = (req, res, next) => {
+  User.findOneAndUpdate(
+    { _id: req.auth.userId },
+    {
+      $push: {
+        combinedBetsArray: {
+          gameId: req.params.id,
+          type: combined,
+        },
+      },
+    },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        console.log(error);
+        res.status(400).json(err);
+      } else {
+        console.log("miseArray et scoreIdArray : ", docs);
+      }
+    }
+  );
+
+  var userCombinedBet = new UserCombinedBet({
+    ...req.body,
+    userId: req.auth.userId,
+  });
+  userCombinedBet
+    .save()
+    .then(() => {
+      console.log("Combinedbet saved");
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).json({
+        error: error,
+      });
+    });
+
+  CombinedBet.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $addToSet: { userIdArray: req.auth.userId },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(error);
+        res.status(400).json(err);
+      } else {
+        console.log("miseArray et scoreIdArray : ", docs);
+      }
+    }
+  );
+};
+
+exports.closeCombinedBet = (req, res, next) => {
+  console.log(req.body);
+  UserCombinedBet.updateMany(
+    { combinedBetId: req.params.id },
+    {
+      $set: {
+        result: req.body.resultCombinaison,
+        live: "closed",
+      },
+    }
+  )
+    .then(console.log("UserBet.updateMany"))
+    .catch((error) => console.log(error));
+
+  CombinedBet.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        result: req.body.resultCombinaison,
+        live: "closed",
+      },
+    },
+    { new: true }
+  )
+    .then((doc) => {
+      console.log("Bet closed");
+      res.status(200).json("bet closed");
+    })
+    .catch();
 };

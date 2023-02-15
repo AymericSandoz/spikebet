@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const combinedBetSchema = mongoose.Schema(
+const combinedbetsSchema = mongoose.Schema(
   {
     game1: {
       nomEquipeA: { type: String },
@@ -21,7 +21,8 @@ const combinedBetSchema = mongoose.Schema(
       joueursEquipeA: { type: Array },
     },
     prize: { type: Number },
-    userId: { type: Array },
+    live: { type: String, default: "open" },
+    userIdArray: { type: Array },
     result: { type: Array },
   },
   {
@@ -29,4 +30,4 @@ const combinedBetSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("CombinedBet", combinedBetSchema);
+module.exports = mongoose.model("Combinedbet", combinedbetsSchema);

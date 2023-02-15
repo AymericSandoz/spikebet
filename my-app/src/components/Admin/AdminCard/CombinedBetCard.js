@@ -1,61 +1,47 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import axios from "axios";
-import { UidContext } from "../../AppContext";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faCoins,
-  faDollar,
-  faMoneyBill,
-} from "@fortawesome/free-solid-svg-icons";
-import RPLogo from "../../../images/Roundnet_Paris.png";
-const BetCard = ({ combinedBet, getCombinedBets }) => {
-  //const [teamAscore, setTeamAscore] = useState(Number);
-  //const [teamBscore, setTeamBscore] = useState(Number);
+
+const AdminCombinedBetCard = ({ combinedBet, getCombinedBets }) => {
   const [victoriousTeamCombo1, setVictoriousTeamCombo1] = useState();
   const [victoriousTeamCombo2, setVictoriousTeamCombo2] = useState();
   const [victoriousTeamCombo3, setVictoriousTeamCombo3] = useState();
 
-  //const [userBets, setUserBets] = useState([]);
-  const uid = useContext(UidContext);
+  const closeCombinedBet = () => {
+    if (
+      !victoriousTeamCombo1 ||
+      !victoriousTeamCombo2 ||
+      !victoriousTeamCombo3
+    ) {
+      alert("résultats non rentrés");
+      return "erreur, résultats non rentrés";
+    }
 
-  const bet = () => {
-    console.log(
-      victoriousTeamCombo1,
-      victoriousTeamCombo2,
-      victoriousTeamCombo3
-    );
-    let combinaison =
+    let resultCommbinaison =
       victoriousTeamCombo1 + victoriousTeamCombo2 + victoriousTeamCombo3;
 
     axios({
-      method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/combinedBets/${combinedBet._id}`,
-      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      method: "put",
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/closeCombinedBet/${combinedBet._id}`,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+
       data: {
-        combinedBetId: combinedBet._id,
-        game1: combinedBet.game1,
-        game2: combinedBet.game2,
-        game3: combinedBet.game3,
-        prize: combinedBet.prize,
-        userCombinaison: combinaison,
+        resultCommbinaison: resultCommbinaison,
       },
     })
       .then((res) => {
+        alert("combined bet closed");
         getCombinedBets();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   return (
     <>
       <li className="combined-betcard" key={combinedBet._id}>
@@ -181,7 +167,7 @@ const BetCard = ({ combinedBet, getCombinedBets }) => {
             {/* <p className="team-B-cote team-cote">{bet.coteEquipeB}</p> */}
           </div>
         </div>
-        <button className="btn-confirmer" onClick={() => bet()}>
+        <button className="btn-confirmer" onClick={() => closeCombinedBet()}>
           Confirmer
         </button>
       </li>
@@ -189,4 +175,4 @@ const BetCard = ({ combinedBet, getCombinedBets }) => {
   );
 };
 
-export default BetCard;
+export default AdminCombinedBetCard;

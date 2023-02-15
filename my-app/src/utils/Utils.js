@@ -2,13 +2,10 @@ import React, { useContext } from "react";
 
 import { UidContext } from "../components/AppContext";
 export const IsAdmin = () => {
-  console.log("isAdmin");
-
   const uid = useContext(UidContext);
-  console.log(uid);
+
   const admin_user_id = `${process.env.REACT_APP_ADMIN_USER_ID}`;
 
-  console.log(admin_user_id === uid.uid ? true : false);
   return admin_user_id === uid.uid ? true : false;
 };
 
@@ -33,16 +30,21 @@ export const CalculTotalCoins = (coins, miseArray, scoreArray) => {
 
   let totalCoins = miseScoreArray - miseArraySum + coins;
 
-  console.log(totalCoins);
   return totalCoins;
+};
+
+export const calculScore = (betsArray) => {
+  let totalScore = 50;
+  betsArray.forEach((bet) => {
+    if (bet.state === "closed") {
+      totalScore = totalScore + bet.score;
+    }
+  });
+  return totalScore;
 };
 
 //sort array according to bet closed bet and bet already bet
 export const sortBetArray = (uid, array) => {
-  //
-  console.log("uid UTILS", uid);
-  // console.log("array", array);
-  // console.log("array", array);
   for (let i = 0; i < array.length; i++) {
     //console.log("array[i].usersBet", array[i].usersBet);
     if (array[i].usersBet.includes(uid)) {
