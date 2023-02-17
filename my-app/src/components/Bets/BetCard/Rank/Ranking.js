@@ -41,7 +41,7 @@ const Ranking = ({ team }) => {
       <ul>
         {ranking.map((team, index) => (
           <li key={team.name}>
-            {team.name} - {index}
+            {team.name} - {team.rating}
           </li>
         ))}
       </ul>

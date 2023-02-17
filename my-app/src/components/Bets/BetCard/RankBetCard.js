@@ -41,16 +41,18 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     } else setError("Hop Hop Hop, 5 équipes max");
   };
 
-  const handleRemoveTeam = (team, index) => {
+  const handleRemoveTeam = (team, position) => {
     setError();
     let updatedRanking = ranking.filter((item) => item.name !== team);
+    console.log(updatedRanking);
     setSelectedTeams(selectedTeams.filter((item) => item !== team));
-    setRanking(ranking.filter((item) => item.name !== team));
+    //setRanking(ranking.filter((item) => item.name !== team));
 
     //permet d'actualiser en direct la position au classement
     updatedRanking.forEach((element) => {
-      if (element.position >= index) {
-        console.log("hello", element.position--);
+      if (element.position >= position) {
+        console.log("hello", element.position, "//", position);
+        element.position--;
       }
     });
     setRanking(updatedRanking);
@@ -58,26 +60,27 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   };
 
   const handleTeamsReorder = (direction, position) => {
-    let selectedTeam = ranking.filter((item) => item.position === position);
-
     let orderingTeam = ranking;
-
+    console.log("ranking", ranking);
     if (direction === "up") {
       orderingTeam.forEach(function (element) {
         if (element.position === position) {
-          console.log(element);
           element.position--;
-          console.log(element);
         } else if (element.position === position - 1) {
-          console.log(element);
           element.position++;
-          console.log(element);
         }
       });
     } else {
+      orderingTeam.forEach(function (element) {
+        if (element.position === position) {
+          element.position++;
+        } else if (element.position === position + 1) {
+          element.position--;
+        }
+      });
     }
-    console.log(orderingTeam);
-    setRanking(orderingTeam);
+
+    setRanking([...orderingTeam]);
   };
 
   const handleRanking = () => {
@@ -155,9 +158,9 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 <FontAwesomeIcon
                   icon={faXmark}
                   className="icon"
-                  onClick={() => handleRemoveTeam(team.name, index)}
+                  onClick={() => handleRemoveTeam(team.name, team.position)}
                 />
-                {team.position < 4 && (
+                {team.position < ranking.length && (
                   <FontAwesomeIcon
                     icon={faArrowDown}
                     className="icon"
