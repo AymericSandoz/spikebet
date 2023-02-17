@@ -7,6 +7,7 @@ import {
   faMoneyBill1Wave,
   faSquarePollVertical,
   faObjectGroup,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 const LeftNav = () => {
   return (
@@ -64,6 +65,9 @@ const LeftNav = () => {
           <NavLink className={"sidebar-item lefnav-level-1"} to="/survey">
             Sondages{" "}
             <FontAwesomeIcon icon={faSquarePollVertical} className={"icon"} />
+          </NavLink>
+          <NavLink className={"sidebar-item lefnav-level-1"} to="/rankBets">
+            Top 5 <FontAwesomeIcon icon={faStar} className={"icon"} />
           </NavLink>
         </section>
         <br />

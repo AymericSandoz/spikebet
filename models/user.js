@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema({
   betsArray: [
     {
       mise: Number,
-      type: String, //game, combined, rank
+      betType: String, //game, combined, rank
       gameId: String,
       score: Number,
       state: { type: String, default: "open" },

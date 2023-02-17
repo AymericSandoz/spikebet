@@ -38,7 +38,7 @@ const Survey = () => {
   return (
     <>
       <>
-        <div className="ranking">
+        <div className="survey-bets">
           {surveys.length > 0 &&
             surveys.map((survey) => {
               return (

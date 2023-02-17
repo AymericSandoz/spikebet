@@ -44,22 +44,14 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        console.log("SET coins ", res.data);
-        setCoins(
-          CalculTotalCoins(
-            res.data.coins,
-            res.data.miseArray,
-            res.data.scoreArray
-          )
-        );
-        console.log(
-          "aaaaaaaaaaaa:",
-          CalculTotalCoins(
-            res.data.coins,
-            res.data.miseArray,
-            res.data.scoreArray
-          )
-        );
+        // setCoins(
+        //   CalculTotalCoins(
+        //     res.data.coins,
+        //     res.data.miseArray,
+        //     res.data.scoreArray
+        //   )
+        // );
+        setCoins(CalculTotalCoins(res.data.betsArray, res.data.coins));
       })
       .catch((err) => console.log("No coins "));
   };

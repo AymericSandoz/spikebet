@@ -102,4 +102,37 @@
             background-color: gold;
         }
     }
+
+    .bet-error {
+        grid-column: 1/3;
+        text-align: center;
+        width: 95%;
+
+        margin: 5px;
+
+    }
+
+    .already-bet {
+        // padding-bottom: 20px;
+        margin-top: 10px;
+        grid-column: 1 / 3;
+        text-align: center;
+        background-color: green;
+        color: white;
+        font-weight: bold;
+
+    }
+
+    .prize {
+        margin-bottom: 10px;
+
+
+        .icon {
+            display: flex;
+            margin: 5px;
+            align-items: center;
+            color: gold;
+
+        }
+    }
 }

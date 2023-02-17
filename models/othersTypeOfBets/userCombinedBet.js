@@ -39,11 +39,9 @@ const userCombinedBetSchema = mongoose.Schema(
 
     userCombinaison: { type: String },
     live: { type: String, default: "open" },
-    winner: {
-      type: String,
-      default: "Unknow",
-    },
-    result: { type: String },
+    resultCombinaison: { type: String },
+    success: { type: Boolean },
+    gain: { type: Number },
   },
 
   {

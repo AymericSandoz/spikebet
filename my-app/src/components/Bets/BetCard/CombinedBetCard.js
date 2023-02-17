@@ -16,22 +16,27 @@ import {
   faMoneyBill,
 } from "@fortawesome/free-solid-svg-icons";
 import RPLogo from "../../../images/Roundnet_Paris.png";
-const BetCard = ({ combinedBet, getCombinedBets }) => {
+const CombinedBetCard = ({ combinedBet, getCombinedBets }) => {
   //const [teamAscore, setTeamAscore] = useState(Number);
   //const [teamBscore, setTeamBscore] = useState(Number);
   const [victoriousTeamCombo1, setVictoriousTeamCombo1] = useState();
   const [victoriousTeamCombo2, setVictoriousTeamCombo2] = useState();
   const [victoriousTeamCombo3, setVictoriousTeamCombo3] = useState();
+  const [error, setError] = useState();
 
   //const [userBets, setUserBets] = useState([]);
   const uid = useContext(UidContext);
 
   const bet = () => {
-    console.log(
-      victoriousTeamCombo1,
-      victoriousTeamCombo2,
-      victoriousTeamCombo3
-    );
+    if (
+      !victoriousTeamCombo1 ||
+      !victoriousTeamCombo2 ||
+      !victoriousTeamCombo3
+    ) {
+      setError("Iiiiiiiiiiiichhhh, il manque pas quelque chose ?");
+      return "Pronostic incomplet";
+    }
+
     let combinaison =
       victoriousTeamCombo1 + victoriousTeamCombo2 + victoriousTeamCombo3;
 
@@ -49,7 +54,12 @@ const BetCard = ({ combinedBet, getCombinedBets }) => {
       },
     })
       .then((res) => {
+        console.log("bet saved");
         getCombinedBets();
+        setVictoriousTeamCombo1(null);
+        setVictoriousTeamCombo2(null);
+        setVictoriousTeamCombo3(null);
+        setError();
       })
       .catch((err) => {
         console.log(err);
@@ -181,12 +191,28 @@ const BetCard = ({ combinedBet, getCombinedBets }) => {
             {/* <p className="team-B-cote team-cote">{bet.coteEquipeB}</p> */}
           </div>
         </div>
-        <button className="btn-confirmer" onClick={() => bet()}>
-          Confirmer
-        </button>
+
+        {error && <p className="bet-error">{error}</p>}
+
+        {uid.uid &&
+          combinedBet.live !== "closed" &&
+          (!combinedBet.userIdArray.includes(uid.uid) ? (
+            <button className="btn-confirmer" onClick={() => bet()}>
+              Parier
+            </button>
+          ) : (
+            <p className="already-bet">
+              <FontAwesomeIcon icon={faCheck} /> DÉJA PARIÉ
+            </p>
+          ))}
+        {uid.uid && combinedBet.live === "closed" && (
+          <p className="already-bet">
+            <FontAwesomeIcon icon={faCheck} /> CLOSED
+          </p>
+        )}
       </li>
     </>
   );
 };
 
-export default BetCard;
+export default CombinedBetCard;

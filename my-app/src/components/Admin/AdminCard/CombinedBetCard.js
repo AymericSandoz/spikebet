@@ -20,7 +20,7 @@ const AdminCombinedBetCard = ({ combinedBet, getCombinedBets }) => {
       return "erreur, résultats non rentrés";
     }
 
-    let resultCommbinaison =
+    let resultCombinaison =
       victoriousTeamCombo1 + victoriousTeamCombo2 + victoriousTeamCombo3;
 
     axios({
@@ -31,7 +31,7 @@ const AdminCombinedBetCard = ({ combinedBet, getCombinedBets }) => {
       },
 
       data: {
-        resultCommbinaison: resultCommbinaison,
+        resultCombinaison: resultCombinaison,
       },
     })
       .then((res) => {

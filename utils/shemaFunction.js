@@ -3,31 +3,17 @@ const getSuccess = (
   finalScoreEquipeB,
   victoireEquipePrediction
 ) => {
-  console.log(
-    "getSuccess : ",
-    finalScoreEquipeA,
-    finalScoreEquipeB,
-    victoireEquipePrediction
-  );
-
   if (
     finalScoreEquipeA > finalScoreEquipeB &&
     victoireEquipePrediction == "A"
   ) {
-    console.log(
-      "(finalScoreEquipeA > finalScoreEquipeB && victoireEquipePrediction == A)"
-    );
     return "true";
   } else if (
     finalScoreEquipeA < finalScoreEquipeB &&
     victoireEquipePrediction == "B"
   ) {
-    console.log(
-      "(finalScoreEquipeA <finalScoreEquipeB && victoireEquipePrediction == B"
-    );
     return "true";
   } else {
-    console.log("get succes --> false");
     return "false";
   }
 };
@@ -68,4 +54,29 @@ const calculTotalCoins = (coins, miseArray, scoreArray) => {
   return totalCoins;
 };
 
-module.exports = { point, winner, getSuccess, arraySum, calculTotalCoins };
+const getCombinedBetGain = (resultCombinaison, userCombinaison, prize) => {
+  console.log(resultCombinaison, "//", userCombinaison, prize);
+  console.log(
+    "resultCombinaison===userCombinaison",
+    resultCombinaison === userCombinaison
+  );
+  if (resultCombinaison === userCombinaison) {
+    return prize;
+  } else return 0;
+};
+
+const getCombinedBetSuccess = (resultCombinaison, userCombinaison) => {
+  if (resultCombinaison === userCombinaison) {
+    return true;
+  } else return false;
+};
+
+module.exports = {
+  point,
+  winner,
+  getSuccess,
+  arraySum,
+  calculTotalCoins,
+  getCombinedBetSuccess,
+  getCombinedBetGain,
+};

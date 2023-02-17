@@ -45,16 +45,14 @@ exports.login = (req, res, next) => {
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            console.log("!valid");
             return res.status(200).json({
               error: "Mot de passe ou identifiant incorrect !",
             });
           } else {
-            console.log("validéééééééééééééééé");
             res.status(200).json({
               userId: user._id,
               token: jwt.sign({ userId: user._id }, process.env.KEY_JWT, {
-                expiresIn: "30d",
+                expiresIn: "150d",
               }),
               pseudo: user.pseudo,
             });
@@ -62,7 +60,6 @@ exports.login = (req, res, next) => {
         })
         .catch((error) => console.log(error));
     } else {
-      console.log("Mot de passe ou identifiant incorrect ");
       res.status(200).json({
         error: "Mot de passe ou identifiant incorrect !",
       });
@@ -71,7 +68,6 @@ exports.login = (req, res, next) => {
 };
 
 exports.getAllUsers = (req, res, next) => {
-  console.log("guépard");
   User.find((err, docs) => {
     if (!err) {
       res.send(docs);
@@ -81,8 +77,6 @@ exports.getAllUsers = (req, res, next) => {
 };
 
 exports.getUser = (req, res, next) => {
-  console.log("req.auth.userId", req.auth.userId);
-
   User.findOne({ _id: req.auth.userId }, (err, docs) => {
     if (!err) {
       res.status(200).json(docs);
@@ -91,8 +85,6 @@ exports.getUser = (req, res, next) => {
 };
 
 exports.updateProfil = (req, res, next) => {
-  console.log("req.auth.userId", req.auth.userId);
-
   User.updateOne(
     { _id: req.auth.userId },
     { ...req.body, _id: req.auth.userId }

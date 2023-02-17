@@ -13,6 +13,8 @@ router.get("/", stuffCtrl.getAllBets);
 router.get("/surveys", stuffCtrl.getAllSurveys);
 router.put("/survey/:id", auth, stuffCtrl.voteSurvey);
 router.get("/combinedBets", stuffCtrl.getAllCombinedBets);
+router.get("/rankBets", stuffCtrl.getAllRankBets);
+
 router.post("/combinedBets/:id", auth, stuffCtrl.CombinedBets);
 
 router.put("/modifyBet/:id", stuffCtrl.modifyBet);

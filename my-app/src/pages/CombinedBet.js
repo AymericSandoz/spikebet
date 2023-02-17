@@ -23,7 +23,7 @@ const CombinedBet = () => {
     })
       .then((res) => {
         setCombinedBets(res.data);
-        console.log(res.data);
+        console.log("getcombinedBet");
         setLoadCombinedBets(false);
       })
       .catch((err) => {
@@ -39,27 +39,24 @@ const CombinedBet = () => {
 
   return (
     <>
-      {uid.uid ? (
-        <>
-          <div className="combined-bets">
-            {combinedBets.length > 0 &&
-              combinedBets.map((combinedBet) => {
-                return (
-                  <>
-                    <CombinedBetCard
-                      combinedBet={combinedBet}
-                      getCombinedBets={getCombinedBets}
-                      key={combinedBets._id}
-                    />
-                  </>
-                );
-              })}
-            <br />
-          </div>
-        </>
-      ) : (
-        <Log />
-      )}
+      <>
+        <div className="combined-bets">
+          {combinedBets.length > 0 &&
+            combinedBets.map((combinedBet) => {
+              return (
+                <>
+                  <CombinedBetCard
+                    combinedBet={combinedBet}
+                    getCombinedBets={getCombinedBets}
+                    key={combinedBet._id}
+                  />
+                </>
+              );
+            })}
+          <br />
+        </div>
+      </>
+
       {/* <LeftNav /> */}
     </>
   );

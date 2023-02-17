@@ -57,31 +57,33 @@ const SurveyCard = ({ survey, getSurveys }) => {
     <>
       <li className="survey-card" key={survey._id}>
         <h3 className="survey">{survey.survey}</h3>
-        <h4 className="survey-choice">
+        <div className="survey-choices">
           {survey.choices.map((choice, index) => {
             return (
               <>
-                <div
-                  className="choice"
-                  style={{
-                    width: calculSurveyStat(choice),
-                    backgroundColor: "green",
-                  }}
-                  onClick={() => setUserChoice(choice)}
-                >
-                  {choice}
-                  {calculSurveyStat(choice)}
+                <div className="choice-container">
+                  <div
+                    className="choice"
+                    style={{
+                      width: calculSurveyStat(choice),
+                      backgroundColor: index % 2 === 0 ? "#696969" : "#A9A9A9",
+                    }}
+                    onClick={() => setUserChoice(choice)}
+                  >
+                    {choice}
+                  </div>
+                  <div className="survey-stat">{calculSurveyStat(choice)}</div>
                 </div>
               </>
             );
           })}
-        </h4>
+        </div>
 
-        {/* {uid.uid && !survey.arrayVotersId.includes(uid.uid) && ( */}
-        <button className="btn-confirmer" onClick={() => sendSurvey()}>
-          vote
-        </button>
-        {/* )} */}
+        {uid.uid && !survey.arrayVotersId.includes(uid.uid) && (
+          <button className="btn-confirmer" onClick={() => sendSurvey()}>
+            vote
+          </button>
+        )}
       </li>
     </>
   );
