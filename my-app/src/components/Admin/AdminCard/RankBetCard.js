@@ -18,9 +18,6 @@ import {
   faMoneyBill,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import RPLogo from "../../../images/Roundnet_Paris.png";
-import Select from "./Rank/Select";
-import Ranking from "./Rank/Ranking";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -83,7 +80,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     setRanking([...orderingTeam]);
   };
 
-  const bet = () => {
+  const closeBet = () => {
     if (ranking.length !== 5) {
       console.log("erreur : Le top 5 n'est pas complet");
 
@@ -117,20 +114,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   return (
     <>
       <li className="rank-bet-card" key={rankBet._id}>
-        {/* <div>
-          <h1>Rank the top 5 players</h1>
-          <Select
-            teams={rankBet.teams}
-            selectedTeams={selectedTeams}
-            onSelect={handleTeamSelect}
-          />
-          <Ranking
-            teams={selectedTeams}
-            onReorder={handleTeamsReorder}
-            onSubmit={handleRankingSubmit}
-          />
-        </div> */}
-
         <p className="prize">
           {" "}
           Cash prize : {rankBet.prize}{" "}
@@ -186,25 +169,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             ))}
         </div>
 
-        <button onClick={() => bet()}>Envoyer</button>
+        <button onClick={() => closeBet()}>Confirmer</button>
         {error && <p className="bet-error">{error}</p>}
-
-        {/* {uid.uid && */}
-        {/* combinedBet.live !== "closed" &&
-            (!combinedBet.userIdArray.includes(uid.uid) ? (
-              <button className="btn-confirmer" onClick={() => bet()}>
-                Parier
-              </button>
-            ) : (
-              <p className="already-bet">
-                <FontAwesomeIcon icon={faCheck} /> DÉJA PARIÉ
-              </p>
-            ))}
-          {uid.uid && combinedBet.live === "closed" && (
-            <p className="already-bet">
-              <FontAwesomeIcon icon={faCheck} /> CLOSED
-            </p>
-          )} */}
       </li>
     </>
   );

@@ -16,7 +16,7 @@ router.get("/combinedBets", stuffCtrl.getAllCombinedBets);
 router.get("/rankBets", stuffCtrl.getAllRankBets);
 
 router.post("/combinedBets/:id", auth, stuffCtrl.CombinedBets);
-
+router.post("/rankBets/:id", auth, stuffCtrl.rankBets);
 router.put("/modifyBet/:id", stuffCtrl.modifyBet);
 router.post("/", auth, stuffCtrl.bet);
 router.get("/getMyBets", auth, stuffCtrl.getMyBets);

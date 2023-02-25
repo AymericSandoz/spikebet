@@ -5,6 +5,7 @@ const UserBet = require("../models/userBet");
 const CombinedBet = require("../models/othersTypeOfBets/combinedBets");
 const UserCombinedBet = require("../models/othersTypeOfBets/usercombinedbet");
 const RankBet = require("../models/othersTypeOfBets/rankBets");
+const UserRankBet = require("../models/othersTypeOfBets/userrankbet");
 
 const mongoose = require("mongoose");
 const {
@@ -26,7 +27,6 @@ exports.getAllBets = (req, res, next) => {
 };
 
 exports.getAllSurveys = (req, res, next) => {
-  console.log("surveys");
   Survey.find((err, docs) => {
     if (!err) {
       res.send(docs);
@@ -35,7 +35,6 @@ exports.getAllSurveys = (req, res, next) => {
 };
 
 exports.getAllRankBets = (req, res, next) => {
-  console.log("surveys");
   RankBet.find((err, docs) => {
     if (!err) {
       res.send(docs);
@@ -215,6 +214,65 @@ exports.bet = (req, res, next) => {
         res.status(400).json(err);
       } else {
         res.status(201).json({ docs });
+      }
+    }
+  );
+};
+
+exports.rankBets = (req, res, next) => {
+  console.log(req.body);
+
+  var userRankBet = new UserRankBet({
+    rankBetId: req.params.id,
+    userRanking: req.body.ranking,
+    userId: req.auth.userId,
+  });
+  userRankBet
+    .save()
+    .then(() => {
+      // res.status(201).json({ message: "bet saved !" });
+      console.log("rankBet saved");
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).json({
+        error: error,
+      });
+    });
+
+  User.findOneAndUpdate(
+    { _id: req.auth.userId },
+    {
+      $push: {
+        betsArray: {
+          gameId: req.params.id,
+          mise: 0,
+          betType: "ranking",
+        }, //inserted data is the object to be inserted
+      },
+    },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+        res.status(400).json(err);
+      } else {
+        console.log("user updated");
+      }
+    }
+  );
+
+  RankBet.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $addToSet: { userIdArray: req.auth.userId },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+        res.status(400).json(err);
+      } else {
+        res.status(200).json("bet saved");
       }
     }
   );
