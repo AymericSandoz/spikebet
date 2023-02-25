@@ -15,6 +15,7 @@ const {
   calculTotalCoins,
   getCombinedBetSuccess,
   getCombinedBetGain,
+  getRankBetGain,
 } = require("../utils/shemaFunction");
 
 exports.getAllBets = (req, res, next) => {
@@ -226,6 +227,7 @@ exports.rankBets = (req, res, next) => {
     rankBetId: req.params.id,
     userRanking: req.body.ranking,
     userId: req.auth.userId,
+    prize: req.body.prize,
   });
   userRankBet
     .save()
@@ -516,9 +518,9 @@ exports.closeCombinedBet = (req, res, next) => {
             },
           }
         )
-          .then(() => console.log("test betsarray closed pushed"))
+          .then(() => console.log("combined bet done"))
           .catch((error) => res.status(401).json({ error }));
-        console.log("resultCombinaison", req.body.resultCombinaison);
+
         UserCombinedBet.updateOne(
           { _id: element._id },
           {
@@ -534,6 +536,67 @@ exports.closeCombinedBet = (req, res, next) => {
               element.userCombinaison,
               element.prize
             ),
+          }
+        )
+          .then(() => console.log("youhou"))
+          .catch((error) => console.log(error));
+      });
+    } else res.send("Erreur :" + err);
+  });
+};
+
+exports.closeRankBet = (req, res, next) => {
+  RankBet.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        resultRanking: req.body.ranking,
+        live: "closed",
+      },
+    },
+    { new: true }
+  )
+    .then((doc) => {
+      res.status(200).json("bet closed");
+    })
+    .catch();
+  console.log("closeRankBet");
+
+  UserRankBet.find({ rankBetId: req.params.id }, (err, docs) => {
+    result = req.body.ranking;
+    if (!err) {
+      docs.forEach((element) => {
+        User.findOneAndUpdate(
+          { _id: element.userId, "betsArray.gameId": req.params.id },
+          {
+            $set: {
+              "betsArray.$.score": getRankBetGain(
+                result,
+                element.userRanking,
+                element.prize
+              ),
+
+              "betsArray.$.state": "closed",
+            },
+          }
+        )
+          .then(() => console.log("combined bet done"))
+          .catch((error) => res.status(401).json({ error }));
+        console.log(
+          "result, element.userRanking, element.prize",
+          result,
+          element.userRanking,
+          element.prize
+        );
+        UserRankBet.updateOne(
+          { _id: element._id },
+          {
+            live: "closed",
+
+            resultRanking: req.body.ranking,
+            userRanking: element.userRanking,
+
+            gain: getRankBetGain(result, element.userRanking, element.prize),
           }
         )
           .then(() => console.log("youhou"))

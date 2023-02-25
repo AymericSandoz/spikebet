@@ -4,7 +4,8 @@ const rankbetSchema = mongoose.Schema(
   {
     teams: [],
     competition: { type: String },
-    prize: [],
+    resultRanking: [],
+    prize: { type: Number },
     live: { type: String, default: "open" },
     userIdArray: { type: Array },
   },

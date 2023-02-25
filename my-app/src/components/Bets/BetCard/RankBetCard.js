@@ -101,7 +101,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
       method: "post",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/rankBets/${rankBet._id}`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-      data: { ranking },
+      data: { ranking: ranking, prize: rankBet.prize },
     })
       .then((res) => {
         console.log("bet saved");

@@ -82,21 +82,13 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   const closeBet = () => {
     if (ranking.length !== 5) {
-      console.log("erreur : Le top 5 n'est pas complet");
-
-      const randomErrorNumber = Math.floor(Math.random() * 4);
-      if (randomErrorNumber === 0)
-        setError("Tu ne sais pas compter jusqu'à 5 ?");
-      else if (randomErrorNumber === 1) setError("Tu dois ajouter 5 équipes");
-      else if ((randomErrorNumber) => 2)
-        setError(`Ohhhh ! C'est un top 5 par un top ${ranking.length} !`);
-
+      setError(`Ohhhh ! C'est un top 5 par un top ${ranking.length} !`);
       return;
     }
 
     axios({
-      method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}api/bet/rankBets/${rankBet._id}`,
+      method: "put",
+      url: `${process.env.REACT_APP_SERVER_URL}api/bet/closeRankBet/${rankBet._id}`,
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
       data: { ranking },
     })
@@ -113,65 +105,69 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   return (
     <>
-      <li className="rank-bet-card" key={rankBet._id}>
-        <p className="prize">
-          {" "}
-          Cash prize : {rankBet.prize}{" "}
-          <FontAwesomeIcon icon={faCoins} className="icon" />
-        </p>
+      {rankBet.live === "open" ? (
+        <li className="rank-bet-card" key={rankBet._id}>
+          <p className="prize">
+            {" "}
+            Cash prize : {rankBet.prize}{" "}
+            <FontAwesomeIcon icon={faCoins} className="icon" />
+          </p>
 
-        <h4 className="competition-name">{rankBet.competition}</h4>
+          <h4 className="competition-name">{rankBet.competition}</h4>
 
-        <div>
-          <label htmlFor="select-player"> choisis 5 équipes:</label>
-          <select id="select-player" onChange={handleTeamSelect}>
-            <option value="">-- Choisis 5 équipes --</option>
-            {rankBet.teams.map((team) => {
-              if (!selectedTeams.includes(team.name)) {
-                return (
-                  <>
-                    <option key={team.name} value={team.name}>
-                      {team.name}
-                    </option>
-                  </>
-                );
-              }
-            })}
-          </select>
-        </div>
-        <div className="selected-teams">
-          {ranking
-            .sort((b, a) => b.position - a.position)
-            .map((team, index) => (
-              <p>
-                {team.position} - {team.name}
-                {"    "}
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className="icon"
-                  onClick={() => handleRemoveTeam(team.name, team.position)}
-                />
-                {team.position < ranking.length && (
+          <div>
+            <label htmlFor="select-player"> choisis 5 équipes:</label>
+            <select id="select-player" onChange={handleTeamSelect}>
+              <option value="">-- Choisis 5 équipes --</option>
+              {rankBet.teams.map((team) => {
+                if (!selectedTeams.includes(team.name)) {
+                  return (
+                    <>
+                      <option key={team.name} value={team.name}>
+                        {team.name}
+                      </option>
+                    </>
+                  );
+                }
+              })}
+            </select>
+          </div>
+          <div className="selected-teams">
+            {ranking
+              .sort((b, a) => b.position - a.position)
+              .map((team, index) => (
+                <p>
+                  {team.position} - {team.name}
+                  {"    "}
                   <FontAwesomeIcon
-                    icon={faArrowDown}
+                    icon={faXmark}
                     className="icon"
-                    onClick={() => handleTeamsReorder("down", team.position)}
+                    onClick={() => handleRemoveTeam(team.name, team.position)}
                   />
-                )}
-                {team.position > 1 && (
-                  <FontAwesomeIcon
-                    icon={faArrowUp}
-                    className="icon"
-                    onClick={() => handleTeamsReorder("up", team.position)}
-                  />
-                )}
-              </p>
-            ))}
-        </div>
+                  {team.position < ranking.length && (
+                    <FontAwesomeIcon
+                      icon={faArrowDown}
+                      className="icon"
+                      onClick={() => handleTeamsReorder("down", team.position)}
+                    />
+                  )}
+                  {team.position > 1 && (
+                    <FontAwesomeIcon
+                      icon={faArrowUp}
+                      className="icon"
+                      onClick={() => handleTeamsReorder("up", team.position)}
+                    />
+                  )}
+                </p>
+              ))}
+          </div>
 
-        <button onClick={() => closeBet()}>Confirmer</button>
-        {error && <p className="bet-error">{error}</p>}
-      </li>
+          <button onClick={() => closeBet()}>Confirmer</button>
+          {error && <p className="bet-error">{error}</p>}
+        </li>
+      ) : (
+        <p>closed</p>
+      )}
     </>
   );
 };

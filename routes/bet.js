@@ -22,5 +22,5 @@ router.post("/", auth, stuffCtrl.bet);
 router.get("/getMyBets", auth, stuffCtrl.getMyBets);
 router.put("/closeBet/:id", auth, stuffCtrl.closeBet);
 router.put("/closeCombinedBet/:id", auth, stuffCtrl.closeCombinedBet);
-
+router.put("/closeRankBet/:id", auth, stuffCtrl.closeRankBet);
 module.exports = router; //exportations de notre routeur

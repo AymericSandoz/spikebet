@@ -71,6 +71,33 @@ const getCombinedBetSuccess = (resultCombinaison, userCombinaison) => {
   } else return false;
 };
 
+const getRankBetGain = (tournamentResults, userRanking, prize) => {
+  let totalPoints = 0;
+
+  // Parcourir les choix de l'utilisateur et les comparer aux résultats du tournoi
+  for (let i = 0; i < userRanking.length; i++) {
+    const userPick = userRanking[i];
+    const tournamentResult = tournamentResults[i];
+
+    // Si l'utilisateur a choisi l'équipe à la bonne position, ajouter 20 points
+    if (userPick.name === tournamentResult.name) {
+      totalPoints += 20;
+    }
+  }
+
+  // Vérifier si l'utilisateur a eu tous les choix corrects
+  const allPicksCorrect = userRanking.every(
+    (userPick, index) => userPick.name === tournamentResults[index].name
+  );
+
+  // Si tous les choix sont corrects, ajouter un bonus de 100 points
+  if (allPicksCorrect) {
+    totalPoints += prize;
+  }
+
+  return totalPoints;
+};
+
 module.exports = {
   point,
   winner,
@@ -79,4 +106,5 @@ module.exports = {
   calculTotalCoins,
   getCombinedBetSuccess,
   getCombinedBetGain,
+  getRankBetGain,
 };

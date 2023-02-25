@@ -4,11 +4,10 @@ const userRankBetSchema = mongoose.Schema(
   {
     rankBetId: { type: String, required: true },
     userId: { type: String },
-    prize: [],
+    prize: { type: Number },
     userRanking: [],
     live: { type: String, default: "open" },
-    resultRanking: { type: String },
-    success: { type: Boolean },
+    resultRanking: [],
     gain: { type: Number },
   },
 
