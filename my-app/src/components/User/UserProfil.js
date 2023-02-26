@@ -5,9 +5,22 @@ import {
   calculScore,
   calculNbClosedBets,
   calculNbBetWon,
+  BetsuccessRate,
 } from "../../utils/Utils";
 import { faCoins, faMedal, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import SuccessRatesChart from "./graph";
+import BetCountChart from "./piechart";
+import LineChart from "./line";
 
 function UserProfil(props) {
   const location = useLocation();
@@ -15,6 +28,12 @@ function UserProfil(props) {
   let user = state.user;
 
   const betsNumber = user.betsArray.length;
+
+  const data = [
+    { name: "Paris classiques", tauxDeReussite: 75, nbParis: 100 },
+    { name: "Combinés", tauxDeReussite: 60, nbParis: 50 },
+    { name: "Autres types de paris", tauxDeReussite: 80, nbParis: 25 },
+  ];
 
   return (
     <>
@@ -36,6 +55,31 @@ function UserProfil(props) {
             {calculNbBetWon(user.betsArray)}{" "}
             <FontAwesomeIcon icon={faCoins} color="gold" />
           </div>
+          {!isNaN(BetsuccessRate(user.betsArray).betSuccessRate) && (
+            <div className="user-nb-won-bets">
+              <p>Pourcentage de succès :</p>
+              {BetsuccessRate(user.betsArray).betSuccessRate}
+              <FontAwesomeIcon icon={faCoins} color="gold" />{" "}
+            </div>
+          )}
+          {!isNaN(BetsuccessRate(user.betsArray).combinedBetSuccessRate) && (
+            <div className="user-nb-won-bets">
+              &&
+              <p>Pourcentage de succès :</p>
+              {BetsuccessRate(user.betsArray).combinedBetSuccessRate}{" "}
+            </div>
+          )}
+          {!isNaN(BetsuccessRate(user.betsArray).rankedBetSuccessRate) && (
+            <div className="user-nb-won-bets">
+              <p>Pourcentage de succès :</p>
+              {BetsuccessRate(user.betsArray).rankedBetSuccessRate}{" "}
+              <FontAwesomeIcon icon={faCoins} color="gold" />
+            </div>
+          )}
+
+          <SuccessRatesChart betSuccessRate={BetsuccessRate(user.betsArray)} />
+          <BetCountChart betSuccessRate={BetsuccessRate(user.betsArray)} />
+          <LineChart betSuccessRate={BetsuccessRate(user.betsArray)} />
         </div>
       )}
     </>

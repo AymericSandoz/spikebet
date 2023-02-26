@@ -99,17 +99,40 @@ export const BetsuccessRate = (betsArray) => {
   let wonCombinedBets = 0;
   let wonRankedBets = 0;
 
+  let betsNb = 0;
+  let combinedBetsNb = 0;
+  let rankedBetsNb = 0;
+
+  // nb de succès
   if (betsArray.length !== 0) {
     betsArray.forEach((bet) => {
       if (bet.state === "closed" && bet.score > 0) {
         if (bet.betType === "game") wonBets++;
         else if (bet.betType === "combined") wonCombinedBets++;
-        else if (bet.betType === "rank") wonRankedBets++;
+        else if (bet.betType === "ranking") wonRankedBets++;
       }
+    });
+
+    betsArray.forEach((bet) => {
+      if (bet.betType === "game") betsNb++;
+      else if (bet.betType === "combined") combinedBetsNb++;
+      else if (bet.betType === "ranking") rankedBetsNb++;
     });
   }
 
-  return wonBets;
+  const BetsuccessRate = {
+    betsNb: betsNb,
+    wonBets: wonBets,
+    combinedBetsNb: combinedBetsNb,
+    wonCombinedBets: wonCombinedBets,
+    wonRankedBets: wonRankedBets,
+    rankedBetsNb: rankedBetsNb,
+    betSuccessRate: wonBets / betsNb,
+    combinedBetSuccessRate: wonCombinedBets / combinedBetsNb,
+    rankedBetSuccessRate: wonRankedBets / rankedBetsNb,
+  };
+
+  return BetsuccessRate;
 };
 
 //sort array according to bet closed bet and bet already bet
