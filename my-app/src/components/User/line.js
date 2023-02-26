@@ -40,86 +40,89 @@ const bets = [
 
 const BetChart = () => {
   const [totalGains, setTotalGains] = useState([50]);
+  const [previousSum, setPreviousSum] = useState(50);
   const chartRef = useRef(null); // chart reference
 
   useEffect(() => {
     let currentTotalGains = 50;
+    let totalGainsArray = [50];
 
     for (let i = 0; i < bets.length; i++) {
       if (bets[i].state === "fermé") {
         currentTotalGains += bets[i].score - bets[i].mise;
+        totalGainsArray.push(currentTotalGains);
       }
     }
 
-    setTotalGains((prev) => [...prev, currentTotalGains]);
-  }, [bets]);
+    console.log(totalGainsArray);
+    setTotalGains(totalGainsArray);
 
-  const chartData = {
-    labels: Array.from({ length: totalGains.length }, (_, i) => i.toString()),
-    datasets: [
-      {
-        label: "Total Gains",
-        data: totalGains,
-        borderColor: "rgba(75,192,192,1)",
-        backgroundColor: "rgba(75,192,192,0.4)",
-      },
-    ],
-  };
-
-  Chart.register(CategoryScale);
-
-  const options = {
-    scales: {
-      x: {
-        type: "category",
-        labels: chartData.labels,
-        color: "white",
-        ticks: {
-          color: "white", // changer la couleur des valeurs sur l'axe y en blanc
+    const chartData = {
+      labels: Array.from({ length: totalGainsArray.length }, (_, i) =>
+        i.toString()
+      ),
+      datasets: [
+        {
+          label: "Total Gains",
+          data: totalGainsArray,
+          borderColor: "rgba(75,192,192,1)",
+          backgroundColor: "rgba(75,192,192,0.4)",
         },
-        grid: {
-          display: false,
-          color: "white",
-        },
-      },
-      y: {
-        type: "linear",
-        color: "white",
-        ticks: {
-          color: "white", // changer la couleur des valeurs sur l'axe y en blanc
-        },
-        grid: {
-          drawBorder: false,
-        },
-        title: {
-          display: true,
-          text: "Unité monétaire",
+      ],
+    };
+    const options = {
+      scales: {
+        x: {
+          type: "category",
+          labels: chartData.labels,
           color: "white",
           ticks: {
             color: "white", // changer la couleur des valeurs sur l'axe y en blanc
           },
-          font: {
-            size: 14,
+          grid: {
+            display: false,
+            color: "white",
           },
         },
-      },
-    },
-    plugins: {
-      legend: {
-        display: true,
-        position: "bottom",
-        color: "white",
-        labels: {
-          font: {
-            size: 14,
-          },
+        y: {
+          type: "linear",
           color: "white",
+          ticks: {
+            color: "white", // changer la couleur des valeurs sur l'axe y en blanc
+          },
+          grid: {
+            drawBorder: false,
+          },
+          title: {
+            display: true,
+            text: "Unité monétaire",
+            color: "white",
+            ticks: {
+              color: "white", // changer la couleur des valeurs sur l'axe y en blanc
+            },
+            font: {
+              size: 14,
+            },
+          },
         },
       },
-    },
-  };
+      plugins: {
+        legend: {
+          display: true,
+          position: "bottom",
+          color: "white",
+          labels: {
+            font: {
+              size: 14,
+            },
+            color: "white",
+          },
+        },
+      },
+    };
 
-  useEffect(() => {
+    Chart.register(CategoryScale);
+
     if (chartRef.current) {
       // destroy previous chart
       chartRef.current.destroy();
@@ -132,7 +135,7 @@ const BetChart = () => {
       data: chartData,
       options: options,
     });
-  }, [chartData, options]);
+  }, []);
 
   return <canvas id="myChart" />;
 };

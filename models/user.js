@@ -5,51 +5,56 @@ var validateEmail = function (email) {
   return re.test(email);
 };
 
-const userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: [validateEmail, "invalid email"],
-  }, //********New modif
-  pseudo: {
-    type: String,
-    minLength: 4,
-    maxLength: 30,
-    unique: true,
-  },
-  name: {
-    type: String,
-    unique: true,
-  },
-  password: { type: String, required: true },
-  scoreArray: [(type = Number)],
-  miseArray: [(type = Number)],
-  scoreIdArray: [(type = String)],
-
-  // betsArray: { type: Array, default: [] },
-  betsArray: [
-    {
-      mise: Number,
-      betType: String, //game, combined, rank
-      gameId: String,
-      score: Number,
-      state: { type: String, default: "open" },
+const userSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: [validateEmail, "invalid email"],
+    }, //********New modif
+    pseudo: {
+      type: String,
+      minLength: 4,
+      maxLength: 30,
+      unique: true,
     },
-  ],
-  combinedBetsArray: [
-    {
-      gameId: String,
-      score: Number,
+    name: {
+      type: String,
+      unique: true,
     },
-  ],
-  combinedBetsArrayId: [(type = String)],
+    password: { type: String, required: true },
+    scoreArray: [(type = Number)],
+    miseArray: [(type = Number)],
+    scoreIdArray: [(type = String)],
 
-  coins: {
-    type: Number,
-    default: 50,
+    // betsArray: { type: Array, default: [] },
+    betsArray: [
+      {
+        mise: Number,
+        betType: String, //game, combined, rank
+        gameId: String,
+        score: Number,
+        state: { type: String, default: "open" },
+      },
+    ],
+    combinedBetsArray: [
+      {
+        gameId: String,
+        score: Number,
+      },
+    ],
+    combinedBetsArrayId: [(type = String)],
+
+    coins: {
+      type: Number,
+      default: 50,
+    },
   },
-});
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.plugin(uniqueValidator);
 

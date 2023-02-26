@@ -582,12 +582,7 @@ exports.closeRankBet = (req, res, next) => {
         )
           .then(() => console.log("combined bet done"))
           .catch((error) => res.status(401).json({ error }));
-        console.log(
-          "result, element.userRanking, element.prize",
-          result,
-          element.userRanking,
-          element.prize
-        );
+
         UserRankBet.updateOne(
           { _id: element._id },
           {
