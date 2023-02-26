@@ -6,7 +6,7 @@ import axios from "axios";
 import userCard from "./UserCard";
 import { NavLink } from "react-router-dom";
 import UserCard from "./UserCard";
-import { CalculTotalCoins } from "../../utils/Utils";
+import { CalculTotalCoins, calculScore } from "../../utils/Utils";
 import LeftNav from "../Navbar/Leftnav";
 import Log from "../../components/Log";
 const Ranking = () => {
@@ -18,36 +18,8 @@ const Ranking = () => {
   const uid = useContext(UidContext);
 
   const returnScoreArray = (array) => {
-    // let sum = 0;
-    // let miseSum = 0;
-    // // let scoreArray = [];
-    // console.log(array.length);
-    // console.log(array);
-    // for (let j = 0; j < array.length; j++) {
-    //   for (let i = 0; i < array[j].scoreArray.length; i++) {
-    //     sum += array[j].scoreArray[i];
-    //   }
-    //   for (let i = 0; i < array[j].miseArray.length; i++) {
-    //     miseSum += array[j].miseArray[i];
-    //   }
-
-    //   CalculTotalCoins(array[j].coins,array[j].scoreArray)
-    //   // scoreArray.push(sum);
-    //   array[j].score = sum + miseSum + array[j].coins;
-    //   sum = 0;
-    //   miseSum = 0;
-
-    // }
-    // console.log(scoreArray.sort());
-    // console.log(array);
-    // return array;
-
     for (let j = 0; j < array.length; j++) {
-      array[j].score = CalculTotalCoins(
-        array[j].coins,
-        array[j].miseArray,
-        array[j].scoreArray
-      );
+      array[j].score = calculScore(array[j].betsArray, array[j].coins);
     }
 
     return array;

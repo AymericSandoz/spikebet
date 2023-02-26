@@ -35,24 +35,81 @@ export const arraySum = (array) => {
 
 export const CalculTotalCoins = (betsArray, initialCoins) => {
   let totalCoins = initialCoins;
-  betsArray.forEach((bet) => {
-    totalCoins = totalCoins - bet.mise;
-    if (bet.state === "closed") {
-      totalCoins = totalCoins + bet.score;
-    }
-  });
+
+  if (betsArray.length !== 0) {
+    betsArray.forEach((bet) => {
+      totalCoins = totalCoins - bet.mise;
+      if (bet.state === "closed") {
+        totalCoins = totalCoins + bet.score;
+      }
+    });
+  }
 
   return totalCoins;
 };
 
-export const calculScore = (betsArray) => {
-  let totalScore = 50;
-  betsArray.forEach((bet) => {
-    if (bet.state === "closed") {
-      totalScore = totalScore + bet.score;
-    }
-  });
+export const calculScore = (betsArray, initialCoins) => {
+  let totalScore = initialCoins;
+  console.log(betsArray, betsArray.length);
+  if (betsArray.length !== 0) {
+    betsArray.forEach((bet) => {
+      if (bet.state === "closed") {
+        totalScore = totalScore + bet.score - bet.mise;
+      }
+    });
+  }
+
+  console.log("totalScore;", totalScore);
   return totalScore;
+};
+
+export const calculNbClosedBets = (betsArray) => {
+  // Initialize counter
+  let closedBets = 0;
+
+  if (betsArray.length !== 0) {
+    betsArray.forEach((bet) => {
+      if (bet.state === "closed") {
+        closedBets++;
+      }
+    });
+  }
+
+  return closedBets;
+};
+
+export const calculNbBetWon = (betsArray) => {
+  // Initialize counter
+  let wonBets = 0;
+
+  if (betsArray.length !== 0) {
+    betsArray.forEach((bet) => {
+      if (bet.state === "closed" && bet.score > 0) {
+        wonBets++;
+      }
+    });
+  }
+
+  return wonBets;
+};
+
+export const BetsuccessRate = (betsArray) => {
+  // Initialize counter
+  let wonBets = 0;
+  let wonCombinedBets = 0;
+  let wonRankedBets = 0;
+
+  if (betsArray.length !== 0) {
+    betsArray.forEach((bet) => {
+      if (bet.state === "closed" && bet.score > 0) {
+        if (bet.betType === "game") wonBets++;
+        else if (bet.betType === "combined") wonCombinedBets++;
+        else if (bet.betType === "rank") wonRankedBets++;
+      }
+    });
+  }
+
+  return wonBets;
 };
 
 //sort array according to bet closed bet and bet already bet
