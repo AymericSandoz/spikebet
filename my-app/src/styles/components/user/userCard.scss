@@ -1,0 +1,181 @@
+.user-card {
+    margin: 15px;
+
+    padding: 5px;
+    background-color: $color-1;
+    color: white;
+    width: 220px;
+    height: 60px;
+    opacity: 0.95;
+    display: grid;
+    grid-template-columns: 120px 100px;
+    grid-template-rows: 30px 30px;
+    box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+    border-radius: 5px;
+
+    @include mobile-only {
+        margin: 10px;
+
+    }
+
+    .user-name {
+        grid-column: 1;
+        grid-row: 1;
+
+        @include mobile-only {
+            font-size: 12px;
+
+        }
+    }
+
+    .user-pseudo {
+        grid-column: 1;
+        grid-row: 2;
+
+        @include mobile-only {
+            font-size: 12px;
+
+        }
+    }
+
+    .user-score {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: right;
+        padding-right: 10px;
+        color: gold;
+    }
+
+    .user-bet-rank {
+        grid-column: 2;
+        grid-row: 1;
+        justify-content: flex-end;
+        text-align: right;
+        padding-right: 10px;
+        color: gold;
+    }
+
+
+
+
+
+}
+
+.user-card-details {
+
+    margin: 100px 30px 30px 230px;
+
+
+    padding: 5%;
+    background-color: $color-1;
+    color: white;
+    // width: 220px;
+    // height: 60px;
+    opacity: 0.95;
+    display: grid;
+
+    box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .user-infos-img {
+        opacity: 0.9;
+        border-radius: 15px;
+        padding: 10px;
+        // color: gold;
+        box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+        // border: gold 5px solid;
+        width: 80%;
+
+    }
+
+    .user-img {
+        width: 80%;
+        clip-path: ellipse(50% 50%);
+        margin: auto;
+        display: block;
+    }
+
+    .user-info {
+        margin: auto;
+        margin-top: 10px;
+        text-align: center;
+
+        h3 {
+            color: gold;
+        }
+    }
+
+    .user-stats {
+        opacity: 0.9;
+        border-radius: 15px;
+        padding: 10px;
+        // color: gold;
+        box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+
+        width: 80%;
+        justify-content: space-between;
+        text-align: center;
+        margin-top: 30px;
+        display: flex;
+        /* utilise flexbox pour organiser les éléments */
+        justify-content: space-between;
+        /* aligne les éléments horizontalement */
+        //align-items: center;
+
+        /* aligne les éléments verticalement */
+        &>* {
+            flex: 1;
+            /* chaque élément prendra une place égale dans le conteneur */
+        }
+
+        p {
+            color: gold;
+            font-weight: bold;
+        }
+
+
+    }
+
+    .graphs-container {
+
+        h2 {
+            text-align: center;
+            color: gold;
+            margin-bottom: 10px;
+
+        }
+
+        .centered-h2 {
+            margin-left: 50px;
+        }
+
+        margin-bottom: 10px;
+        opacity: 0.9;
+        border-radius: 15px;
+        padding: 10px;
+        // color: gold;
+        box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+
+        width: 80%;
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        .recharts-wrapper {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+
+
+        }
+    }
+
+
+
+
+}

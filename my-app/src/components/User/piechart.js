@@ -2,7 +2,7 @@ import React from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 function BetCountChart({ betSuccessRate }) {
-  const data = [
+  const pureData = [
     {
       name: "Paris classique",
       value: betSuccessRate.betsNb,
@@ -13,20 +13,27 @@ function BetCountChart({ betSuccessRate }) {
     },
     { name: "Top 5", value: betSuccessRate.rankedBetsNb },
   ];
+
+  const data = pureData.filter(
+    (item) => item.value !== undefined && item.value !== 0
+  );
+
+  console.log(pureData);
+  console.log(data);
   const totalParis = data.reduce((sum, item) => sum + item.value, 0);
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
+  const COLORS = ["gold", "#00C49F", "#FFBB28"];
 
   return (
     <div>
       <h2>Nombre de paris</h2>
-      <PieChart width={500} height={300}>
+      <PieChart width={300} height={200}>
         <Pie
           data={data}
           dataKey="value"
           nameKey="name"
           cx="50%"
           cy="50%"
-          outerRadius={80}
+          outerRadius={70}
           fill="#8884d8"
           label
         >
@@ -37,7 +44,6 @@ function BetCountChart({ betSuccessRate }) {
         <Tooltip />
         <Legend />
       </PieChart>
-      <p>Nombre total de paris : {totalParis}</p>
     </div>
   );
 }

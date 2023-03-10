@@ -27,6 +27,7 @@ const userSchema = mongoose.Schema(
     scoreArray: [(type = Number)],
     miseArray: [(type = Number)],
     scoreIdArray: [(type = String)],
+    imgUrl: { type: String },
 
     // betsArray: { type: Array, default: [] },
     betsArray: [

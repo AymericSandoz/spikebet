@@ -19,27 +19,34 @@ function SuccessRatesChart({ betSuccessRate }) {
     },
     {
       name: "Combinés",
-      successRate: betSuccessRate.combinedBetNb,
-      nbParis: betSuccessRate.combinedBetNb,
+      successRate: betSuccessRate.combinedBetSuccessRate,
+      nbParis: betSuccessRate.combinedBetsNb,
     },
     {
       name: "Top 5",
-      successRate: betSuccessRate.rankedBetsNb,
+      successRate: betSuccessRate.rankedBetSuccessRate,
       nbParis: betSuccessRate.rankedBetsNb,
     },
   ];
-  const totalParis = data.reduce((sum, item) => sum + item.nbParis, 0);
 
+  console.log(data);
+  const totalParis = data.reduce((sum, item) => sum + item.nbParis, 0);
+  const colors = ["#FFD700", "#4169E1", "green"];
   return (
     <div>
-      <h2>Taux de réussite</h2>
-      <BarChart width={500} height={300} data={data}>
+      <h2 className="centered-h2">Taux de réussite</h2>
+      <BarChart
+        width={300}
+        height={200}
+        options={{ maintainAspectRatio: false }}
+        data={data}
+      >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" tick={{ fill: "gold" }} />
+        <YAxis tick={{ fill: "gold" }} />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="successRate" fill="#8884d8" />
+        <Bar dataKey="successRate" fill="gold" />
+        {/* <Bar dataKey="nbParis" fill="green" /> */}
       </BarChart>
 
       {/* <h2>Nombre de paris</h2>

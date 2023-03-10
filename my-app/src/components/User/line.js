@@ -33,7 +33,7 @@ const bets = [
     gameId: "game1",
     betType: "type4",
     mise: 40,
-    score: 0,
+    score: 10,
     state: "ouvert",
   },
 ];

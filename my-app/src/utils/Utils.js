@@ -114,9 +114,11 @@ export const BetsuccessRate = (betsArray) => {
     });
 
     betsArray.forEach((bet) => {
-      if (bet.betType === "game") betsNb++;
-      else if (bet.betType === "combined") combinedBetsNb++;
-      else if (bet.betType === "ranking") rankedBetsNb++;
+      if (bet.state === "closed") {
+        if (bet.betType === "game") betsNb++;
+        else if (bet.betType === "combined") combinedBetsNb++;
+        else if (bet.betType === "ranking") rankedBetsNb++;
+      }
     });
   }
 
