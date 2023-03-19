@@ -43,6 +43,31 @@ exports.getAllRankBets = (req, res, next) => {
   });
 };
 
+exports.getUsersBets = (req, res, next) => {
+  UserBet.find({ gameID: req.params.id }, (err, bets) => {
+    if (!err) {
+      let usersBets = [];
+      bets.forEach((bet) => {
+        User.findOne({ _id: bet.userId }, (err, user) => {
+          if (!err) {
+            usersBets.push({
+              bet: bet,
+              user: user,
+            });
+            if (usersBets.length === bets.length) {
+              res.send(usersBets);
+            }
+          } else {
+            res.send("Erreur :" + err);
+          }
+        });
+      });
+    } else {
+      res.send("Erreur :" + err);
+    }
+  });
+};
+
 // exports.getLigueParisienne = (req, res, next) => {
 //   console.log("guépard");
 //   Bet.find((err, docs) => {

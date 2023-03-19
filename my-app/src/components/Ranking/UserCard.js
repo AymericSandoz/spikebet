@@ -2,7 +2,7 @@ import { faCoins, faMedal, faStar } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CalculTotalCoins, calculScore } from "../../utils/Utils";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserProfil from "../User/UserProfil";
 const UserCard = ({ user, index }) => {
   console.log(user);

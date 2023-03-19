@@ -8,7 +8,8 @@ import { CalculTotalCoins } from "./utils/Utils";
 const App = () => {
   const [uid, setUid] = useState(null);
   const [coins, setCoins] = useState(null);
-  console.log("App.js");
+  console.log("localStorage.getItem()", localStorage.getItem("token"));
+
   const fetchToken = async () => {
     console.log("fetchToken");
     await axios({
@@ -24,7 +25,7 @@ const App = () => {
       .then((res) => {
         //console.log("fetch token res", res);
         if (res.message != "jwt malformed") {
-          console.log("!jwt malformed");
+          console.log("!jwt malformed", res);
           setUid(res.data);
         }
       })
@@ -53,7 +54,9 @@ const App = () => {
         // );
         setCoins(CalculTotalCoins(res.data.betsArray, res.data.coins));
       })
-      .catch((err) => console.log("No coins "));
+      .catch((err) => {
+        console.log("No coins ");
+      });
   };
   useEffect(() => {
     fetchToken();

@@ -15,6 +15,7 @@ import AdminCombinedBet from "../Admin/otherTypeOfBets/CombinedBets";
 import RankBets from "../../pages/RankBets";
 import AdminRankBets from "../Admin/otherTypeOfBets/RankBets";
 import UserProfil from "../User/UserProfil";
+import BetDetails from "../Bets/BetDetails/BetDetails.js";
 
 const index = () => {
   return (
@@ -37,6 +38,7 @@ const index = () => {
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/combinedBets" element={<CombinedBet />} />
         <Route path="/user/:id" element={<UserProfil />} />
+        <Route path="/bet/:id" element={<BetDetails />} />
       </Routes>
     </BrowserRouter>
   );

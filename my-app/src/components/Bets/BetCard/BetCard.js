@@ -14,6 +14,8 @@ import {
   faCheck,
   faCircleCheck,
   faCoins,
+  faEye,
+  faEyeDropper,
   faSmile,
   faSmileWink,
   faUser,
@@ -21,6 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import RPLogo from "../../../images/Roundnet_Paris.png";
 import { useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 const BetCard = ({ bet, getBets }) => {
   //const [teamAscore, setTeamAscore] = useState(Number);
   //const [teamBscore, setTeamBscore] = useState(Number);
@@ -32,7 +35,7 @@ const BetCard = ({ bet, getBets }) => {
 
   //const [userBets, setUserBets] = useState([]);
   const uid = useContext(UidContext);
-
+  console.log("test aymeric", uid.uid);
   let navigate = useNavigate();
   const logRedirection = () => {
     let path = `/log`;
@@ -142,6 +145,13 @@ const BetCard = ({ bet, getBets }) => {
   return (
     <>
       <li className="bet-card" key={bet._id}>
+        <NavLink
+          className="link-to-bet"
+          to={{ pathname: `/bet/${bet._id}` }}
+          state={{ bet: bet }}
+        >
+          <FontAwesomeIcon icon={faEye} className="icon" />
+        </NavLink>
         {bet.ligue == "Ligue Parisienne" && (
           <img
             className="Logo-club Logo-RP"
