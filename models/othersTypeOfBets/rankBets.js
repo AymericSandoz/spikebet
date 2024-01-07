@@ -4,6 +4,7 @@ const rankbetSchema = mongoose.Schema(
   {
     teams: [],
     competition: { type: String },
+    competition_date: { type: String },
     resultRanking: [],
     prize: { type: Number },
     live: { type: String, default: "open" },

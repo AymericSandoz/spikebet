@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from "react";
+import React, { useContext, useState } from "react";
 
 import axios from "axios";
 import { UidContext } from "../../AppContext";
@@ -12,10 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faArrowUp,
-  faCheck,
   faCoins,
-  faDollar,
-  faMoneyBill,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 

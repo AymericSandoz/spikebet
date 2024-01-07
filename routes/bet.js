@@ -12,16 +12,17 @@ const stuffCtrl = require("../controllers/bet");
 router.get("/", stuffCtrl.getAllBets);
 router.get("/surveys", stuffCtrl.getAllSurveys);
 router.put("/survey/:id", auth, stuffCtrl.voteSurvey);
-router.get("/combinedBets", stuffCtrl.getAllCombinedBets);
+
 router.get("/rankBets", stuffCtrl.getAllRankBets);
 router.get("/getUsersBets/:id", stuffCtrl.getUsersBets);
 
-router.post("/combinedBets/:id", auth, stuffCtrl.CombinedBets);
 router.post("/rankBets/:id", auth, stuffCtrl.rankBets);
 router.put("/modifyBet/:id", stuffCtrl.modifyBet);
 router.post("/", auth, stuffCtrl.bet);
+
 router.get("/getMyBets", auth, stuffCtrl.getMyBets);
+router.get("/getMyRankedBets", auth, stuffCtrl.getMyRankedBets);
+
 router.put("/closeBet/:id", auth, stuffCtrl.closeBet);
-router.put("/closeCombinedBet/:id", auth, stuffCtrl.closeCombinedBet);
 router.put("/closeRankBet/:id", auth, stuffCtrl.closeRankBet);
 module.exports = router; //exportations de notre routeur

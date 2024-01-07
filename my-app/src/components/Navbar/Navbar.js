@@ -1,17 +1,9 @@
 import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-import MyBets from "../../components/Bets/MyBets";
 import { UidContext } from "../AppContext";
 import Logout from "../Log/Logout";
-import {
-  faLock,
-  faTrophy,
-  faUser,
-  faCoins,
-  faBaseball,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLock, faCoins, faBars } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IsAdmin } from "../../utils/Utils";
@@ -57,11 +49,6 @@ export default function Navbar() {
                   Accueil
                 </NavLink>
               </li>
-              {/* <li>
-                <NavLink exact to="/combined" aria-label="Lien page combinée">
-                  Grille
-                </NavLink>
-              </li> */}
               {IsAdmin() && (
                 <li>
                   <NavLink
@@ -92,11 +79,6 @@ export default function Navbar() {
               </li>
             </>
           )}
-          {/* <li>
-            <NavLink exact to="/profil" aria-label="Lien page de profil">
-              Profil
-            </NavLink>
-          </li> */}
           {!uid.uid ? (
             <li>
               <NavLink exact to="/log" aria-label="Lien page d'acceuil">
@@ -104,11 +86,6 @@ export default function Navbar() {
               </NavLink>
             </li>
           ) : (
-            // <li>
-            //   <a href="/log" aria-label="Lien page d'acceuil">
-            //     <FontAwesomeIcon icon={faUser} /> Connexion/Inscription
-            //   </a>
-            // </li>
             <Logout />
           )}
         </ul>

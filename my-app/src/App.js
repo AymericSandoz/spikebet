@@ -23,7 +23,6 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        //console.log("fetch token res", res);
         if (res.message != "jwt malformed") {
           console.log("!jwt malformed", res);
           setUid(res.data);
@@ -45,13 +44,6 @@ const App = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        // setCoins(
-        //   CalculTotalCoins(
-        //     res.data.coins,
-        //     res.data.miseArray,
-        //     res.data.scoreArray
-        //   )
-        // );
         setCoins(CalculTotalCoins(res.data.betsArray, res.data.coins));
       })
       .catch((err) => {
@@ -64,12 +56,10 @@ const App = () => {
     fetchCoins();
   }, [uid]);
   function updateCoins() {
-    console.log("updateCoins");
     fetchCoins();
   }
 
   function updateToken() {
-    console.log("updateToken");
     fetchToken();
   }
 

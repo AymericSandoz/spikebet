@@ -9,8 +9,17 @@ import RankBetCard from "../components/Bets/BetCard/RankBetCard";
 const RankBets = () => {
   const [rankBets, setRankBets] = useState([]);
   const [loadRankBets, setLoadRankBets] = useState(true);
+  const [betsToDisplay, setBetsToDisplay] = useState([]);
 
   const uid = useContext(UidContext);
+
+  const query = useQuery();
+  const competition = query.get("competition");
+  console.log(competition, "competition");
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   const getRankBets = (e) => {
     axios({
@@ -20,6 +29,7 @@ const RankBets = () => {
     })
       .then((res) => {
         setRankBets(res.data);
+        setBetsToDisplay(res.data);
         setLoadRankBets(false);
       })
       .catch((err) => {
@@ -31,14 +41,22 @@ const RankBets = () => {
     if (loadRankBets) {
       getRankBets();
     }
-  }, [loadRankBets, rankBets]);
+
+    //Si il y a une competition dans l'url, on filtre les paris en fonction de la competition
+    if (competition && rankBets) {
+      const filteredBets = rankBets.filter(
+        (bet) => bet.competition_name === competition
+      );
+      setBetsToDisplay(filteredBets);
+    }
+  }, [loadRankBets, rankBets, competition]);
 
   return (
     <>
       <>
         <div className="rank-bets">
-          {rankBets.length > 0 &&
-            rankBets.map((rankBet) => {
+          {betsToDisplay.length > 0 &&
+            betsToDisplay.map((rankBet) => {
               return (
                 <>
                   <RankBetCard
@@ -52,8 +70,6 @@ const RankBets = () => {
           <br />
         </div>
       </>
-
-      {/* <LeftNav /> */}
     </>
   );
 };

@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const betSchema = mongoose.Schema(
   {
     type: { type: String },
-    ligue: { type: String },
-    round: { type: String, required: true },
+    ligue: { type: String }, // à remplacer par compétition prochainement
+    competition_date: { type: String },
+    round: { type: String },
     nomEquipeA: { type: String },
     joueursEquipeA: { type: Array },
     finalScoreEquipeA: { type: Number },

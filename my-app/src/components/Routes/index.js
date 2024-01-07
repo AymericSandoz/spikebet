@@ -4,14 +4,12 @@ import Survey from "../../components/Survey/Survey";
 import CreateBet from "../../components/Admin/CreateBet";
 import Log from "../../components/Log";
 import MyBets from "../../components/Bets/MyBets";
+import MyRankedBets from "../../components/Bets/MyRankedBets";
 import Navbars from "../Navbar/Navbar";
-import Sidebar from "../Navbar/sidebar/Sidebar";
 import LeftNav from "../Navbar/Leftnav";
 import About from "../../pages/About";
 import Profil from "../../pages/Profil";
 import Ranking from "../Ranking/Ranking";
-import CombinedBet from "../../pages/CombinedBet";
-import AdminCombinedBet from "../Admin/otherTypeOfBets/CombinedBets";
 import RankBets from "../../pages/RankBets";
 import AdminRankBets from "../Admin/otherTypeOfBets/RankBets";
 import UserProfil from "../User/UserProfil";
@@ -21,7 +19,6 @@ const index = () => {
   return (
     <BrowserRouter>
       <Navbars />
-      {/* <Sidebar /> */}
       <LeftNav />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,14 +26,13 @@ const index = () => {
         <Route path="/rankBets" element={<RankBets />} />
 
         <Route path="/admin" element={<CreateBet />} />
-        <Route path="/admin/CombinedBets" element={<AdminCombinedBet />} />
         <Route path="/admin/rankBets" element={<AdminRankBets />} />
         <Route path="/log" element={<Log />} />
         <Route path="/myBets" element={<MyBets />} />
+        <Route path="/myRankedBets" element={<MyRankedBets />} />
         <Route path="/about" element={<About />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/ranking" element={<Ranking />} />
-        <Route path="/combinedBets" element={<CombinedBet />} />
         <Route path="/user/:id" element={<UserProfil />} />
         <Route path="/bet/:id" element={<BetDetails />} />
       </Routes>

@@ -4,24 +4,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 
 import axios from "axios";
-import BetList from "../components/Bets/BetList";
 import BetCard from "../components/Bets/BetCard/BetCard";
-import SurveyCard from "../components/Survey/SurveyCard";
-import { NavLink } from "react-router-dom";
-import Log from "../components/Log";
-import Navbars from "../components/Navbar/Navbar";
-import LeftNav from "../components/Navbar/Leftnav";
+
 import { sortBetArray } from "../utils/Utils";
 
 const Home = () => {
-  const [betTypeToDisplay, setBetTypeToDisplay] = useState("bet");
-  const [competition, setCompetition] = useState("Ligue parisienne");
-  const [numberOfGroup, setNumberOfGroup] = useState();
-
-  const [teams, setTeams] = useState([]);
-
-  const [error, setError] = useState("");
-
   const [loadBets, setLoadBets] = useState(true);
   const [bets, setBets] = useState([]);
   const [betsToDisplay, setBetsToDisplay] = useState([]);
@@ -56,7 +43,6 @@ const Home = () => {
       })
       .catch((err) => {
         console.log(err);
-        setError(err);
       });
   };
 
@@ -99,8 +85,6 @@ const Home = () => {
           <br />
         </div>
       </>
-
-      {/* <LeftNav /> */}
     </>
   );
 };

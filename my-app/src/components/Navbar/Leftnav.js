@@ -6,7 +6,6 @@ import {
   faRankingStar,
   faMoneyBill1Wave,
   faSquarePollVertical,
-  faObjectGroup,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 const LeftNav = () => {
@@ -20,74 +19,39 @@ const LeftNav = () => {
           </h2>
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/?betType=bet&competition=Ligue Parisienne"
+            to="/rankbets?competition=Clermont_2024"
           >
-            Ligue Parisienne
+            Open La Terre du milieu 2024
           </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-3"}
-            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poulpe"
-            state={{ group: "Poulpe" }}
-          >
-            Poulpe
-          </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-3"}
-            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule au Pot"
-            state={{ group: "Poule au Pot" }}
-          >
-            Poule au Pot
-          </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-3"}
-            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule Mouillée"
-            state={{ group: "Poule Mouillée" }}
-          >
-            Poule Mouillée
-          </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-3"}
-            to="/?betType=bet&competition=Ligue Parisienne&groupName=Poule Pondeuse"
-            state={{ group: "Poule Pondeuse" }}
-          >
-            Poule Pondeuse
-          </NavLink>
-
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/?betType=bet&competition=Rennes"
+            to="/rankbets?competition=TS_Montpellier_2024"
           >
-            Rennes
-          </NavLink>
-          <NavLink className={"sidebar-item lefnav-level-1"} to="/combinedBets">
-            Combinés <FontAwesomeIcon icon={faObjectGroup} className={"icon"} />
+            TS Montpellier 2024
           </NavLink>
           <NavLink className={"sidebar-item lefnav-level-1"} to="/survey">
             Sondages{" "}
             <FontAwesomeIcon icon={faSquarePollVertical} className={"icon"} />
-          </NavLink>
-          <NavLink className={"sidebar-item lefnav-level-1"} to="/rankBets">
-            Top 5 <FontAwesomeIcon icon={faStar} className={"icon"} />
           </NavLink>
         </section>
         <br />
         <section>
           <NavLink
             className="sidebar-item lefnav-level-1"
-            to="/MyBets?live=All"
+            to="/MyRankedBets?live=All"
           >
             Mes Paris{" "}
             <FontAwesomeIcon icon={faMoneyBill1Wave} className="icon" />
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/MyBets?live=open"
+            to="/MyRankedBets?live=open"
           >
             À venir
           </NavLink>
           <NavLink
             className={"sidebar-item lefnav-level-2"}
-            to="/MyBets?live=closed"
+            to="/MyRankedBets?live=closed"
           >
             Terminé
           </NavLink>
