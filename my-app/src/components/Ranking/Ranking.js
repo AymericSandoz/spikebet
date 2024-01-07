@@ -32,9 +32,7 @@ const Ranking = () => {
     })
       .then((res) => {
         let newArray = returnScoreArray(res.data);
-        console.log(newArray);
         newArray.sort((a, b) => (a.score < b.score ? 1 : -1));
-        console.log(newArray);
         setUsers(newArray);
         setLoadUsers(false);
       })

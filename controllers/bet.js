@@ -19,7 +19,6 @@ const {
 } = require("../utils/shemaFunction");
 
 exports.getAllBets = (req, res, next) => {
-  console.log("guépard");
   Bet.find((err, docs) => {
     if (!err) {
       res.send(docs);
@@ -105,8 +104,6 @@ exports.getUsersBets = (req, res, next) => {
 // };
 
 exports.getMyBets = (req, res, next) => {
-  console.log("messi");
-
   UserBet.find({ userId: req.auth.userId }, (err, docs) => {
     if (!err) {
       res.send(docs);

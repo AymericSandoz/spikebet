@@ -24,7 +24,6 @@ const winner = (finalScoreEquipeA, finalScoreEquipeB) => {
 };
 
 const point = (success, winner, coteEquipeA, coteEquipeB) => {
-  console.log("point shemaUtils :", success, winner, coteEquipeA, coteEquipeB);
   if (success == "true") {
     if (winner == "A") {
       return coteEquipeA;
@@ -55,11 +54,6 @@ const calculTotalCoins = (coins, miseArray, scoreArray) => {
 };
 
 const getCombinedBetGain = (resultCombinaison, userCombinaison, prize) => {
-  console.log(resultCombinaison, "//", userCombinaison, prize);
-  console.log(
-    "resultCombinaison===userCombinaison",
-    resultCombinaison === userCombinaison
-  );
   if (resultCombinaison === userCombinaison) {
     return prize;
   } else return 0;

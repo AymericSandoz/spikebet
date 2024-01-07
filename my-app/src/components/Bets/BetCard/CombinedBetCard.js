@@ -54,7 +54,6 @@ const CombinedBetCard = ({ combinedBet, getCombinedBets }) => {
       },
     })
       .then((res) => {
-        console.log("bet saved");
         getCombinedBets();
         setVictoriousTeamCombo1(null);
         setVictoriousTeamCombo2(null);

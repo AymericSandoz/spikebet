@@ -6,6 +6,7 @@ const surveySchema = mongoose.Schema(
     choices: [],
     live: { type: String, default: "open" },
     arrayVotersId: [(type = String)],
+    userComments: [],
     userChoice: [
       {
         userId: String,

@@ -24,6 +24,7 @@ const combinedbetsSchema = mongoose.Schema(
     live: { type: String, default: "open" },
     userIdArray: { type: Array },
     result: { type: Array },
+    userComments: [],
   },
   {
     timestamps: true,

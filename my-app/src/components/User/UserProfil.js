@@ -26,7 +26,6 @@ function UserProfil(props) {
   const location = useLocation();
   const { state } = location;
   let user = state.user;
-  console.log(BetsuccessRate(user.betsArray));
   const betsNumber = user.betsArray.length;
 
   const data = [

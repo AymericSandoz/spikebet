@@ -8,14 +8,12 @@ import CombinedBetCard from "../components/Bets/BetCard/CombinedBetCard";
 import Log from "../components/Log";
 
 const CombinedBet = () => {
-  console.log("Home");
   const [combinedBets, setCombinedBets] = useState([]);
   const [loadCombinedBets, setLoadCombinedBets] = useState(true);
 
   const uid = useContext(UidContext);
 
   const getCombinedBets = (e) => {
-    console.log("getCombinedBets");
     axios({
       method: "get",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/combinedBets`,
@@ -23,7 +21,6 @@ const CombinedBet = () => {
     })
       .then((res) => {
         setCombinedBets(res.data);
-        console.log("getcombinedBet");
         setLoadCombinedBets(false);
       })
       .catch((err) => {

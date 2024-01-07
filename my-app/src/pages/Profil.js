@@ -13,7 +13,6 @@ const Profil = () => {
   const [user, setUser] = useState();
   const [loadUser, setLoadUser] = useState(true);
   const getUser = async () => {
-    console.log("getUser");
     await axios({
       method: "get",
 
@@ -23,7 +22,6 @@ const Profil = () => {
       //withCredentials: true,
     })
       .then((res) => {
-        console.log(res.data);
         setUser(res.data);
         setEmail(res.data.email);
         setPseudo(res.data.pseudo);
@@ -66,7 +64,6 @@ const Profil = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.data.errors) {
           pseudoError.innerHTML = res.data.errors.pseudo;
           emailError.innerHTML = res.data.errors.email;
@@ -80,7 +77,6 @@ const Profil = () => {
 
   useEffect(() => {
     if (loadUser) {
-      console.log("lapinossss");
       getUser();
     }
   }, [loadUser, user]);

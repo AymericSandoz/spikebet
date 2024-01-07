@@ -24,7 +24,6 @@ const SurveyCard = ({ survey, getSurveys }) => {
   const uid = useContext(UidContext);
 
   const sendSurvey = () => {
-    console.log("coucou");
     axios({
       method: "put",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/survey/${survey._id}`,
@@ -32,7 +31,6 @@ const SurveyCard = ({ survey, getSurveys }) => {
       data: { userChoice },
     })
       .then((res) => {
-        console.log("survey sended");
         getSurveys();
       })
       .catch((err) => {

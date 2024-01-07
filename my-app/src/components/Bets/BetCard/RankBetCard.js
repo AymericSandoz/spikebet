@@ -44,24 +44,20 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   const handleRemoveTeam = (team, position) => {
     setError();
     let updatedRanking = ranking.filter((item) => item.name !== team);
-    console.log(updatedRanking);
     setSelectedTeams(selectedTeams.filter((item) => item !== team));
     //setRanking(ranking.filter((item) => item.name !== team));
 
     //permet d'actualiser en direct la position au classement
     updatedRanking.forEach((element) => {
       if (element.position >= position) {
-        console.log("hello", element.position, "//", position);
         element.position--;
       }
     });
     setRanking(updatedRanking);
-    console.log(updatedRanking);
   };
 
   const handleTeamsReorder = (direction, position) => {
     let orderingTeam = ranking;
-    console.log("ranking", ranking);
     if (direction === "up") {
       orderingTeam.forEach(function (element) {
         if (element.position === position) {
@@ -104,14 +100,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
       data: { ranking: ranking, prize: rankBet.prize },
     })
       .then((res) => {
-        console.log("bet saved");
         getRankBets();
       })
       .catch((err) => {
         console.log(err);
       });
-
-    console.log(ranking);
   };
 
   return (

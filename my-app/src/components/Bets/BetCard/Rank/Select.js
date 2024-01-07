@@ -21,7 +21,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Select = ({ teams, selectedTeams, onSelect }) => {
-  console.log("teams", teams, selectedTeams, onSelect);
   const handleSelectChange = (event) => {
     const teamName = event.target.value;
     const team = teams.find((p) => p.name === teamName);

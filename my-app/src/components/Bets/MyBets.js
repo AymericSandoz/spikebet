@@ -21,7 +21,6 @@ const MyBets = () => {
     return new URLSearchParams(useLocation().search);
   }
   let query = useQuery();
-  console.log(query.get("live"));
   let live = query.get("live");
   const getMyBets = (e) => {
     axios({
@@ -30,7 +29,6 @@ const MyBets = () => {
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
-        console.log("coucou", res.data);
         setBets(res.data);
         setBetsToDisplay(res.data);
         setLoadBets(false);
@@ -43,20 +41,17 @@ const MyBets = () => {
 
   useEffect(() => {
     if (loadBets) {
-      console.log("lapinouuuuu");
       getMyBets();
     }
     if (live && bets) {
       if (live === "All") {
         setBetsToDisplay(bets);
-        console.log(betsToDisplay);
       } else {
         setBetsToDisplay(
           bets.filter(function (data) {
             return data.live === live;
           })
         );
-        console.log(betsToDisplay);
       }
     }
   }, [loadBets, bets, live]);

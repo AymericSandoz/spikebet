@@ -7,14 +7,12 @@ import AdminLeftNav from "../../Navbar/AdminLeftNav";
 import { IsAdmin } from "../../../utils/Utils";
 
 const RankBets = () => {
-  console.log("RankBets");
   const [rankBets, setRankBets] = useState([]);
   const [loadRankBets, setLoadRankBets] = useState(true);
 
   const uid = useContext(UidContext);
 
   const getRankBets = (e) => {
-    console.log("getrankBets");
     axios({
       method: "get",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/rankBets`,

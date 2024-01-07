@@ -18,8 +18,6 @@ function BetCountChart({ betSuccessRate }) {
     (item) => item.value !== undefined && item.value !== 0
   );
 
-  console.log(pureData);
-  console.log(data);
   const totalParis = data.reduce((sum, item) => sum + item.value, 0);
   const COLORS = ["gold", "#00C49F", "#FFBB28"];
 

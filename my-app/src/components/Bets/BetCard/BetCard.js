@@ -35,7 +35,6 @@ const BetCard = ({ bet, getBets }) => {
 
   //const [userBets, setUserBets] = useState([]);
   const uid = useContext(UidContext);
-  console.log("test aymeric", uid.uid);
   let navigate = useNavigate();
   const logRedirection = () => {
     let path = `/log`;
@@ -63,7 +62,6 @@ const BetCard = ({ bet, getBets }) => {
     // } else
     if (!mise || mise == 0) {
       //alert("aucune mise rentrée");
-      console.log("wtf");
       setError("Tu dois rentrer une mise");
       return "aucune mise rentrée";
     } else if (!victoriousTeam) {

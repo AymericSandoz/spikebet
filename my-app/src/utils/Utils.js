@@ -50,7 +50,6 @@ export const CalculTotalCoins = (betsArray, initialCoins) => {
 
 export const calculScore = (betsArray, initialCoins) => {
   let totalScore = initialCoins;
-  console.log(betsArray, betsArray.length);
   if (betsArray.length !== 0) {
     betsArray.forEach((bet) => {
       if (bet.state === "closed") {
@@ -59,7 +58,6 @@ export const calculScore = (betsArray, initialCoins) => {
     });
   }
 
-  console.log("totalScore;", totalScore);
   return totalScore;
 };
 
@@ -140,7 +138,6 @@ export const BetsuccessRate = (betsArray) => {
 //sort array according to bet closed bet and bet already bet
 export const sortBetArray = (uid, array) => {
   for (let i = 0; i < array.length; i++) {
-    //console.log("array[i].usersBet", array[i].usersBet);
     if (array[i].usersBet.includes(uid)) {
       array[i].position = 3;
     } else if (array[i].live === "closed") {

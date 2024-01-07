@@ -14,7 +14,6 @@ import LeftNav from "../components/Navbar/Leftnav";
 import { sortBetArray } from "../utils/Utils";
 
 const Home = () => {
-  console.log("Home");
   const [betTypeToDisplay, setBetTypeToDisplay] = useState("bet");
   const [competition, setCompetition] = useState("Ligue parisienne");
   const [numberOfGroup, setNumberOfGroup] = useState();
@@ -28,7 +27,6 @@ const Home = () => {
   const [betsToDisplay, setBetsToDisplay] = useState([]);
 
   const uid = useContext(UidContext);
-  console.log(uid.uid);
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -46,7 +44,6 @@ const Home = () => {
   }
 
   const getBets = (e) => {
-    console.log("getBets");
     axios({
       method: "get",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet`,
@@ -65,7 +62,6 @@ const Home = () => {
 
   useEffect(() => {
     if (loadBets) {
-      console.log("lapin");
       getBets();
     }
 

@@ -63,7 +63,7 @@ const MyBetCard = ({ bet }) => {
           {bet.nomEquipeA} - {bet.nomEquipeB}
         </h3>
         <h4 className="competition-name">{bet.ligue}</h4>
-        <h5 className="group-name">{bet.group}</h5>
+        {/* <h5 className="group-name">{bet.group}</h5> */}
         <div className="team-A-container  team-container">
           <p className="team-A-player1 player">{bet.joueursEquipeA[0]}</p>
           <p className="team-A-player2 player">{bet.joueursEquipeA[1]}</p>

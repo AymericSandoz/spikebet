@@ -13,7 +13,6 @@ const Survey = () => {
   const uid = useContext(UidContext);
 
   const getSurveys = (e) => {
-    console.log("getSurveys");
     axios({
       method: "get",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/surveys`,

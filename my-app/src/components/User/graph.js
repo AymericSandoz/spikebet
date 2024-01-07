@@ -10,7 +10,6 @@ import {
 } from "recharts";
 
 function SuccessRatesChart({ betSuccessRate }) {
-  console.log("betSuccessRate.rankedBetsNb", betSuccessRate);
   const data = [
     {
       name: "Paris classique",

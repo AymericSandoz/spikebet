@@ -16,6 +16,7 @@ const betSchema = mongoose.Schema(
     live: { type: String, default: "open" },
     usersBet: [(type = String)],
     arrayVictoireEquipePrediction: [(type = String)],
+    userComments: [],
   },
   {
     timestamps: true,
