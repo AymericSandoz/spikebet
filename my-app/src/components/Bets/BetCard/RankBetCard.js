@@ -28,6 +28,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [ranking, setRanking] = useState([]);
+  const [showAllTeams, setShowAllTeams] = useState(false);
 
   const handleTeamSelect = (event) => {
     let teamName = event.target.value;
@@ -112,11 +113,14 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
       <li className="rank-bet-card" key={rankBet._id}>
         {rankBet.teamScores && (
           <div>
-            <h1>Top 5 des équipes</h1>
-            <BarChart data={rankBet.teamScores} />
+            <h1>Pronos</h1>
+            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
+            <button onClick={() => setShowAllTeams(!showAllTeams)}>
+              {showAllTeams ? "Afficher moins" : "Afficher plus"}
+            </button>
           </div>
         )}
-        {/* <div>
+        {/* <div
           <h1>Rank the top 5 players</h1>
           <Select
             teams={rankBet.teams}
