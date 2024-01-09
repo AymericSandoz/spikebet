@@ -33,12 +33,43 @@ exports.getAllSurveys = (req, res, next) => {
   });
 };
 
-exports.getAllRankBets = (req, res, next) => {
-  RankBet.find((err, docs) => {
-    if (!err) {
-      res.send(docs);
-    } else res.send("Erreur :" + err);
-  });
+// exports.getAllRankBets = (req, res, next) => {
+//   RankBet.find((err, docs) => {
+//     if (!err) {
+//       docs.forEach((rankbet) => {
+//         UserRankBet.find({ rankBetId: rankbet._id }, (err, elements) => {
+//           if (!err) {
+//             // console.log("elements", elements);
+//             rankbet.usersBets = elements;
+//             // console.log("rankbet.usersBets", rankbet.usersBets);
+//           } else res.send("Erreur :" + err);
+//         });
+//       });
+//       console.log("docs", docs);
+//       res.send(docs);
+//     } else res.send("Erreur :" + err);
+//   });
+// };
+
+exports.getAllRankBets = async (req, res, next) => {
+  try {
+    const docs = await RankBet.find().exec(); // Utilisation de await pour attendre la fin de cette opération
+    for (let rankbet of docs) {
+      // Boucle for..of pour itérer sur chaque 'rankbet'
+      try {
+        const elements = await UserRankBet.find({
+          rankBetId: rankbet._id,
+        }).exec(); // Utilisation de await ici également
+        rankbet.usersBets = elements;
+      } catch (err) {
+        return res.send("Erreur lors de la recherche des UserRankBets: " + err); // Gérer les erreurs pour UserRankBet.find
+      }
+    }
+    console.log("docs", docs);
+    res.send(docs); // Envoyer la réponse après avoir traité tous les 'rankbet'
+  } catch (err) {
+    res.send("Erreur lors de la recherche des RankBets: " + err); // Gérer les erreurs pour RankBet.find
+  }
 };
 
 exports.getUsersBets = (req, res, next) => {
@@ -90,7 +121,6 @@ exports.modifyBet = (req, res, next) => {
 
 //Voter lor d'un survey
 exports.voteSurvey = (req, res, next) => {
-  console.log("vote survey");
   Survey.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -214,8 +244,6 @@ exports.bet = (req, res, next) => {
 };
 
 exports.rankBets = (req, res, next) => {
-  console.log(req.body);
-
   var userRankBet = new UserRankBet({
     rankBetId: req.params.id,
     userRanking: req.body.ranking,

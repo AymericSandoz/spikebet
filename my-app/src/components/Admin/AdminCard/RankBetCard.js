@@ -100,7 +100,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
         <li className="rank-bet-card" key={rankBet._id}>
           <p className="prize">
             {" "}
-            Cash prize : {rankBet.prize}{" "}
+            Cash prizddddddddddddde : {rankBet.prize}{" "}
             <FontAwesomeIcon icon={faCoins} className="icon" />
           </p>
 

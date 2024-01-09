@@ -7,6 +7,29 @@ import axios from "axios";
 import RankBetCard from "../components/Bets/BetCard/RankBetCard";
 
 const RankBets = () => {
+  const calculateTeamScores = (bets) => {
+    const teamScores = {};
+    // Vérifier si 'bets' est défini et non vide
+    bets?.forEach((bet) => {
+      // Vérifier si 'usersBets' est défini et non vide pour chaque pari
+      bet.usersBets?.forEach((userBet) => {
+        const teamsRanked = userBet.userRanking; // Assurez-vous que c'est la bonne façon d'accéder aux équipes classées dans vos données
+        teamsRanked?.forEach((team) => {
+          const score = 6 - team.position; // 5 points pour la 1ère place, 1 point pour la 5ème, etc...
+          if (!teamScores[team.name]) {
+            teamScores[team.name] = 0;
+          }
+          teamScores[team.name] += score;
+        });
+
+        bet.teamScores = teamScores;
+      });
+    });
+
+    return bets;
+  };
+
+  console.log("rankBets");
   const [rankBets, setRankBets] = useState([]);
   const [loadRankBets, setLoadRankBets] = useState(true);
   const [betsToDisplay, setBetsToDisplay] = useState([]);
@@ -15,7 +38,6 @@ const RankBets = () => {
 
   const query = useQuery();
   const competition = query.get("competition");
-  console.log(competition, "competition");
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -28,8 +50,11 @@ const RankBets = () => {
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
-        setRankBets(res.data);
-        setBetsToDisplay(res.data);
+        console.log(res.data);
+        //usersBets contients tous les paris(classement de tous les utilisateurs). Teams contient toutes les équipes sur lesquelles on peut parier. Je souhaite une fonction qui parcours tous les usersbets et attribut à chaque équipe 5 points si elle miser 1er, 4points si elle est misé 2eme etc...
+        let bets = calculateTeamScores(res.data);
+        setRankBets(bets);
+        setBetsToDisplay(bets);
         setLoadRankBets(false);
       })
       .catch((err) => {

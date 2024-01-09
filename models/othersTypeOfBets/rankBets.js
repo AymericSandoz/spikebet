@@ -10,6 +10,7 @@ const rankbetSchema = mongoose.Schema(
     live: { type: String, default: "open" },
     userIdArray: { type: Array },
     userComments: [],
+    usersBets: [],
   },
   {
     timestamps: true,

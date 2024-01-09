@@ -5,7 +5,7 @@ import React, {
   useRef,
   useLayoutEffect,
 } from "react";
-
+import BarChart from "./BarChart";
 import axios from "axios";
 import { UidContext } from "../../AppContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -110,6 +110,12 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   return (
     <>
       <li className="rank-bet-card" key={rankBet._id}>
+        {rankBet.teamScores && (
+          <div>
+            <h1>Top 5 des équipes</h1>
+            <BarChart data={rankBet.teamScores} />
+          </div>
+        )}
         {/* <div>
           <h1>Rank the top 5 players</h1>
           <Select
@@ -123,15 +129,12 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             onSubmit={handleRankingSubmit}
           />
         </div> */}
-
         <p className="prize">
           {" "}
           Cash prize : {rankBet.prize}{" "}
           <FontAwesomeIcon icon={faCoins} className="icon" />
         </p>
-
         <h4 className="competition-name">{rankBet.competition}</h4>
-
         <div>
           <label htmlFor="select-player"> choisis 5 équipes:</label>
           <select id="select-player" onChange={handleTeamSelect}>
@@ -178,10 +181,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
               </p>
             ))}
         </div>
-
         <button onClick={() => bet()}>Envoyer</button>
         {error && <p className="bet-error">{error}</p>}
-
         {/* {uid.uid && */}
         {/* combinedBet.live !== "closed" &&
             (!combinedBet.userIdArray.includes(uid.uid) ? (
