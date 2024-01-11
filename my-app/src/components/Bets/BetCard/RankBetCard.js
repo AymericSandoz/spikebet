@@ -113,7 +113,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
       <li className="rank-bet-card" key={rankBet._id}>
         {rankBet.teamScores && (
           <div>
-            <h1>Pronos</h1>
+            <h1 className="competition-name">{rankBet.competition}</h1>
             <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
             <button onClick={() => setShowAllTeams(!showAllTeams)}>
               {showAllTeams ? "Afficher moins" : "Afficher plus"}
@@ -133,12 +133,12 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             onSubmit={handleRankingSubmit}
           />
         </div> */}
-        <p className="prize">
+        {/* <p className="prize">
           {" "}
           Cash prize : {rankBet.prize}{" "}
           <FontAwesomeIcon icon={faCoins} className="icon" />
-        </p>
-        <h4 className="competition-name">{rankBet.competition}</h4>
+        </p> */}
+
         <div>
           <label htmlFor="select-player"> choisis 5 équipes:</label>
           <select id="select-player" onChange={handleTeamSelect}>
