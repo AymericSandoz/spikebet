@@ -33,6 +33,7 @@ const RankBets = () => {
   const [rankBets, setRankBets] = useState([]);
   const [loadRankBets, setLoadRankBets] = useState(true);
   const [betsToDisplay, setBetsToDisplay] = useState([]);
+  const [competitionName, setCompetitionName] = useState("");
 
   const uid = useContext(UidContext);
 
@@ -42,6 +43,10 @@ const RankBets = () => {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
+
+  const get_competition_name = (bet) => {
+    return bet.competition_name;
+  };
 
   const getRankBets = (e) => {
     axios({
@@ -72,13 +77,17 @@ const RankBets = () => {
       const filteredBets = rankBets.filter(
         (bet) => bet.competition_name === competition
       );
-      setBetsToDisplay(filteredBets);
+      // setCompetitionName(filteredBets[0].competition_name);
+      if (filteredBets.length > 0) {
+        setCompetitionName(filteredBets[0].competition_name);
+      }
     }
   }, [loadRankBets, rankBets, competition]);
 
   return (
     <>
       <>
+        {/* {competitionName && <h1> {competitionName}</h1>} */}
         <div className="rank-bets">
           {betsToDisplay.length > 0 &&
             betsToDisplay.map((rankBet) => {

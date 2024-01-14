@@ -52,8 +52,11 @@ const BarChart = ({ data, showAllTeams }) => {
   const options = {
     indexAxis: "y",
     plugins: {
+      colors: {
+        forceOverride: true,
+      },
       datalabels: {
-        color: "#000",
+        color: "#fff",
         anchor: "end",
         align: "end",
         formatter: (value, context) => value,
@@ -67,6 +70,10 @@ const BarChart = ({ data, showAllTeams }) => {
       },
       legend: {
         display: false,
+        labels: {
+          fontColor: "blue",
+          fontSize: 18,
+        },
       },
     },
     scales: {

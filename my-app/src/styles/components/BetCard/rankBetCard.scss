@@ -1,19 +1,86 @@
 .rank-bet-card {
-    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-
-    // display: grid;
-    // align-items: center;
-    // grid-template-columns: repeat(2, 200px);
-    // justify-content: center;
-    // grid-template-rows: 25px 25px 25px 75px auto;
-    background-color: #383232;
+    background-color: $color-1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
     color: white;
-    box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
-    border-radius: 15px;
-    padding: 20px 20px 10px 20px;
     opacity: 0.9;
-    margin: 30px;
-    margin-top: 90px;
-    position: relative;
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: gold;
+
+    }
+
+    .bar-chart-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .select-player-header {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+
+
+
+        label {
+            font-weight: bold;
+            color: gold;
+        }
+
+        select {
+            margin: auto;
+            border-radius: 5px;
+        }
+    }
+
+    .selected-teams {
+        p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #008000, #00ff00);
+            padding: 4px;
+            border-radius: 5px;
+
+            .icon {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+
+        p:nth-child(1) {
+            background: linear-gradient(to right, #008000 80%, #00ff00 20%);
+        }
+
+        p:nth-child(2) {
+            background: linear-gradient(to right, #008000 60%, #00ff00 40%);
+        }
+
+        p:nth-child(3) {
+            background: linear-gradient(to right, #008000 40%, #00ff00 60%);
+        }
+
+        p:nth-child(4) {
+            background: linear-gradient(to right, #008000 20%, #00ff00 80%);
+        }
+
+        p:nth-child(5) {
+            background: linear-gradient(to right, #008000 0%, #00ff00 100%);
+        }
+    }
+
+
+    .bet-error {
+        color: #dc3545;
+        margin-top: 10px;
+    }
 }

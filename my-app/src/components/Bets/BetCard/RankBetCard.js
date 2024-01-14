@@ -30,6 +30,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   const [ranking, setRanking] = useState([]);
   const [showAllTeams, setShowAllTeams] = useState(false);
 
+  function getFrenchOrdinal(n) {
+    if (n === 1) return "1er";
+    return n + "ème";
+  }
+
   const handleTeamSelect = (event) => {
     let teamName = event.target.value;
     let rankedTeam = {};
@@ -111,38 +116,32 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   return (
     <>
       <li className="rank-bet-card" key={rankBet._id}>
-        {rankBet.teamScores && (
-          <div>
-            <h1 className="competition-name">{rankBet.competition}</h1>
-            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
-            <button onClick={() => setShowAllTeams(!showAllTeams)}>
-              {showAllTeams ? "Afficher moins" : "Afficher plus"}
-            </button>
-          </div>
-        )}
-        {/* <div
-          <h1>Rank the top 5 players</h1>
-          <Select
-            teams={rankBet.teams}
-            selectedTeams={selectedTeams}
-            onSelect={handleTeamSelect}
-          />
-          <Ranking
-            teams={selectedTeams}
-            onReorder={handleTeamsReorder}
-            onSubmit={handleRankingSubmit}
-          />
-        </div> */}
-        {/* <p className="prize">
-          {" "}
-          Cash prize : {rankBet.prize}{" "}
-          <FontAwesomeIcon icon={faCoins} className="icon" />
-        </p> */}
+        <h1>QUEL EST TON PRONOSTIC ?</h1>
+        <div className="select-player-header">
+          {[...Array(5)].map((_, i) => (
+            <div key={i}>
+              <span className="index">#{i + 1}</span>
+              <select id={`select-player-${i}`} onChange={handleTeamSelect}>
+                {rankBet.teams.map((team) => {
+                  if (!selectedTeams.includes(team.name)) {
+                    return (
+                      <option key={team.name} value={team.name}>
+                        {team.name}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </div>
+          ))}
+        </div>
+        <button className="primary-button" onClick={() => bet()}>
+          Valider
+        </button>
 
-        <div>
-          <label htmlFor="select-player"> choisis 5 équipes:</label>
+        {/* <div className="select-player-header">
+
           <select id="select-player" onChange={handleTeamSelect}>
-            <option value="">-- Choisis 5 équipes --</option>
             {rankBet.teams.map((team) => {
               if (!selectedTeams.includes(team.name)) {
                 return (
@@ -156,12 +155,13 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             })}
           </select>
         </div>
+
         <div className="selected-teams">
           {ranking
             .sort((b, a) => b.position - a.position)
             .map((team, index) => (
               <p>
-                {team.position} - {team.name}
+                {getFrenchOrdinal(team.position)} - {team.name}
                 {"    "}
                 <FontAwesomeIcon
                   icon={faXmark}
@@ -185,24 +185,23 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
               </p>
             ))}
         </div>
-        <button onClick={() => bet()}>Envoyer</button>
+
+        <button className="primary-button" onClick={() => bet()}>
+          Envoyer
+        </button> */}
         {error && <p className="bet-error">{error}</p>}
-        {/* {uid.uid && */}
-        {/* combinedBet.live !== "closed" &&
-            (!combinedBet.userIdArray.includes(uid.uid) ? (
-              <button className="btn-confirmer" onClick={() => bet()}>
-                Parier
-              </button>
-            ) : (
-              <p className="already-bet">
-                <FontAwesomeIcon icon={faCheck} /> DÉJA PARIÉ
-              </p>
-            ))}
-          {uid.uid && combinedBet.live === "closed" && (
-            <p className="already-bet">
-              <FontAwesomeIcon icon={faCheck} /> CLOSED
-            </p>
-          )} */}
+        {rankBet.teamScores && (
+          <div className="bar-chart-container">
+            <h1>Ceux que les autres ont parié</h1>
+            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
+            <button
+              className="display-more-button"
+              onClick={() => setShowAllTeams(!showAllTeams)}
+            >
+              {showAllTeams ? "Afficher moins" : "Afficher plus"}
+            </button>
+          </div>
+        )}
       </li>
     </>
   );

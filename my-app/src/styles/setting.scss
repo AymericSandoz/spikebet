@@ -54,6 +54,16 @@ $breakpoints: ("mobile":750px, "tablette":950px);
     }
 }
 
+@function calculer-couleur($index) {
+    $couleur-debut: #008000;
+    $couleur-fin: #00ff00;
+
+    $pourcentage: ($index - 1) / ($nombre-de-paragraphes - 1) * 100%;
+    $couleur: mix($couleur-debut, $couleur-fin, $pourcentage);
+
+    @return $couleur;
+}
+
 // input,
 // textarea {
 //     resize: none;

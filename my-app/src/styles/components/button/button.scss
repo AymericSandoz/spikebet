@@ -1,0 +1,31 @@
+.primary-button {
+    color: $color-1;
+    background-color: gold;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin: auto;
+
+    &:hover {
+        opacity: 0.9;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+.secondary-button {}
+
+.display-more-button {
+    color: white;
+    background-color: $color-1;
+    border-radius: 10px;
+    padding: 4px 8px;
+    margin-right: auto;
+
+    &:hover {
+        // opacity: 0.9;
+        // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        // changer couleur ocapcity
+
+    }
+
+}

@@ -5,12 +5,13 @@
 .survey-bets,
 .rank-bets {
     // margin: 30px 5% 30px 5%;
-    margin: 30px 0 30px 200px;
+    margin: 80px 0 30px 200px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
     min-width: 250px;
+    gap: 16px;
 
 
 
