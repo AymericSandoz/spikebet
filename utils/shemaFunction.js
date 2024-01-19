@@ -67,7 +67,6 @@ const getCombinedBetSuccess = (resultCombinaison, userCombinaison) => {
 
 const getRankBetGain = (tournamentResults, userRanking, prize) => {
   let totalPoints = 0;
-  console.log("getRanBetGain", tournamentResults, userRanking, prize);
   if (tournamentResults[0].name === userRanking[0].name) {
     totalPoints += 2;
   }
@@ -82,7 +81,6 @@ const getRankBetGain = (tournamentResults, userRanking, prize) => {
   if (tournamentResults[1].name === userRanking[2].name) {
     totalPoints += 0.5;
   }
-  console.log("totalPoints", totalPoints, "prize", prize);
   return totalPoints * prize;
 };
 

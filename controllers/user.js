@@ -33,10 +33,8 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  console.log("login");
   User.findOne({ email: req.body.email }, function (err, user) {
     if (err) {
-      console.log("error");
       return res.status(500).json({ err });
     }
 
@@ -71,7 +69,6 @@ exports.getAllUsers = (req, res, next) => {
   User.find((err, docs) => {
     if (!err) {
       res.send(docs);
-      console.log(docs);
     } else res.send("Erreur :" + err);
   });
 };

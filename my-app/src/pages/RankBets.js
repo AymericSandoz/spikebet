@@ -29,13 +29,10 @@ const RankBets = () => {
     return bets;
   };
 
-  console.log("rankBets");
   const [rankBets, setRankBets] = useState([]);
   const [loadRankBets, setLoadRankBets] = useState(true);
   const [betsToDisplay, setBetsToDisplay] = useState([]);
   const [competitionName, setCompetitionName] = useState("");
-
-  const uid = useContext(UidContext);
 
   const query = useQuery();
   let competition = query.get("competition");
@@ -55,8 +52,6 @@ const RankBets = () => {
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
-        console.log(res.data);
-        //usersBets contients tous les paris(classement de tous les utilisateurs). Teams contient toutes les équipes sur lesquelles on peut parier. Je souhaite une fonction qui parcours tous les usersbets et attribut à chaque équipe 5 points si elle miser 1er, 4points si elle est misé 2eme etc...
         let bets = calculateTeamScores(res.data);
         setRankBets(bets);
         setBetsToDisplay(bets);
@@ -77,6 +72,8 @@ const RankBets = () => {
       const filteredBets = rankBets.filter(
         (bet) => bet.competition_name === competition
       );
+
+      // trier filteredBets en focntion de cote_aymeric team qui est un tableau
 
       setBetsToDisplay(filteredBets);
       if (filteredBets.length > 0) {

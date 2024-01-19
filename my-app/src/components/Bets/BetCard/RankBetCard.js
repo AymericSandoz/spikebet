@@ -14,8 +14,9 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   const [userRankBet, setUserRankBet] = useState();
   const [loadsUserRankBet, setLoadsUserRankBet] = useState(true);
 
+  console.log("rankbet.teams", rankBet.teams);
+
   const handleTeamSelect = (event, index) => {
-    console.log("index", index);
     let teamName = event.target.value;
     // Update ranking state
     let newRanking = [...ranking];
@@ -46,12 +47,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   const handleDeleteTeam = (index) => {
     let position = index + 1;
-    console.log("position", position);
-    // Update ranking state
-    console.log("ranking", ranking);
     let newRanking = ranking.filter((team) => team.position !== position);
-    console.log("newRanking", newRanking);
-    // sort newRanking by position
+
     newRanking.sort((a, b) => a.position - b.position);
     setRanking(newRanking);
   };
@@ -97,7 +94,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
               });
             }
             setRanking(newRanking);
-            console.log("userRankBet", res.data);
             setLoadsUserRankBet(false);
           }
         })
@@ -182,11 +178,15 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                       rankedTeam.name === team.name
                                   )
                               )
+                              .sort(
+                                (a, b) =>
+                                  (b.aymeric_cote || 0) - (a.aymeric_cote || 0)
+                              )
                               .map((team) => {
                                 return (
                                   <>
                                     <option key={team.name} value={team.name}>
-                                      {team.name}- ({team.joueur1} et{" "}
+                                      {team.name} - ({team.joueur1} et{" "}
                                       {team.joueur2})
                                     </option>
                                   </>

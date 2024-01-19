@@ -44,8 +44,6 @@ app.use("/api/bet", betRoutes);
 
 // app.use("/images", express.static(path.join(__dirname, "images"))); //Cela indique à Express qu'il faut gérer la ressource images de manière statique (un sous-répertoire de notre répertoire de base, __dirname) à chaque fois qu'elle reçoit une requête vers la route /images.
 
-// console.log(path.join(path.join(__dirname, "images")));
-
 //server
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);

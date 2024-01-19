@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import NonAdminRankBets from "../../../pages/RankBets";
 import RankBetCard from "../../Admin/AdminCard/RankBetCard";
-import Home from "../../../pages/Home";
 import AdminLeftNav from "../../Navbar/AdminLeftNav";
 import { IsAdmin } from "../../../utils/Utils";
 import { useLocation } from "react-router-dom";
@@ -98,9 +98,9 @@ const RankBets = () => {
           </div>
         </>
       ) : (
-        <Home />
+        <RankBets />
       )}
     </>
   );
 };
-export default RankBets;
+export default NonAdminRankBets;

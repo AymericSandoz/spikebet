@@ -12,7 +12,6 @@ import { IsAdmin } from "../../utils/Utils";
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const uid = useContext(UidContext);
-  console.log("NAVBAR uid", uid);
 
   // Permet de rendre la nabar fonctionnel sur mobile
   useEffect(() => {

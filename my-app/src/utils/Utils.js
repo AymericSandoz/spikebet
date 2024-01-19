@@ -5,7 +5,6 @@ export const IsAdmin = () => {
   const uid = useContext(UidContext);
 
   const admin_user_id = `${process.env.REACT_APP_ADMIN_USER_IDS}`;
-  console.log(uid.uid, "vs", admin_user_id);
   if (admin_user_id.includes(uid.uid)) {
     return true;
   } else {

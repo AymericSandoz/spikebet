@@ -12,7 +12,6 @@ const Logout = () => {
       localStorage.clear();
       uid.destroyToken();
       navigate("/");
-      setTimeout(console.log(uid), 1000);
     }
   };
 

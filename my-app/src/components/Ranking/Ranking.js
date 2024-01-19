@@ -3,16 +3,7 @@ import { UidContext } from "../AppContext";
 import React, { useEffect, useState, useContext } from "react";
 
 import axios from "axios";
-import userCard from "./UserCard";
-import { NavLink } from "react-router-dom";
-import UserCard from "./UserCard";
-import {
-  calculNbClosedBets,
-  calculScore,
-  calculNbBetWon,
-} from "../../utils/Utils";
-import LeftNav from "../Navbar/Leftnav";
-import Log from "../../components/Log";
+import { calculNbClosedBets, calculScore } from "../../utils/Utils";
 const Ranking = () => {
   const [error, setError] = useState("");
 

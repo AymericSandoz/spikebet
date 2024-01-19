@@ -8,10 +8,8 @@ import { CalculTotalCoins } from "./utils/Utils";
 const App = () => {
   const [uid, setUid] = useState(null);
   const [coins, setCoins] = useState(null);
-  console.log("localStorage.getItem()", localStorage.getItem("token"));
 
   const fetchToken = async () => {
-    console.log("fetchToken");
     await axios({
       method: "post",
 

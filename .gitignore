@@ -4,3 +4,6 @@ node_modules/
 /config/.env
 idée.txt
 note.md
+output.js
+convert_to_json.py
+```
