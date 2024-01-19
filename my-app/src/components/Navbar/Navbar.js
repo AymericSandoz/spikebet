@@ -40,6 +40,7 @@ export default function Navbar() {
       >
         Spikebet
       </NavLink>
+      <li>Clermont - La terre du Milieu</li>
       <button
         className="hamburger"
         onClick={() => {

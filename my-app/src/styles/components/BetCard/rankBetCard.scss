@@ -98,12 +98,16 @@
             background-color: black;
             color: white;
             height: 24px;
-            width: 100%;
+            width: 400px;
             cursor: pointer;
 
             &:hover {
                 filter: contrast(150%);
             }
+        }
+
+        option {
+            width: 400px;
         }
 
         .delete-team {
