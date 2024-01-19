@@ -24,6 +24,11 @@ $gold-color: gold;
     &::selection {
         background: $color-1;
     }
+
+    @media screen and (max-width: 300px) {
+        display: none !important;
+
+    }
 }
 
 
@@ -125,6 +130,7 @@ body {
         url("../../images/RP_backgroundImage (2).jpg");
     background-attachment: fixed;
     background-size: cover;
+    font-family: 'source sans pro', sans-serif;
 }
 
 // .error {

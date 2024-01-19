@@ -10,6 +10,7 @@ import RankBets from "../../pages/RankBets";
 import AdminRankBets from "../Admin/otherTypeOfBets/RankBets";
 import UserProfil from "../User/UserProfil";
 import TournamentSelection from "../Navbar/mobileTournamentSelection";
+import TeamSelection from "../Bets/BetCard/TeamsList";
 
 const index = () => {
   return (
@@ -27,6 +28,7 @@ const index = () => {
         <Route path="/profil" element={<Profil />} />
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/user/:id" element={<UserProfil />} />
+        <Route path="/team-selection" element={<TeamSelection />} />
       </Routes>
     </BrowserRouter>
   );
