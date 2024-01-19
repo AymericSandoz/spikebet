@@ -22,6 +22,7 @@ router.post("/", auth, stuffCtrl.bet);
 
 router.get("/getMyBets", auth, stuffCtrl.getMyBets);
 router.get("/getMyRankedBets", auth, stuffCtrl.getMyRankedBets);
+router.get("/getUserRankBet/:id", auth, stuffCtrl.getUserRankBet);
 
 router.put("/closeBet/:id", auth, stuffCtrl.closeBet);
 router.put("/closeRankBet/:id", auth, stuffCtrl.closeRankBet);

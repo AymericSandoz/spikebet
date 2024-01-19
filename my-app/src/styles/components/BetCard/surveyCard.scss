@@ -1,6 +1,9 @@
 .survey-card {
     margin: 50px;
     width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
 
     background-color: #383232;
@@ -18,7 +21,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: gold;
+        color: $gold-color;
     }
 
 
@@ -26,14 +29,29 @@
         display: flex;
         align-items: center;
         margin-top: 10px;
+        overflow: hidden;
+        gap: 8px;
+
+
+        .label {
+            width: 80px;
+            min-width: 80px;
+            text-align: right;
+        }
 
     }
 
     .choice {
 
-        background-color: grey;
         padding-left: 5px;
         cursor: pointer;
+        height: 20px;
+
+        &:hover {
+            filter: contrast(150%);
+        }
+
+
 
     }
 
@@ -43,23 +61,23 @@
         margin-left: 10px;
     }
 
-    .btn-confirmer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        margin-top: 15px;
-        width: 100px;
-        height: 30px;
+    // .btn-confirmer {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     margin: auto;
+    //     margin-top: 15px;
+    //     width: 100px;
+    //     height: 30px;
 
-        background-color: gold;
-        color: black;
-        font-weight: bold;
-        text-align: center;
-        margin: auto;
-        box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
-        border: none;
-        margin-top: 10px;
+    //     background-color: $gold-color;
+    //     color: black;
+    //     font-weight: bold;
+    //     text-align: center;
+    //     margin: auto;
+    //     box-shadow: rgba(0, 0, 0, 0.85) 0px 3px 8px;
+    //     border: none;
+    //     margin-top: 10px;
 
-    }
+    // }
 }

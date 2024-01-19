@@ -67,30 +67,51 @@ const getCombinedBetSuccess = (resultCombinaison, userCombinaison) => {
 
 const getRankBetGain = (tournamentResults, userRanking, prize) => {
   let totalPoints = 0;
-
-  // Parcourir les choix de l'utilisateur et les comparer aux résultats du tournoi
-  for (let i = 0; i < userRanking.length; i++) {
-    const userPick = userRanking[i];
-    const tournamentResult = tournamentResults[i];
-
-    // Si l'utilisateur a choisi l'équipe à la bonne position, ajouter 20 points
-    if (userPick.name === tournamentResult.name) {
-      totalPoints += 20;
+  console.log("getRanBetGain", tournamentResults, userRanking, prize);
+  if (tournamentResults[0].name === userRanking[0].name) {
+    totalPoints += 2;
+  }
+  for (let i = 1; i < userRanking.length; i++) {
+    if (tournamentResults[i].name === userRanking[i].name) {
+      totalPoints += 1;
     }
   }
-
-  // Vérifier si l'utilisateur a eu tous les choix corrects
-  const allPicksCorrect = userRanking.every(
-    (userPick, index) => userPick.name === tournamentResults[index].name
-  );
-
-  // Si tous les choix sont corrects, ajouter un bonus de 100 points
-  if (allPicksCorrect) {
-    totalPoints += prize;
+  if (tournamentResults[1].name === userRanking[2].name) {
+    totalPoints += 0.5;
   }
-
-  return totalPoints;
+  if (tournamentResults[1].name === userRanking[2].name) {
+    totalPoints += 0.5;
+  }
+  console.log("totalPoints", totalPoints, "prize", prize);
+  return totalPoints * prize;
 };
+
+// const getRankBetGain = (tournamentResults, userRanking, prize) => {
+//   let totalPoints = 0;
+
+//   // Parcourir les choix de l'utilisateur et les comparer aux résultats du tournoi
+//   for (let i = 0; i < userRanking.length; i++) {
+//     const userPick = userRanking[i];
+//     const tournamentResult = tournamentResults[i];
+
+//     // Si l'utilisateur a choisi l'équipe à la bonne position, ajouter 20 points
+//     if (userPick.name === tournamentResult.name) {
+//       totalPoints += 20;
+//     }
+//   }
+
+//   // Vérifier si l'utilisateur a eu tous les choix corrects
+//   const allPicksCorrect = userRanking.every(
+//     (userPick, index) => userPick.name === tournamentResults[index].name
+//   );
+
+//   // Si tous les choix sont corrects, ajouter un bonus de 100 points
+//   if (allPicksCorrect) {
+//     totalPoints += prize;
+//   }
+
+//   return totalPoints;
+// };
 
 module.exports = {
   point,

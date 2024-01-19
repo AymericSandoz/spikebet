@@ -4,9 +4,13 @@ import { UidContext } from "../components/AppContext";
 export const IsAdmin = () => {
   const uid = useContext(UidContext);
 
-  const admin_user_id = `${process.env.REACT_APP_ADMIN_USER_ID}`;
-
-  return admin_user_id === uid.uid ? true : false;
+  const admin_user_id = `${process.env.REACT_APP_ADMIN_USER_IDS}`;
+  console.log(uid.uid, "vs", admin_user_id);
+  if (admin_user_id.includes(uid.uid)) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const arraySum = (array) => {
@@ -48,8 +52,8 @@ export const CalculTotalCoins = (betsArray, initialCoins) => {
   return totalCoins;
 };
 
-export const calculScore = (betsArray, initialCoins) => {
-  let totalScore = initialCoins;
+export const calculScore = (betsArray) => {
+  let totalScore = 0;
   if (betsArray.length !== 0) {
     betsArray.forEach((bet) => {
       if (bet.state === "closed") {

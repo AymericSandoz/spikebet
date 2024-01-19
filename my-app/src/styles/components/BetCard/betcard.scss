@@ -72,7 +72,7 @@
         color: red;
 
         @include mobile-only {
-            color: gold;
+            color: $gold-color;
         }
     }
 
@@ -296,7 +296,7 @@
         margin-top: 10px;
 
         @include mobile-only {
-            background-color: gold;
+            background-color: $gold-color;
         }
 
     }

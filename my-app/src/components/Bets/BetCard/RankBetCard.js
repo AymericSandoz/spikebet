@@ -1,88 +1,99 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BarChart from "./BarChart";
 import axios from "axios";
 import { UidContext } from "../../AppContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDown,
-  faArrowUp,
-  faCheck,
-  faCoins,
-  faDollar,
-  faMoneyBill,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import RPLogo from "../../../images/Roundnet_Paris.png";
-import Select from "./Rank/Select";
-import Ranking from "./Rank/Ranking";
+import { FaTimes } from "react-icons/fa";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
   const uid = useContext(UidContext);
 
-  const [selectedTeams, setSelectedTeams] = useState([]);
   const [ranking, setRanking] = useState([]);
   const [showAllTeams, setShowAllTeams] = useState(false);
+  const [buttonState, setButtonState] = useState("");
+  const [userRankBet, setUserRankBet] = useState();
+  const [loadsUserRankBet, setLoadsUserRankBet] = useState(true);
 
-  function getFrenchOrdinal(n) {
-    if (n === 1) return "1er";
-    return n + "ème";
-  }
-
-  const handleTeamSelect = (event) => {
+  const handleTeamSelect = (event, index) => {
+    console.log("index", index);
     let teamName = event.target.value;
-    let rankedTeam = {};
+    // Update ranking state
+    let newRanking = [...ranking];
+    const position = index + 1; // Add 1 to length because array index starts from 0
 
-    if (selectedTeams.length < 5) {
-      setSelectedTeams([...selectedTeams, teamName]);
-      rankedTeam.name = teamName;
-      rankedTeam.position = selectedTeams.length + 1;
-      setRanking([...ranking, rankedTeam]);
-    } else setError("Hop Hop Hop, 5 équipes max");
-  };
+    // Find the team at the same position
+    const existingTeamIndex = newRanking.findIndex(
+      (team) => team.position === position
+    );
 
-  const handleRemoveTeam = (team, position) => {
-    setError();
-    let updatedRanking = ranking.filter((item) => item.name !== team);
-    setSelectedTeams(selectedTeams.filter((item) => item !== team));
-    //setRanking(ranking.filter((item) => item.name !== team));
-
-    //permet d'actualiser en direct la position au classement
-    updatedRanking.forEach((element) => {
-      if (element.position >= position) {
-        element.position--;
-      }
-    });
-    setRanking(updatedRanking);
-  };
-
-  const handleTeamsReorder = (direction, position) => {
-    let orderingTeam = ranking;
-    if (direction === "up") {
-      orderingTeam.forEach(function (element) {
-        if (element.position === position) {
-          element.position--;
-        } else if (element.position === position - 1) {
-          element.position++;
-        }
-      });
+    if (existingTeamIndex !== -1) {
+      // If a team at the same position is found, update it
+      newRanking[existingTeamIndex] = {
+        name: teamName,
+        position: position,
+      };
     } else {
-      orderingTeam.forEach(function (element) {
-        if (element.position === position) {
-          element.position++;
-        } else if (element.position === position + 1) {
-          element.position--;
-        }
+      // If no team at the same position is found, add a new one
+      newRanking.push({
+        name: teamName,
+        position: position,
       });
     }
+    newRanking.sort((a, b) => a.position - b.position);
+    setRanking(newRanking);
+    console.log("ranking", newRanking);
+  };
 
-    setRanking([...orderingTeam]);
+  const handleDeleteTeam = (index) => {
+    let position = index + 1;
+    console.log("position", position);
+    // Update ranking state
+    console.log("ranking", ranking);
+    let newRanking = ranking.filter((team) => team.position !== position);
+    console.log("newRanking", newRanking);
+    // sort newRanking by position
+    newRanking.sort((a, b) => a.position - b.position);
+    setRanking(newRanking);
+  };
+
+  useEffect(() => {
+    if (loadsUserRankBet) {
+      getUserRankBet();
+    }
+
+    let now = new Date();
+    let competitionDate = new Date(rankBet.competition_date);
+    let oneHourBefore = new Date(competitionDate.getTime() - 60 * 60 * 1000);
+    let oneDayAfter = new Date(competitionDate.getTime() + 24 * 60 * 60 * 1000);
+
+    if (now < oneHourBefore) {
+      setButtonState("before");
+    } else if (now < competitionDate) {
+      setButtonState("ongoing");
+    } else if (now < oneDayAfter) {
+      setButtonState("after");
+    }
+  }, []);
+
+  // get user rank bet if exists
+  const getUserRankBet = () => {
+    if (uid.uid) {
+      axios({
+        method: "get",
+        url: `${process.env.REACT_APP_SERVER_URL}api/bet/getUserRankBet/${rankBet._id}`,
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then((res) => {
+          if (res.data) {
+            setUserRankBet(res.data);
+            console.log("userRankBet", res.data);
+            setLoadsUserRankBet(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const bet = () => {
@@ -115,94 +126,105 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   return (
     <>
-      <li className="rank-bet-card" key={rankBet._id}>
-        <h1>QUEL EST TON PRONOSTIC ?</h1>
-        <div className="select-player-header">
-          {[...Array(5)].map((_, i) => (
-            <div key={i}>
-              <span className="index">#{i + 1}</span>
-              <select id={`select-player-${i}`} onChange={handleTeamSelect}>
-                {rankBet.teams.map((team) => {
-                  if (!selectedTeams.includes(team.name)) {
-                    return (
-                      <option key={team.name} value={team.name}>
-                        {team.name}
-                      </option>
-                    );
-                  }
-                })}
-              </select>
-            </div>
-          ))}
-        </div>
-        <button className="primary-button" onClick={() => bet()}>
-          Valider
-        </button>
-
-        {/* <div className="select-player-header">
-
-          <select id="select-player" onChange={handleTeamSelect}>
-            {rankBet.teams.map((team) => {
-              if (!selectedTeams.includes(team.name)) {
-                return (
-                  <>
-                    <option key={team.name} value={team.name}>
-                      {team.name}
-                    </option>
-                  </>
-                );
-              }
-            })}
-          </select>
-        </div>
-
-        <div className="selected-teams">
-          {ranking
-            .sort((b, a) => b.position - a.position)
-            .map((team, index) => (
-              <p>
-                {getFrenchOrdinal(team.position)} - {team.name}
-                {"    "}
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className="icon"
-                  onClick={() => handleRemoveTeam(team.name, team.position)}
-                />
-                {team.position < ranking.length && (
-                  <FontAwesomeIcon
-                    icon={faArrowDown}
-                    className="icon"
-                    onClick={() => handleTeamsReorder("down", team.position)}
-                  />
-                )}
-                {team.position > 1 && (
-                  <FontAwesomeIcon
-                    icon={faArrowUp}
-                    className="icon"
-                    onClick={() => handleTeamsReorder("up", team.position)}
-                  />
-                )}
-              </p>
-            ))}
-        </div>
-
-        <button className="primary-button" onClick={() => bet()}>
-          Envoyer
-        </button> */}
-        {error && <p className="bet-error">{error}</p>}
-        {rankBet.teamScores && (
-          <div className="bar-chart-container">
-            <h1>Ceux que les autres ont parié</h1>
-            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
-            <button
-              className="display-more-button"
-              onClick={() => setShowAllTeams(!showAllTeams)}
-            >
-              {showAllTeams ? "Afficher moins" : "Afficher plus"}
-            </button>
+      {(uid.uid || rankBet.teamScores) && (
+        <li className="rank-bet-card" key={rankBet._id}>
+          <div className="competition-type">
+            {rankBet.competition_type.toUpperCase()}
           </div>
-        )}
-      </li>
+          {buttonState === "before" && uid.uid ? (
+            <>
+              {!rankBet.userIdArray.includes(uid.uid) ? (
+                <h1>QUEL EST TON PRONOSTIC ?</h1>
+              ) : (
+                <h1>TON PARI</h1>
+              )}
+
+              <div className="select-player-container">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="teams">
+                    <span className="index">#{i + 1}</span>
+                    <div className="black-background">
+                      <select
+                        id={`select-player-${i}`}
+                        onChange={(event) => handleTeamSelect(event, i)}
+                      >
+                        <option value="">
+                          {ranking &&
+                          ranking.find(
+                            (team) => team && team.position === i + 1
+                          )
+                            ? `${
+                                ranking.find(
+                                  (team) => team && team.position === i + 1
+                                ).name
+                              }`
+                            : "Sélectionner une équipe"}
+                        </option>
+
+                        {rankBet.teams && rankBet.teams.length > 0
+                          ? rankBet.teams
+                              .filter(
+                                (team) =>
+                                  !ranking.find(
+                                    (rankedTeam) =>
+                                      rankedTeam &&
+                                      rankedTeam.name === team.name
+                                  )
+                              )
+                              .map((team) => {
+                                return (
+                                  <>
+                                    <option key={team.name} value={team.name}>
+                                      {team.name}- ({team.joueur1} et{" "}
+                                      {team.joueur2})
+                                    </option>
+                                  </>
+                                );
+                              })
+                          : null}
+                      </select>
+                      <span
+                        className="delete-team"
+                        onClick={() => handleDeleteTeam(i)}
+                      >
+                        <FaTimes />
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
+                <button className="primary-button" onClick={() => bet()}>
+                  MODIFIER
+                </button>
+              ) : (
+                <button className="primary-button" onClick={() => bet()}>
+                  VALIDER
+                </button>
+              )}
+            </>
+          ) : buttonState === "ongoing" ? (
+            <p>Tournoi en cours</p>
+          ) : buttonState === "after" ? (
+            <p>Tournoi terminé</p>
+          ) : null}
+          {!uid.uid && <p>Connecte toi pour parier !</p>}
+
+          {error && <p className="bet-error">{error}</p>}
+          {rankBet.teamScores && (
+            <div className="bar-chart-container">
+              <h1>Ceux que les autres ont parié</h1>
+              <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
+              <button
+                className="display-more-button"
+                onClick={() => setShowAllTeams(!showAllTeams)}
+              >
+                {showAllTeams ? "Afficher moins" : "Afficher plus"}
+              </button>
+            </div>
+          )}
+        </li>
+      )}
     </>
   );
 };

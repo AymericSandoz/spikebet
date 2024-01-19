@@ -36,28 +36,6 @@ const LeftNav = () => {
         </section>
         <br />
         <section>
-          <NavLink
-            className="sidebar-item lefnav-level-1"
-            to="/MyRankedBets?live=All"
-          >
-            Mes Paris{" "}
-            <FontAwesomeIcon icon={faMoneyBill1Wave} className="icon" />
-          </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-2"}
-            to="/MyRankedBets?live=open"
-          >
-            À venir
-          </NavLink>
-          <NavLink
-            className={"sidebar-item lefnav-level-2"}
-            to="/MyRankedBets?live=closed"
-          >
-            Terminé
-          </NavLink>
-        </section>
-        <br />
-        <section>
           <NavLink className={"sidebar-item lefnav-level-1"} to="/ranking">
             <span></span>Classement{" "}
             <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
@@ -65,25 +43,13 @@ const LeftNav = () => {
         </section>
       </div>
       <div className="left-nav-container left-nav-small-screen">
-        <section>
-          <NavLink
-            className={"sidebar-item lefnav-level-2"}
-            to="/?betType=Ligue Parisienne"
-          >
-            <span>Match</span>
-            <FontAwesomeIcon icon={faTrophy} className="icon" />
-          </NavLink>
-        </section>
-        <section>
-          <NavLink
-            className="sidebar-item lefnav-level-1"
-            to="/MyBets?live=All"
-          >
-            <span>Mes Paris</span>
-            <FontAwesomeIcon icon={faMoneyBill1Wave} className="icon" />
-          </NavLink>
-        </section>
-        <br />
+        <NavLink
+          className={"sidebar-item lefnav-level-2"}
+          to="/tournamentSelection"
+        >
+          <span>Match</span>
+          <FontAwesomeIcon icon={faTrophy} className="icon" />
+        </NavLink>
         <section>
           <NavLink className={"sidebar-item lefnav-level-1"} to="/ranking">
             <span>Classement</span>

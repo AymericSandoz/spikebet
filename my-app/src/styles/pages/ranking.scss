@@ -1,13 +1,64 @@
 .ranking {
-    margin-top: 200px;
+    margin: 100px 10px 100px 210px;
     display: flex;
-    flex-wrap: wrap;
-    margin: 200px 10px 100px 210px;
     justify-content: center;
-    align-items: flex-start;
-    min-width: 300px;
+    ;
+
+    $table-bg-color: #f4f4f4;
+    $even-row-bg-color: #e0e0e0;
+
+    $table-bg-color: #f4f4f4;
+
+    $table-bg-color-even: #e0e0e0;
+    $table-bg-color-odd: #f4f4f4;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        border: 1px solid #ddd;
+        opacity: 0.9;
+        border-radius: 8px;
+
+        thead {
+            th {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+                background-color: $color-1;
+                color: gold;
+                border-left: 1px solid gold;
+                border-right: 1px solid gold;
+
+            }
+        }
+
+        tbody {
+            tr {
+
+
+                &:nth-child(even) {
+                    background-color: $table-bg-color-even;
+
+                }
+
+                &:nth-child(odd) {
+                    background-color: $table-bg-color-odd;
+                }
+
+                td {
+                    padding: 10px;
+                    border-bottom: 1px solid #ddd;
+                }
+            }
+        }
+    }
+
+
+
 
     @include mobile-only {
-        margin: 120px 20px 30px 20px;
+        margin: 90px 10px 30px 10px;
     }
 }

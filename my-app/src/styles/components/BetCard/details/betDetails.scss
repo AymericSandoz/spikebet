@@ -55,7 +55,7 @@
         color: red;
 
         @include mobile-only {
-            color: gold;
+            color: $gold-color;
         }
     }
 

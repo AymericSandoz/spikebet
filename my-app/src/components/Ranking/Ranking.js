@@ -6,7 +6,11 @@ import axios from "axios";
 import userCard from "./UserCard";
 import { NavLink } from "react-router-dom";
 import UserCard from "./UserCard";
-import { CalculTotalCoins, calculScore } from "../../utils/Utils";
+import {
+  calculNbClosedBets,
+  calculScore,
+  calculNbBetWon,
+} from "../../utils/Utils";
 import LeftNav from "../Navbar/Leftnav";
 import Log from "../../components/Log";
 const Ranking = () => {
@@ -50,19 +54,38 @@ const Ranking = () => {
 
   return (
     <>
-      <>
+      <div className="ranking-container">
         <div className="ranking">
-          {users.length > 0 &&
-            users.map((user, index) => {
-              return (
-                <>
-                  <UserCard user={user} index={index} />
-                </>
-              );
-            })}
+          {users.length > 0 && (
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="no-mobile">Classement </th>
+                    <th className="mobile-only">Score</th>
+                    <th>Nom</th>
+                    <th>Score</th>
+                    <th>Nombre de paris</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{user.name}</td>
+                        <td>{calculScore(user.betsArray)}</td>
+                        <td>{calculNbClosedBets(user.betsArray)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </>
+          )}
           <br />
         </div>
-      </>
+      </div>
     </>
   );
 };

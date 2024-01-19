@@ -38,15 +38,15 @@ const RankBets = () => {
   const uid = useContext(UidContext);
 
   const query = useQuery();
-  const competition = query.get("competition");
+  let competition = query.get("competition");
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
 
-  const get_competition_name = (bet) => {
-    return bet.competition_name;
-  };
+  if (!competition) {
+    competition = "Clermont_2024";
+  }
 
   const getRankBets = (e) => {
     axios({
@@ -77,19 +77,20 @@ const RankBets = () => {
       const filteredBets = rankBets.filter(
         (bet) => bet.competition_name === competition
       );
-      // setCompetitionName(filteredBets[0].competition_name);
+
+      setBetsToDisplay(filteredBets);
       if (filteredBets.length > 0) {
-        setCompetitionName(filteredBets[0].competition_name);
+        setCompetitionName(filteredBets[0].competition_global_name);
       }
     }
   }, [loadRankBets, rankBets, competition]);
 
   return (
     <>
-      <>
-        {/* {competitionName && <h1> {competitionName}</h1>} */}
+      <div className="rank-bets-container">
+        {competitionName && <h1> {competitionName}</h1>}
         <div className="rank-bets">
-          {betsToDisplay.length > 0 &&
+          {!loadRankBets > 0 &&
             betsToDisplay.map((rankBet) => {
               return (
                 <>
@@ -103,7 +104,7 @@ const RankBets = () => {
             })}
           <br />
         </div>
-      </>
+      </div>
     </>
   );
 };

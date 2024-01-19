@@ -106,7 +106,7 @@
         align-items: center;
         padding-left: 10px;
         padding-bottom: 5px;
-        color: gold;
+        color: $gold-color;
 
         @include mobile-only {
             // display: none;

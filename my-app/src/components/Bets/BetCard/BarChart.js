@@ -38,12 +38,15 @@ const BarChart = ({ data, showAllTeams }) => {
       {
         label: "Score",
         data: topTeams.map((item) => item.score),
-        backgroundColor: topTeams.map(
-          (item, index) => colors[index % colors.length]
+        backgroundColor: topTeams.map((item, index) =>
+          index % 2 ? "grey" : "white"
         ),
-        borderColor: topTeams.map(
-          (item, index) => colors[index % colors.length]
-        ),
+        // backgroundColor: topTeams.map(
+        //   (item, index) => colors[index % colors.length]
+        // ),
+        // borderColor: topTeams.map(
+        //   (item, index) => colors[index % colors.length]
+        // ),
         borderWidth: 1,
       },
     ],
@@ -61,30 +64,29 @@ const BarChart = ({ data, showAllTeams }) => {
         align: "end",
         formatter: (value, context) => value,
       },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            return `${context.dataset.label}: ${context.raw}`;
-          },
-        },
-      },
+      // tooltip: {
+      //   callbacks: {
+      //     label: function (context) {
+      //       return `${context.dataset.label}: ${context.raw}`;
+      //     },
+      //   },
+      // },
       legend: {
         display: false,
-        labels: {
-          fontColor: "blue",
-          fontSize: 18,
-        },
       },
     },
     scales: {
       x: {
         beginAtZero: true,
+        ticks: {
+          color: "white",
+        },
       },
       y: {
         ticks: {
           autoSkip: false,
-          maxRotation: 0,
-          minRotation: 0,
+
+          color: "white",
         },
       },
     },

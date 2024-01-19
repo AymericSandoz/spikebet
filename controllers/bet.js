@@ -65,11 +65,25 @@ exports.getAllRankBets = async (req, res, next) => {
         return res.send("Erreur lors de la recherche des UserRankBets: " + err); // Gérer les erreurs pour UserRankBet.find
       }
     }
-    console.log("docs", docs);
     res.send(docs); // Envoyer la réponse après avoir traité tous les 'rankbet'
   } catch (err) {
     res.send("Erreur lors de la recherche des RankBets: " + err); // Gérer les erreurs pour RankBet.find
   }
+};
+
+exports.getUserRankBet = (req, res, next) => {
+  UserRankBet.findOne({ rankBetId: req.params.id, userId: req.auth.userId })
+    .then((existingBet) => {
+      if (existingBet) {
+        res.status(200).json(existingBet);
+      } else {
+        res.status(200).json(null);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error });
+    });
 };
 
 exports.getUsersBets = (req, res, next) => {
@@ -124,28 +138,44 @@ exports.voteSurvey = (req, res, next) => {
   Survey.findOneAndUpdate(
     { _id: req.params.id },
     {
-      $push: {
+      $addToSet: {
         arrayVotersId: req.auth.userId,
       },
-    }
+    },
+    { new: true } // option pour retourner le document mis à jour
   )
-    .then(() => console.log("arrayVotersId filled!"))
+    .then((survey) => {
+      if (survey.arrayVotersId.includes(req.auth.userId)) {
+        console.log("Vote added !");
+      } else {
+        console.log("L'utilisateur a déjà voté !");
+      }
+    })
     .catch((error) => {
       console.log(error);
-      res.status(401).json({ error });
     });
 
-  Survey.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      $push: {
-        userChoice: {
+  Survey.findOne({ _id: req.params.id })
+    .then((survey) => {
+      // Trouver l'index de l'élément de userChoice pour cet utilisateur
+      const index = survey.userChoice.findIndex(
+        (choice) => choice.userId.toString() === req.auth.userId
+      );
+
+      if (index !== -1) {
+        // Si l'utilisateur a déjà fait un choix, le mettre à jour
+        survey.userChoice[index].answer = req.body.userChoice;
+      } else {
+        // Sinon, ajouter un nouveau choix pour cet utilisateur
+        survey.userChoice.push({
           userId: req.auth.userId,
           answer: req.body.userChoice,
-        },
-      },
-    }
-  )
+        });
+      }
+
+      // Sauvegarder le document mis à jour
+      return survey.save();
+    })
     .then(() => res.status(201).json("survey send !"))
     .catch((error) => {
       console.log(error);
@@ -196,7 +226,7 @@ exports.bet = (req, res, next) => {
         console.log(error);
         res.status(400).json(err);
       } else {
-        console.log("miseArray et scoreIdArray : ", docs);
+        console.log("user updated");
       }
     }
   );
@@ -218,7 +248,7 @@ exports.bet = (req, res, next) => {
         console.log(err);
         res.status(400).json(err);
       } else {
-        console.log("miseArray et scoreIdArray : ", docs);
+        console.log("user updated");
       }
     }
   );
@@ -244,46 +274,85 @@ exports.bet = (req, res, next) => {
 };
 
 exports.rankBets = (req, res, next) => {
-  var userRankBet = new UserRankBet({
-    rankBetId: req.params.id,
-    userRanking: req.body.ranking,
-    userId: req.auth.userId,
-    prize: req.body.prize,
-  });
-  userRankBet
-    .save()
-    .then(() => {
-      // res.status(201).json({ message: "bet saved !" });
-      console.log("rankBet saved");
+  UserRankBet.findOne({ rankBetId: req.params.id, userId: req.auth.userId })
+    .then((existingBet) => {
+      if (existingBet) {
+        // Si un pari existant est trouvé, le mettre à jour
+        UserRankBet.findOneAndUpdate(
+          { rankBetId: req.params.id, userId: req.auth.userId },
+          { userRanking: req.body.ranking, prize: req.body.prize },
+          { new: true }
+        )
+          .then(() => {
+            console.log("rankBet updated");
+          })
+          .catch((error) => {
+            console.log(error);
+            res.status(400).json({ error });
+          });
+      } else {
+        // Si aucun pari existant n'est trouvé, en créer un nouveau
+        var userRankBet = new UserRankBet({
+          rankBetId: req.params.id,
+          userRanking: req.body.ranking,
+          userId: req.auth.userId,
+          prize: req.body.prize,
+        });
+        userRankBet
+          .save()
+          .then(() => {
+            console.log("rankBet saved");
+          })
+          .catch((error) => {
+            console.log(error);
+            res.status(400).json({ error });
+          });
+      }
     })
     .catch((error) => {
       console.log(error);
-      res.status(404).json({
-        error: error,
-      });
+      res.status(500).json({ error });
     });
 
-  User.findOneAndUpdate(
-    { _id: req.auth.userId },
-    {
-      $push: {
-        betsArray: {
-          gameId: req.params.id,
-          mise: 0,
-          betType: "ranking",
-        }, //inserted data is the object to be inserted
-      },
-    },
-    { new: true },
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-        res.status(400).json(err);
+  User.findOne({ _id: req.auth.userId }, function (err, user) {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      // Check if the game ID already exists in the betsArray
+      var exists = user.betsArray.some(function (bet) {
+        return bet.gameId.toString() === req.params.id;
+      });
+
+      if (exists) {
+        // Game ID already exists in the betsArray, do not update
+        console.log("Game ID already exists in the betsArray");
       } else {
-        console.log("user updated");
+        // Game ID does not exist in the betsArray, proceed with the update
+        User.findOneAndUpdate(
+          { _id: req.auth.userId },
+          {
+            $push: {
+              betsArray: {
+                gameId: req.params.id,
+                mise: 0,
+                betType: "ranking",
+              },
+            },
+          },
+          { new: true },
+          function (err, docs) {
+            if (err) {
+              console.log(err);
+              res.status(400).json(err);
+            } else {
+              console.log("user updated");
+            }
+          }
+        );
       }
     }
-  );
+  });
 
   RankBet.findOneAndUpdate(
     { _id: req.params.id },
@@ -451,7 +520,7 @@ exports.closeRankBet = (req, res, next) => {
             },
           }
         )
-          .then(() => console.log("combined bet done"))
+          .then(() => console.log("user done"))
           .catch((error) => res.status(401).json({ error }));
 
         UserRankBet.updateOne(

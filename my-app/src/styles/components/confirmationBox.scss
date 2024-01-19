@@ -45,7 +45,7 @@
     .xmark-icon {
         position: relative;
         left: 100%;
-        color: gold;
+        color: $gold-color;
         cursor: pointer;
 
 
@@ -69,7 +69,7 @@
         padding: 7px;
 
         span {
-            color: gold;
+            color: $gold-color;
         }
 
 
@@ -84,12 +84,12 @@
         height: 30px;
         margin: auto;
         font-weight: bold;
-        color: gold;
+        color: $gold-color;
 
 
         span {
             margin-left: 3px;
-            color: gold;
+            color: $gold-color;
         }
 
         .icon {

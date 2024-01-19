@@ -5,7 +5,6 @@
 .survey-bets,
 .rank-bets {
     // margin: 30px 5% 30px 5%;
-    margin: 80px 0 30px 200px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -16,10 +15,22 @@
 
 
 
+
+
+
+
+}
+
+.rank-bets-container,
+.survey-bets {
+    margin: 80px 0 30px 200px;
+
     @include mobile-only {
-        margin: 10px 10px 70px 10px;
+        margin: 90px 10px 70px 10px;
     }
 
-
+    h1 {
+        text-align: center;
+    }
 
 }

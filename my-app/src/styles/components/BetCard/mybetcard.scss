@@ -65,7 +65,7 @@
         font-size: 20px;
 
         @include mobile-only {
-            color: gold;
+            color: $gold-color;
         }
     }
 
@@ -151,7 +151,7 @@
         border-radius: 10px;
 
         @include mobile-only {
-            background-color: gold;
+            background-color: $gold-color;
         }
     }
 
@@ -167,7 +167,7 @@
     }
 
     .user-gain {
-        color: gold;
+        color: $gold-color;
     }
 
     .center-user-bet {

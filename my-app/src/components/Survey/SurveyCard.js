@@ -38,6 +38,17 @@ const SurveyCard = ({ survey, getSurveys }) => {
       });
   };
 
+  // set user choice if already voted
+  useEffect(() => {
+    if (survey.arrayVotersId.includes(uid.uid)) {
+      survey.userChoice.forEach((element) => {
+        if (element.userId === uid.uid) {
+          setUserChoice(element.answer);
+        }
+      });
+    }
+  }, [survey]);
+
   const calculSurveyStat = (userChoice) => {
     let choiceNbOfVoters = 0;
 
@@ -60,16 +71,22 @@ const SurveyCard = ({ survey, getSurveys }) => {
             return (
               <>
                 <div className="choice-container">
+                  <div className="label">{choice}</div>
                   <div
                     className="choice"
                     style={{
                       width: calculSurveyStat(choice),
-                      backgroundColor: index % 2 === 0 ? "#696969" : "#A9A9A9",
+                      backgroundColor:
+                        userChoice === choice
+                          ? "darkgoldenrod"
+                          : index % 2 === 0
+                          ? "#696969"
+                          : "#A9A9A9",
                     }}
-                    onClick={() => setUserChoice(choice)}
-                  >
-                    {choice}
-                  </div>
+                    onClick={() => {
+                      if (uid.uid) setUserChoice(choice);
+                    }}
+                  ></div>
                   <div className="survey-stat">{calculSurveyStat(choice)}</div>
                 </div>
               </>
@@ -77,11 +94,17 @@ const SurveyCard = ({ survey, getSurveys }) => {
           })}
         </div>
 
-        {uid.uid && !survey.arrayVotersId.includes(uid.uid) && (
-          <button className="btn-confirmer" onClick={() => sendSurvey()}>
-            vote
-          </button>
-        )}
+        {uid.uid ? (
+          !survey.arrayVotersId.includes(uid.uid) ? (
+            <button className="primary-button" onClick={() => sendSurvey()}>
+              VALIDER
+            </button>
+          ) : (
+            <button className="primary-button" onClick={() => sendSurvey()}>
+              MODIFIER
+            </button>
+          )
+        ) : null}
       </li>
     </>
   );

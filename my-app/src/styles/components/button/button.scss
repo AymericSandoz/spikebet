@@ -1,13 +1,16 @@
 .primary-button {
-    color: $color-1;
-    background-color: gold;
+    color: white;
+    background-color: black;
     border-radius: 5px;
     padding: 8px 16px;
     margin: auto;
+    font-weight: bold;
+    font-size: 24px;
 
     &:hover {
         opacity: 0.9;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        color: gold;
     }
 }
 

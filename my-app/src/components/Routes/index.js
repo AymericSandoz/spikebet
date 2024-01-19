@@ -14,6 +14,7 @@ import RankBets from "../../pages/RankBets";
 import AdminRankBets from "../Admin/otherTypeOfBets/RankBets";
 import UserProfil from "../User/UserProfil";
 import BetDetails from "../Bets/BetDetails/BetDetails.js";
+import TournamentSelection from "../Navbar/mobileTournamentSelection";
 
 const index = () => {
   return (
@@ -21,9 +22,10 @@ const index = () => {
       <Navbars />
       <LeftNav />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<RankBets />} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/rankBets" element={<RankBets />} />
+        <Route path="tournamentSelection" element={<TournamentSelection />} />
 
         <Route path="/admin" element={<CreateBet />} />
         <Route path="/admin/rankBets" element={<AdminRankBets />} />

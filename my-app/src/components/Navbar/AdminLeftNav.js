@@ -18,53 +18,16 @@ const AdminLeftNav = () => {
           <FontAwesomeIcon icon={faTrophy} className={"icon"} />
         </h2>
         <NavLink
-          className={"sidebar-item lefnav-level-2"}
-          to="/admin?betType=bet&competition=Ligue Parisienne"
+          className={"sidebar-item lefnav-level-3"}
+          to="/admin/rankBets?competition=Clermont_2024"
         >
-          Ligue Parisienne
+          Clermont La terre du milieu 2024
         </NavLink>
         <NavLink
           className={"sidebar-item lefnav-level-3"}
-          to="/admin?betType=bet&competition=Ligue Parisienne&groupName=Poulpe"
-          state={{ group: "Poulpe" }}
+          to="/admin/rankBets?competition=TS_Montpellier_2024"
         >
-          Poulpe
-        </NavLink>
-        <NavLink
-          className={"sidebar-item lefnav-level-3"}
-          to="/admin?betType=bet&competition=Ligue Parisienne&groupName=Poule au Pot"
-          state={{ group: "Poule au Pot" }}
-        >
-          Poule au Pot
-        </NavLink>
-        <NavLink
-          className={"sidebar-item lefnav-level-3"}
-          to="/admin?betType=bet&competition=Ligue Parisienne&groupName=Poule Mouillée"
-          state={{ group: "Poule Mouillée" }}
-        >
-          Poule Mouillée
-        </NavLink>
-        <NavLink
-          className={"sidebar-item lefnav-level-3"}
-          to="/admin?betType=bet&competition=Ligue Parisienne&groupName=Poule Pondeuse"
-          state={{ group: "Poule Pondeuse" }}
-        >
-          Poule Pondeuse
-        </NavLink>
-        <NavLink
-          className={"sidebar-item lefnav-level-2"}
-          to="/admin?betType=bet&competition=Rennes"
-        >
-          Rennes
-        </NavLink>
-        <NavLink
-          className={"sidebar-item lefnav-level-1"}
-          to="/admin/combinedBets"
-        >
-          Combinés <FontAwesomeIcon icon={faObjectGroup} className={"icon"} />
-        </NavLink>
-        <NavLink className={"sidebar-item lefnav-level-1"} to="/admin/rankBets">
-          Top 5 <FontAwesomeIcon icon={faStar} className={"icon"} />
+          TS Montepellier 2024
         </NavLink>
       </section>
     </div>

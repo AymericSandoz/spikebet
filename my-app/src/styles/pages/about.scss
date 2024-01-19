@@ -1,0 +1,25 @@
+.about {
+    margin: 80px 30px 30px 200px;
+    display: flex;
+    justify-content: center;
+
+    @include mobile-only {
+        margin: 80px 10px 70px 10px;
+    }
+
+    .about-container {
+        h1 {
+            text-align: center;
+        }
+
+        color: white;
+        width: 80%;
+        min-height: 400px;
+        padding: 32px;
+        border-radius: 16px;
+        min-width: 400px;
+        opacity: 0.8;
+        background-color: $color-1;
+
+    }
+}
