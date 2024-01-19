@@ -86,6 +86,17 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
         .then((res) => {
           if (res.data) {
             setUserRankBet(res.data);
+            // charger ranking avec les données de userrankbet cotenu dans userRanking
+            let newRanking = [];
+            if (res.data.userRanking.length > 0) {
+              res.data.userRanking.forEach((team) => {
+                newRanking.push({
+                  name: team.name,
+                  position: team.position,
+                });
+              });
+            }
+            setRanking(newRanking);
             console.log("userRankBet", res.data);
             setLoadsUserRankBet(false);
           }

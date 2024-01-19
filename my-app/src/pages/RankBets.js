@@ -90,7 +90,7 @@ const RankBets = () => {
       <div className="rank-bets-container">
         {competitionName && <h1> {competitionName}</h1>}
         <div className="rank-bets">
-          {!loadRankBets > 0 &&
+          {!loadRankBets &&
             betsToDisplay.map((rankBet) => {
               return (
                 <>
