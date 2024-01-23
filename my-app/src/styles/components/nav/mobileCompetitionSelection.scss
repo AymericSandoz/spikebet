@@ -26,7 +26,7 @@ h2 {
     font-size: 2em; // Increase the size of the text
     letter-spacing: 2px; // Add some spacing between the letters
     margin-bottom: 20px; // Add some space below the heading
-  }
+}
 
 .competition-selection-container {
     display: flex;
@@ -38,7 +38,7 @@ h2 {
 
 .competition-selection {
     text-align: center;
-    color: #fff;
+    color: black;
 }
 
 .competitions {
@@ -49,8 +49,8 @@ h2 {
 
 .competition-link {
     text-decoration: none;
-    color: #fff;
-    background-color: #ff4a00;
+    color: black;
+    background-color: gold;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
@@ -58,5 +58,5 @@ h2 {
 }
 
 .competition-link:hover {
-    background-color: #ff6a30;
+    background-color: gold;
 }

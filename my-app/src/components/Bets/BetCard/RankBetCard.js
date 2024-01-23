@@ -5,6 +5,7 @@ import { UidContext } from "../../AppContext";
 import { FaTimes } from "react-icons/fa";
 import TeamList from "./TeamsList";
 import { MdAdd } from "react-icons/md";
+import { Select } from "antd";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -216,6 +217,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                   })
                               : null}
                           </select>
+
                           <div
                             className="delete-team flex-centered"
                             onClick={() => handleDeleteTeam(i)}
@@ -303,7 +305,10 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                 <div className="icon-add">
                                   <MdAdd />
                                 </div>{" "}
-                                Sélectionner une équipe
+                                <span class="small-mobile-only">Équipe</span>
+                                <span class="not-small-visible">
+                                  Sélectionner une équipe
+                                </span>
                               </div>
                             )}
                           </div>
@@ -317,6 +322,12 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                               index={i}
                             />
                           )}
+                          <div
+                            className="delete-team flex-centered"
+                            onClick={() => handleDeleteTeam(i)}
+                          >
+                            <FaTimes />
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -8,10 +8,15 @@ import { useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IsAdmin } from "../../utils/Utils";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const uid = useContext(UidContext);
+  const [competition, setCompetition] = useState("");
+  const location = useLocation();
+
+  //Fonction qui va récupérer la query. SI un paramètre competition contient clermont_2024, une variable est créé et vaut CLERMONT - LA TERRE DU MILIEU 2024, si elle contient TS_Montpellier_2024, une variable est créé et vaut TS MONTPELLIER 2024. je veux que la query soit sous écoute de changement
 
   // Permet de rendre la nabar fonctionnel sur mobile
   useEffect(() => {
@@ -22,13 +27,26 @@ export default function Navbar() {
       setIsNavExpanded(false);
     }
 
+    const params = new URLSearchParams(location.search);
+    if (params.get("competition") === "Clermont_2024") {
+      setCompetition("CLERMONT");
+    } else if (params.get("competition") === "TS_Montpellier_2024") {
+      setCompetition("TS MONTPELLIER");
+    }
+    // si page d'acceuil c'est à dire "/" alors competition = "ClERMONT"
+    else if (location.pathname === "/") {
+      setCompetition("CLERMONT");
+    } else {
+      setCompetition("");
+    }
+
     // Bind the event listener
     document.addEventListener("mouseup", handleClick);
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener("mouseup", handleClick);
     };
-  }, []);
+  }, [location]);
 
   return (
     <nav className="navigation">
@@ -38,9 +56,12 @@ export default function Navbar() {
         aria-label="Lien page d'acceuil"
         className="brand-name"
       >
-        Spikebet
+        <span className="mobile-only">
+          {competition ? competition : "Spikebet"}
+        </span>
+        <span className="no-mobile">Spikebet</span>
       </NavLink>
-      <li>Clermont - La terre du Milieu</li>
+
       <button
         className="hamburger"
         onClick={() => {

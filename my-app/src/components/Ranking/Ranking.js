@@ -4,6 +4,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import axios from "axios";
 import { calculNbClosedBets, calculScore } from "../../utils/Utils";
+
 const Ranking = () => {
   const [error, setError] = useState("");
 

@@ -85,7 +85,7 @@ const RankBets = () => {
   return (
     <>
       <div className="rank-bets-container">
-        {competitionName && <h1> {competitionName}</h1>}
+        {competitionName && <h1 className="no-mobile"> {competitionName}</h1>}
         <div className="rank-bets">
           {!loadRankBets &&
             betsToDisplay.map((rankBet) => {

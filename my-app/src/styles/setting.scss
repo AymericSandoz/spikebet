@@ -33,7 +33,7 @@ $gold-color: gold;
 
 
 ///breakpooints
-$breakpoints: ("mobile":750px, "tablette":950px);
+$breakpoints: ("small-mobile":400px, "mobile":750px, "tablette":950px);
 /*RESPONSIVE : Mixines utilisées pour les media queries*/
 
 @mixin mobile-only {
@@ -160,6 +160,18 @@ input[type=number] {
 
 .mobile-only {
     @media screen and (min-width: map-get($breakpoints, mobile)) {
+        display: none;
+    }
+}
+
+.small-mobile-only {
+    @media screen and (min-width: map-get($breakpoints, small-mobile)) {
+        display: none;
+    }
+}
+
+.not-small-visible {
+    @media screen and (max-width: map-get($breakpoints, small-mobile)) {
         display: none;
     }
 }

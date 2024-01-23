@@ -32,7 +32,9 @@ const TeamList = ({
                     ({team.joueur1} et {team.joueur2})
                   </span>
                 </div>{" "}
-                <MdAdd />
+                <div className="icon-add">
+                  <MdAdd size={32} />
+                </div>
               </div>
             ))}
           </div>

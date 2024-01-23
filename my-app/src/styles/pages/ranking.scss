@@ -76,7 +76,7 @@
     justify-content: center;
     align-items: center;
     z-index: 5;
-    font-weight: 700;
+    font-weight: normal;
 
     .team-list-container {
         background: linear-gradient(rgba(0, 0, 0, 0.25),
@@ -94,7 +94,7 @@
             background-color: #202020;
             border-radius: 16px;
             padding: 16px;
-            padding-top: 32px;
+            padding-top: 40px;
             position: relative;
         }
 
@@ -117,13 +117,16 @@
             gap: 8px;
             padding: 8px;
             cursor: pointer;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid #404040;
             justify-content: space-between;
             width: 100%;
             opacity: 0.9;
 
-            svg {
-                font-size: 32px;
+            .add-icon {
+                width: 40px;
+                align-self: end;
+                display: flex;
+                align-items: center;
             }
 
             :hover {

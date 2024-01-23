@@ -4,7 +4,7 @@ function MobileTournamentSelection() {
   return (
     <div className="competition-selection-container">
       <div className="competition-selection">
-        <h2>Compétitition</h2>
+        {/* <h2>Compétitition</h2> */}
         <div className="competitions">
           <NavLink
             className={"competition-link"}
@@ -17,6 +17,9 @@ function MobileTournamentSelection() {
             to="/rankbets?competition=TS_Montpellier_2024"
           >
             TS MONTPELLIER 2024
+          </NavLink>
+          <NavLink className={"competition-link"} to="/survey">
+            SONDAGE
           </NavLink>
         </div>
       </div>

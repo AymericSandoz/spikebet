@@ -22,6 +22,17 @@
 
     }
 
+    .hovered {
+        &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+
+    &.admin {
+        opacity: 1;
+    }
+
 
 
     .sidebar-item,

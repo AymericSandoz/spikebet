@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import NonAdminRankBets from "../../../pages/RankBets";
 import RankBetCard from "../../Admin/AdminCard/RankBetCard";
 import AdminLeftNav from "../../Navbar/AdminLeftNav";
 import { IsAdmin } from "../../../utils/Utils";
@@ -103,4 +102,4 @@ const RankBets = () => {
     </>
   );
 };
-export default NonAdminRankBets;
+export default RankBets;
