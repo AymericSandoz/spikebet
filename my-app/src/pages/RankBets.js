@@ -7,6 +7,19 @@ import axios from "axios";
 import RankBetCard from "../components/Bets/BetCard/RankBetCard";
 
 const RankBets = () => {
+  const [rankBets, setRankBets] = useState([]);
+  const [loadRankBets, setLoadRankBets] = useState(true);
+  const [betsToDisplay, setBetsToDisplay] = useState([]);
+  const [competitionName, setCompetitionName] = useState("");
+  // const [displayBets, setDisplayBets] = useState(false);
+
+  const query = useQuery();
+  let competition = query.get("competition");
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
   const calculateTeamScores = (bets) => {
     const teamScores = {};
     // Vérifier si 'bets' est défini et non vide
@@ -29,18 +42,6 @@ const RankBets = () => {
     return bets;
   };
 
-  const [rankBets, setRankBets] = useState([]);
-  const [loadRankBets, setLoadRankBets] = useState(true);
-  const [betsToDisplay, setBetsToDisplay] = useState([]);
-  const [competitionName, setCompetitionName] = useState("");
-
-  const query = useQuery();
-  let competition = query.get("competition");
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-
   if (!competition) {
     competition = "Clermont_2024";
   }
@@ -54,7 +55,7 @@ const RankBets = () => {
       .then((res) => {
         let bets = calculateTeamScores(res.data);
         setRankBets(bets);
-        setBetsToDisplay(bets);
+        // setBetsToDisplay(bets);
         setLoadRankBets(false);
       })
       .catch((err) => {
@@ -87,7 +88,7 @@ const RankBets = () => {
       <div className="rank-bets-container">
         {competitionName && <h1 className="no-mobile"> {competitionName}</h1>}
         <div className="rank-bets">
-          {!loadRankBets &&
+          {betsToDisplay.length === 3 &&
             betsToDisplay.map((rankBet) => {
               return (
                 <>

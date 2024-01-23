@@ -17,6 +17,17 @@
         opacity: 1;
     }
 
+    &.admin {
+        border: 2px solid $color-2;
+    }
+
+    .hovered {
+        &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+
     .brand-name {
         text-decoration: none;
         color: $gold-color;
@@ -26,10 +37,17 @@
 
     }
 
-    .coins {
-        color: $gold-color;
-    }
+    .admin-mode {
+        display: flex;
+        gap: 4px;
+        color: gold;
+        align-items: center;
 
+        &.admin {
+            color: $color-2;
+        }
+
+    }
 
     .navigation-menu {
         margin-left: auto;
@@ -101,6 +119,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
         }
 
         .navigation-menu li a {

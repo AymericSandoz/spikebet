@@ -3,22 +3,36 @@ import { NavLink } from "react-router-dom";
 
 import { UidContext } from "../AppContext";
 import Logout from "../Log/Logout";
-import { faLock, faCoins, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLock,
+  faCoins,
+  faBars,
+  faUnlock,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IsAdmin } from "../../utils/Utils";
 import { useLocation } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+  const navigate = useNavigate();
+
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const uid = useContext(UidContext);
   const [competition, setCompetition] = useState("");
   const location = useLocation();
-  const toggleAdmin = () => {
-    uid.setAdmin(!uid.isAdmin);
+  const [isAdminMode, setIsAdminMode] = useState(false);
+  const toggleAdminMode = () => {
+    setIsAdminMode(!isAdminMode);
+    if (isAdminMode) {
+      navigate("/rankBets");
+    } else {
+      navigate("/admin/rankBets");
+    }
   };
-
   //Fonction qui va récupérer la query. SI un paramètre competition contient clermont_2024, une variable est créé et vaut CLERMONT - LA TERRE DU MILIEU 2024, si elle contient TS_Montpellier_2024, une variable est créé et vaut TS MONTPELLIER 2024. je veux que la query soit sous écoute de changement
 
   // Permet de rendre la nabar fonctionnel sur mobile
@@ -52,21 +66,21 @@ export default function Navbar() {
   }, [location]);
 
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${isAdminMode ? "admin" : "user"}`}>
       <NavLink
         exact
-        to="/"
+        to={isAdminMode ? "/admin/rankBets" : "/"}
         aria-label="Lien page d'acceuil"
         className="brand-name"
       >
         <span className="mobile-only">
           {competition ? competition : "Spikebet"}
         </span>
-        <span className="no-mobile">Spikebet</span>
+        <span className="no-mobile hovered">Spikebet</span>
       </NavLink>
 
       <button
-        className="hamburger"
+        className="hamburger hovered"
         onClick={() => {
           setIsNavExpanded(!isNavExpanded);
         }}
@@ -82,36 +96,31 @@ export default function Navbar() {
         <ul>
           {uid.uid && (
             <>
-              <li>
+              <li className="hovered">
                 <NavLink exact to="/about" aria-label="Lien page about">
                   Roundnet Actus
                 </NavLink>
               </li>
             </>
           )}
-
-          {/* {IsAdmin() && (
-            <li>
-              <NavLink
-                exact
-                to="/admin/rankBets"
+          {IsAdmin() && (
+            <li className="hovered">
+              <div
+                className={`admin-mode ${isAdminMode ? "admin" : "user"}`}
+                onClick={toggleAdminMode}
                 aria-label="Lien page resevé aux administrateurs"
               >
-                <FontAwesomeIcon icon={faLock} className={"icon"} /> Admin
-
-              </NavLink>
-            </li> */}
-          {IsAdmin() && (
-            <li>
-              <label class="switch">
-                <input type="checkbox" id="adminToggle" onClick={toggleAdmin} />
-                <span class="slider round">Mode Admin</span>
-              </label>
+                <FontAwesomeIcon
+                  icon={isAdminMode ? faLock : faUnlock}
+                  className={"icon"}
+                />
+                {isAdminMode ? "Désactiver mode Admin" : "Mode Admin"}
+              </div>
             </li>
           )}
 
           {!uid.uid ? (
-            <li>
+            <li className="hovered">
               <NavLink exact to="/log" aria-label="Lien page d'acceuil">
                 Inscription / Connexion
               </NavLink>

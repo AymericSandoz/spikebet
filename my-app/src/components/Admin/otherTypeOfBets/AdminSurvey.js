@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SurveyCard from "./AdminSurveyCard";
 import { IsAdmin } from "../../../utils/Utils";
+
 const AdminSurvey = () => {
   const [error, setError] = useState("");
   const [loadSurveys, setLoadSurveys] = useState(true);

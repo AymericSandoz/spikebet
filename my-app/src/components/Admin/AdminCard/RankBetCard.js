@@ -150,7 +150,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           <div className="competition-type">
             {rankBet.competition_type.toUpperCase()}
           </div>
-          {buttonState !== "after" && rankBet.live === "open" ? (
+          {buttonState === "after" && rankBet.live === "open" ? (
             <>
               <h1> ! Rentre les résultats !</h1>
 
