@@ -11,7 +11,7 @@ import {
 const LeftNav = () => {
   return (
     <>
-      <div className="left-nav-container left-nav-big-screen admin-nav">
+      <div className="left-nav-container left-nav-big-screen">
         <section>
           <h2 className=" sidebar-item lefnav-level-1">
             Compétitions

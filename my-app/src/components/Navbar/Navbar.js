@@ -15,6 +15,9 @@ export default function Navbar() {
   const uid = useContext(UidContext);
   const [competition, setCompetition] = useState("");
   const location = useLocation();
+  const toggleAdmin = () => {
+    uid.setAdmin(!uid.isAdmin);
+  };
 
   //Fonction qui va récupérer la query. SI un paramètre competition contient clermont_2024, une variable est créé et vaut CLERMONT - LA TERRE DU MILIEU 2024, si elle contient TS_Montpellier_2024, une variable est créé et vaut TS MONTPELLIER 2024. je veux que la query soit sous écoute de changement
 
@@ -87,7 +90,7 @@ export default function Navbar() {
             </>
           )}
 
-          {IsAdmin() && (
+          {/* {IsAdmin() && (
             <li>
               <NavLink
                 exact
@@ -95,7 +98,15 @@ export default function Navbar() {
                 aria-label="Lien page resevé aux administrateurs"
               >
                 <FontAwesomeIcon icon={faLock} className={"icon"} /> Admin
+
               </NavLink>
+            </li> */}
+          {IsAdmin() && (
+            <li>
+              <label class="switch">
+                <input type="checkbox" id="adminToggle" onClick={toggleAdmin} />
+                <span class="slider round">Mode Admin</span>
+              </label>
             </li>
           )}
 

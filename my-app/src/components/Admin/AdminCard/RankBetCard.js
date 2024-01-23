@@ -4,6 +4,9 @@ import axios from "axios";
 import { UidContext } from "../../AppContext";
 import { FaTimes } from "react-icons/fa";
 import moment from "moment";
+import TeamList from "../../Bets/BetCard/TeamsList";
+import { MdAdd } from "react-icons/md";
+import { Select } from "antd";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -14,9 +17,17 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   const [buttonState, setButtonState] = useState("");
   const [userRankBet, setUserRankBet] = useState();
   const [loadsUserRankBet, setLoadsUserRankBet] = useState(true);
+  const [teamListVisibility, setTeamListVisibility] = useState(
+    Array(5).fill(false)
+  );
 
-  const handleTeamSelect = (event, index) => {
-    let teamName = event.target.value;
+  const handleTeamSelect = (event, index, mobile = false) => {
+    let teamName;
+    if (!mobile) {
+      teamName = event.target.value;
+    } else if (mobile) {
+      teamName = event.name;
+    }
     // Update ranking state
     let newRanking = [...ranking];
     const position = index + 1; // Add 1 to length because array index starts from 0
@@ -41,6 +52,16 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     }
     newRanking.sort((a, b) => a.position - b.position);
     setRanking(newRanking);
+
+    if (mobile) {
+      toggleTeamListVisibility(index);
+    }
+  };
+
+  const toggleTeamListVisibility = (index) => {
+    const updatedVisibility = [...teamListVisibility];
+    updatedVisibility[index] = !updatedVisibility[index];
+    setTeamListVisibility(updatedVisibility);
   };
 
   const handleDeleteTeam = (index) => {
@@ -80,6 +101,19 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
         .then((res) => {
           if (res.data) {
             setUserRankBet(res.data);
+
+            // charger ranking avec les données de userrankbet cotenu dans userRanking
+            let newRanking = [];
+            if (res.data.userRanking.length > 0) {
+              res.data.userRanking.forEach((team) => {
+                newRanking.push({
+                  name: team.name,
+                  position: team.position,
+                });
+              });
+            }
+            setRanking(newRanking);
+
             setLoadsUserRankBet(false);
           }
         })
@@ -125,51 +159,131 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                   <div key={i} className="teams">
                     <span className="index">#{i + 1}</span>
                     <div className="black-background">
-                      <select
-                        id={`select-player-${i}`}
-                        onChange={(event) => handleTeamSelect(event, i)}
-                      >
-                        <option value="">
-                          {ranking &&
-                          ranking.find(
-                            (team) => team && team.position === i + 1
-                          )
-                            ? `${
-                                ranking.find(
-                                  (team) => team && team.position === i + 1
-                                ).name
-                              }`
-                            : "Sélectionner une équipe"}
-                        </option>
-
-                        {rankBet.teams && rankBet.teams.length > 0
-                          ? rankBet.teams
-                              .filter(
-                                (team) =>
-                                  !ranking.find(
-                                    (rankedTeam) =>
-                                      rankedTeam &&
-                                      rankedTeam.name === team.name
-                                  )
+                      <div className="no-mobile">
+                        <div className="flex-centered">
+                          <select
+                            id={`select-player-${i}`}
+                            onChange={(event) => handleTeamSelect(event, i)}
+                          >
+                            <option value="">
+                              {ranking &&
+                              ranking.find(
+                                (team) => team && team.position === i + 1
                               )
-                              .map((team) => {
-                                return (
-                                  <>
-                                    <option key={team.name} value={team.name}>
-                                      {team.name}- ({team.joueur1} et{" "}
-                                      {team.joueur2})
-                                    </option>
-                                  </>
-                                );
-                              })
-                          : null}
-                      </select>
-                      <span
-                        className="delete-team"
-                        onClick={() => handleDeleteTeam(i)}
-                      >
-                        <FaTimes />
-                      </span>
+                                ? `${
+                                    ranking.find(
+                                      (team) => team && team.position === i + 1
+                                    ).name
+                                  }`
+                                : "Sélectionner une équipe"}
+                            </option>
+
+                            {rankBet.teams && rankBet.teams.length > 0
+                              ? rankBet.teams
+                                  .filter(
+                                    (team) =>
+                                      !ranking.find(
+                                        (rankedTeam) =>
+                                          rankedTeam &&
+                                          rankedTeam.name === team.name
+                                      )
+                                  )
+                                  .sort(
+                                    (a, b) =>
+                                      (b.aymeric_cote || 0) -
+                                      (a.aymeric_cote || 0)
+                                  )
+                                  .map((team) => {
+                                    return (
+                                      <>
+                                        <option
+                                          key={team.name}
+                                          value={team.name}
+                                        >
+                                          {team.name} - ({team.joueur1} et{" "}
+                                          {team.joueur2})
+                                        </option>
+                                      </>
+                                    );
+                                  })
+                              : null}
+                          </select>
+
+                          <div
+                            className="delete-team flex-centered"
+                            onClick={() => handleDeleteTeam(i)}
+                          >
+                            <FaTimes />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mobile-only" style={{ width: "100%" }}>
+                        <div className="select-player">
+                          <div
+                            id={`select-player-${i}`}
+                            onClick={() => toggleTeamListVisibility(i)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {ranking &&
+                            ranking.find(
+                              (team) => team && team.position === i + 1
+                            ) ? (
+                              <div className="flex-centered">
+                                {" "}
+                                <div className="icon-add">
+                                  <MdAdd />
+                                </div>{" "}
+                                {
+                                  ranking.find(
+                                    (team) => team && team.position === i + 1
+                                  ).name
+                                }
+                              </div>
+                            ) : (
+                              <div className="flex-centered">
+                                {" "}
+                                <div className="icon-add">
+                                  <MdAdd />
+                                </div>{" "}
+                                <span class="small-mobile-only">Équipe</span>
+                                <span class="not-small-visible">
+                                  Sélectionner une équipe
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          {teamListVisibility[i] && (
+                            <TeamList
+                              teams={rankBet.teams
+                                .filter(
+                                  (team) =>
+                                    !ranking.find(
+                                      (rankedTeam) =>
+                                        rankedTeam &&
+                                        rankedTeam.name === team.name
+                                    )
+                                )
+                                .sort(
+                                  (a, b) =>
+                                    (b.aymeric_cote || 0) -
+                                    (a.aymeric_cote || 0)
+                                )}
+                              handleTeamSelect={handleTeamSelect}
+                              toggleTeamListVisibility={
+                                toggleTeamListVisibility
+                              }
+                              index={i}
+                            />
+                          )}
+                          <div
+                            className="delete-team flex-centered"
+                            onClick={() => handleDeleteTeam(i)}
+                          >
+                            <FaTimes />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}

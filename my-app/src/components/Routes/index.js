@@ -11,17 +11,29 @@ import AdminRankBets from "../Admin/otherTypeOfBets/RankBets";
 import UserProfil from "../User/UserProfil";
 import TournamentSelection from "../Navbar/mobileTournamentSelection";
 import TeamSelection from "../Bets/BetCard/TeamsList";
+import { IsAdmin } from "../../utils/Utils";
+import AdminLeftNav from "../Navbar/AdminLeftNav";
+import AdminTournamentSelection from "../Admin/otherTypeOfBets/AdminTournamentSelection";
+import AdminSurvey from "../Admin/otherTypeOfBets/AdminSurvey";
+import { useContext } from "react";
+import { UidContext } from "../AppContext";
 
 const index = () => {
+  const uid = useContext(UidContext);
   return (
     <BrowserRouter>
       <Navbars />
-      <LeftNav />
+      {uid.isAdminMode() ? <AdminLeftNav /> : <LeftNav />}
       <Routes>
         <Route path="/" element={<RankBets />} />
+        <Route path="/admin/survey" element={<AdminSurvey />} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/rankBets" element={<RankBets />} />
-        <Route path="tournamentSelection" element={<TournamentSelection />} />
+        <Route path="/tournamentSelection" element={<TournamentSelection />} />
+        <Route
+          path="/admin/tournamentSelection"
+          element={<AdminTournamentSelection />}
+        />
         <Route path="/admin/rankBets" element={<AdminRankBets />} />
         <Route path="/log" element={<Log />} />
         <Route path="/about" element={<About />} />

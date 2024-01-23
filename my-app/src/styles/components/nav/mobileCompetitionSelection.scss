@@ -50,7 +50,7 @@ h2 {
 .competition-link {
     text-decoration: none;
     color: black;
-    background-color: gold;
+    background-color: $gold-color;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
@@ -58,5 +58,5 @@ h2 {
 }
 
 .competition-link:hover {
-    background-color: gold;
+    background-color: $gold-color;
 }

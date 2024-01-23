@@ -8,6 +8,7 @@ import { CalculTotalCoins } from "./utils/Utils";
 const App = () => {
   const [uid, setUid] = useState(null);
   const [coins, setCoins] = useState(null);
+  const [isAdminMode, setAdminMode] = useState(false);
 
   const fetchToken = async () => {
     await axios({
@@ -66,7 +67,15 @@ const App = () => {
   }
   return (
     <UidContext.Provider
-      value={{ uid, coins, updateCoins, updateToken, destroyToken }}
+      value={{
+        uid,
+        coins,
+        updateCoins,
+        updateToken,
+        destroyToken,
+        isAdminMode,
+        setAdminMode,
+      }}
     >
       <Routes />
     </UidContext.Provider>

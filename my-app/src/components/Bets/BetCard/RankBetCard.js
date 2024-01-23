@@ -227,56 +227,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                         </div>
                       </div>
 
-                      {/* <div className="mobile-only">
-                        <div className="select-player">
-                          <div
-                            id={`select-player-${i}`}
-                            onClick={() => toggleTeamListVisibility(i)}
-                            style={{ cursor: "pointer" }}
-                          >
-                            {ranking &&
-                            ranking.find(
-                              (team) => team && team.position === i + 1
-                            ) ? (
-                              <div>
-                                {" "}
-                                <MdAdd />
-                                {
-                                  ranking.find(
-                                    (team) => team && team.position === i + 1
-                                  ).name
-                                }
-                              </div>
-                            ) : (
-                              <div className="flex-centered">
-                                {" "}
-                                <div className="icon-add">
-                                  <MdAdd />
-                                </div>{" "}
-                                Sélectionner une équipe
-                              </div>
-                            )}
-                          </div>
-                          {teamListVisibility[i] && (
-                            <TeamList
-                              teams={rankBet.teams}
-                              handleTeamSelect={handleTeamSelect}
-                              toggleTeamListVisibility={
-                                toggleTeamListVisibility
-                              }
-                              index={i}
-                            />
-                          )}
-
-                          <span
-                            className="delete-team"
-                            onClick={() => handleDeleteTeam(i)}
-                          >
-                            <FaTimes />
-                          </span>
-                        </div>
-                      </div> */}
-
                       <div className="mobile-only" style={{ width: "100%" }}>
                         <div className="select-player">
                           <div
@@ -314,7 +264,20 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                           </div>
                           {teamListVisibility[i] && (
                             <TeamList
-                              teams={rankBet.teams}
+                              teams={rankBet.teams
+                                .filter(
+                                  (team) =>
+                                    !ranking.find(
+                                      (rankedTeam) =>
+                                        rankedTeam &&
+                                        rankedTeam.name === team.name
+                                    )
+                                )
+                                .sort(
+                                  (a, b) =>
+                                    (b.aymeric_cote || 0) -
+                                    (a.aymeric_cote || 0)
+                                )}
                               handleTeamSelect={handleTeamSelect}
                               toggleTeamListVisibility={
                                 toggleTeamListVisibility

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RankBetCard from "../../Admin/AdminCard/RankBetCard";
-import AdminLeftNav from "../../Navbar/AdminLeftNav";
 import { IsAdmin } from "../../../utils/Utils";
 import { useLocation } from "react-router-dom";
 
@@ -75,9 +74,8 @@ const RankBets = () => {
 
   return (
     <>
-      {IsAdmin() ? (
+      {IsAdmin() && (
         <>
-          <AdminLeftNav />
           <div className="rank-bets-container">
             <div className="rank-bets">
               {betsToDisplay.length > 0 &&
@@ -96,8 +94,6 @@ const RankBets = () => {
             </div>
           </div>
         </>
-      ) : (
-        <RankBets />
       )}
     </>
   );

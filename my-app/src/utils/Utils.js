@@ -20,22 +20,6 @@ export const arraySum = (array) => {
   return sum;
 };
 
-// export const CalculTotalCoins = (coins, miseArray, scoreArray) => {
-//   let miseArraySum = 0;
-//   for (let i = 0; i < miseArray.length; i++) {
-//     miseArraySum += miseArray[i];
-//   }
-
-//   let miseScoreArray = 0;
-//   for (let i = 0; i < scoreArray.length; i++) {
-//     miseScoreArray += scoreArray[i];
-//   }
-
-//   let totalCoins = miseScoreArray - miseArraySum + coins;
-
-//   return totalCoins;
-// };
-
 export const CalculTotalCoins = (betsArray, initialCoins) => {
   let totalCoins = initialCoins;
 

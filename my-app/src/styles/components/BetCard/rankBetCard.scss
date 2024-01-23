@@ -25,7 +25,7 @@
         left: -30px;
         padding: 10px 20px;
         background-color: black;
-        color: gold;
+        color: $gold-color;
         transform: rotate(-40deg);
         transform-origin: 0 0;
         text-align: center;
@@ -144,7 +144,7 @@
 
             &:hover {
                 filter: contrast(150%);
-                color: gold;
+                color: $gold-color;
             }
         }
     }

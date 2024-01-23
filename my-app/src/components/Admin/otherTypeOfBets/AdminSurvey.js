@@ -1,10 +1,9 @@
-import { UidContext } from "../AppContext";
-
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import SurveyCard from "./SurveyCard";
-const Survey = () => {
+import SurveyCard from "./AdminSurveyCard";
+import { IsAdmin } from "../../../utils/Utils";
+const AdminSurvey = () => {
   const [error, setError] = useState("");
   const [loadSurveys, setLoadSurveys] = useState(true);
   const [surveys, setSurveys] = useState([]);
@@ -33,7 +32,7 @@ const Survey = () => {
 
   return (
     <>
-      <>
+      {IsAdmin() && (
         <div className="survey-bets">
           {surveys.length > 0 &&
             surveys.map((survey) => {
@@ -49,8 +48,8 @@ const Survey = () => {
             })}
           <br />
         </div>
-      </>
+      )}
     </>
   );
 };
-export default Survey;
+export default AdminSurvey;

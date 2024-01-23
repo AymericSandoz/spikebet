@@ -27,7 +27,7 @@
                 text-align: left;
                 border-bottom: 1px solid #ddd;
                 background-color: $color-1;
-                color: gold;
+                color: $gold-color;
                 border-left: 1px solid gold;
                 border-right: 1px solid gold;
 
@@ -130,7 +130,7 @@
             }
 
             :hover {
-                color: gold;
+                color: $gold-color;
                 border-bottom: 1px solid #404040;
             }
         }
