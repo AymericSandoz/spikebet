@@ -67,11 +67,16 @@
         justify-content: center;
         align-items: center;
 
+        .select-player-item {
+            width: 100%;
+        }
+
         .flex-centered {
             display: flex;
             align-items: center;
             gap: 4px;
             padding: 4px;
+            width: max-content;
         }
 
         .black-background {
@@ -230,7 +235,10 @@
 
 
     .bet-error {
-        color: #dc3545;
+        color: red;
         margin-top: 10px;
+        font-size: 25px;
+        text-align: center;
+        width: 100%;
     }
 }

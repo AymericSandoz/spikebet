@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UidContext } from "../../../components/AppContext";
+import ReactiveButton from "reactive-button";
 
 const AdminSurveyCard = ({ survey, getSurveys }) => {
   const [userChoice, setUserChoice] = useState();
@@ -76,18 +77,6 @@ const AdminSurveyCard = ({ survey, getSurveys }) => {
             );
           })}
         </div>
-
-        {uid.uid ? (
-          !survey.arrayVotersId.includes(uid.uid) ? (
-            <button className="primary-button" onClick={() => sendSurvey()}>
-              VALIDER
-            </button>
-          ) : (
-            <button className="primary-button" onClick={() => sendSurvey()}>
-              MODIFIER
-            </button>
-          )
-        ) : null}
       </li>
     </>
   );

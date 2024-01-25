@@ -22,8 +22,10 @@ import {
 const SurveyCard = ({ survey, getSurveys }) => {
   const [userChoice, setUserChoice] = useState();
   const uid = useContext(UidContext);
+  const [buttonState, setButtonState] = useState("waiting");
 
   const sendSurvey = () => {
+    setButtonState("loading");
     axios({
       method: "put",
       url: `${process.env.REACT_APP_SERVER_URL}api/bet/survey/${survey._id}`,
@@ -32,9 +34,11 @@ const SurveyCard = ({ survey, getSurveys }) => {
     })
       .then((res) => {
         getSurveys();
+        setButtonState("success");
       })
       .catch((err) => {
         console.log(err);
+        setButtonState("error");
       });
   };
 
@@ -96,11 +100,17 @@ const SurveyCard = ({ survey, getSurveys }) => {
 
         {uid.uid ? (
           !survey.arrayVotersId.includes(uid.uid) ? (
-            <button className="primary-button" onClick={() => sendSurvey()}>
+            <button
+              className={`primary-button ${buttonState}`}
+              onClick={() => sendSurvey()}
+            >
               VALIDER
             </button>
           ) : (
-            <button className="primary-button" onClick={() => sendSurvey()}>
+            <button
+              className={`primary-button ${buttonState}`}
+              onClick={() => sendSurvey()}
+            >
               MODIFIER
             </button>
           )

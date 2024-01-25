@@ -14,12 +14,13 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   const [ranking, setRanking] = useState([]);
   const [showAllTeams, setShowAllTeams] = useState(false);
-  const [buttonState, setButtonState] = useState("");
+  const [TournamentState, setTournamentState] = useState("");
   const [userRankBet, setUserRankBet] = useState();
   const [loadsUserRankBet, setLoadsUserRankBet] = useState(true);
   const [teamListVisibility, setTeamListVisibility] = useState(
     Array(5).fill(false)
   );
+  const [buttonState, setButtonState] = useState("waiting");
 
   const handleTeamSelect = (event, index, mobile = false) => {
     let teamName;
@@ -82,11 +83,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     let oneDayAfter = new Date(competitionDate.getTime() + 24 * 60 * 60 * 1000);
 
     if (now < oneHourBefore) {
-      setButtonState("before");
+      setTournamentState("before");
     } else if (now < competitionDate) {
-      setButtonState("ongoing");
+      setTournamentState("ongoing");
     } else if (now < oneDayAfter) {
-      setButtonState("after");
+      setTournamentState("after");
     }
   }, []);
 
@@ -124,7 +125,10 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   };
 
   const closeBet = () => {
+    setButtonState("loading");
+    setError("");
     if (ranking.length !== 5) {
+      setButtonState("error");
       setError(`Ohhhh ! C'est un top 5 par un top ${ranking.length} !`);
       return;
     }
@@ -137,9 +141,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     })
       .then((res) => {
         getRankBets();
+        setButtonState("success");
       })
       .catch((err) => {
         console.log(err);
+        setButtonState("error");
       });
   };
 
@@ -150,7 +156,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           <div className="competition-type">
             {rankBet.competition_type.toUpperCase()}
           </div>
-          {buttonState === "after" && rankBet.live === "open" ? (
+          {TournamentState === "after" && rankBet.live === "open" ? (
             <>
               <h1> ! Rentre les résultats !</h1>
 
@@ -289,16 +295,19 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 ))}
               </div>
 
-              <button className="primary-button" onClick={() => closeBet()}>
+              <button
+                className={`primary-button ${buttonState}`}
+                onClick={() => closeBet()}
+              >
                 VALIDER
               </button>
             </>
-          ) : buttonState === "ongoing" ? (
+          ) : TournamentState === "ongoing" ? (
             <>
               <p>Tournoi en cours</p>
               <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
             </>
-          ) : buttonState === "before" ? (
+          ) : TournamentState === "before" ? (
             <>
               <p>Tournoi à venir</p>
               <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
