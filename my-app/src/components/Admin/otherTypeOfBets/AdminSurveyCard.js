@@ -36,14 +36,14 @@ const AdminSurveyCard = ({ survey, getSurveys }) => {
   const calculSurveyStat = (userChoice) => {
     let choiceNbOfVoters = 0;
 
+    if (survey.arrayVotersId.length === 0) return 0;
+
     survey.userChoice.forEach((element) => {
       if (element.answer === userChoice) {
         choiceNbOfVoters++;
       }
     });
-    return (
-      ((choiceNbOfVoters * 100) / survey.arrayVotersId.length).toFixed(0) + "%"
-    ); //percentage of voters
+    return ((choiceNbOfVoters * 100) / survey.arrayVotersId.length).toFixed(0); //percentage of voters
   };
 
   return (
@@ -55,23 +55,38 @@ const AdminSurveyCard = ({ survey, getSurveys }) => {
             return (
               <>
                 <div className="choice-container">
-                  <div className="label">{choice}</div>
                   <div
-                    className="choice"
+                    className="label"
                     style={{
-                      width: calculSurveyStat(choice),
-                      backgroundColor:
-                        userChoice === choice
-                          ? "darkgoldenrod"
-                          : index % 2 === 0
-                          ? "#696969"
-                          : "#A9A9A9",
+                      color: userChoice === choice && "darkgoldenrod",
                     }}
                     onClick={() => {
                       if (uid.uid) setUserChoice(choice);
                     }}
-                  ></div>
-                  <div className="survey-stat">{calculSurveyStat(choice)}</div>
+                  >
+                    {choice}
+                  </div>
+                  <div className="choice-survey-stat">
+                    <div
+                      className="choice"
+                      style={{
+                        width: calculSurveyStat(choice) / 2,
+                        backgroundColor:
+                          userChoice === choice
+                            ? "darkgoldenrod"
+                            : index % 2 === 0
+                            ? "#696969"
+                            : "#A9A9A9",
+                      }}
+                      onClick={() => {
+                        if (uid.uid) setUserChoice(choice);
+                      }}
+                    ></div>
+
+                    <div className="survey-stat">
+                      {calculSurveyStat(choice)}%
+                    </div>
+                  </div>
                 </div>
               </>
             );

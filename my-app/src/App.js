@@ -29,7 +29,7 @@ const App = () => {
       })
       .catch((err) => {
         setUid(null);
-        console.log("No token ");
+        console.log("No token: ", err);
       });
   };
 

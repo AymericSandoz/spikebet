@@ -23,6 +23,7 @@ exports.signup = (req, res, next) => {
         password: hash,
         pseudo: req.body.pseudo,
         name: req.body.name,
+        club: req.body.club,
       });
       user
         .save()

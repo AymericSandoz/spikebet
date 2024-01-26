@@ -4,8 +4,8 @@ import SignInForm from "./signInForm";
 import SignUpForm from "./signUpForm";
 //import spikeImg from "../../images/spikeball-pro-kit-tournament-edition-513c58__1_-removebg-preview.png";
 const Log = (props) => {
-  const [signUpModal, setSignUpModal] = useState(props.signup);
-  const [signInModal, setSignInModal] = useState(props.signin);
+  const [signUpModal, setSignUpModal] = useState(false);
+  const [signInModal, setSignInModal] = useState(true);
 
   const handleModals = (e) => {
     if (e.target.id === "register") {
@@ -29,14 +29,14 @@ const Log = (props) => {
           <li
             onClick={handleModals}
             id="register"
-            className={signUpModal ? "active-btn" : "btn"}
+            className={`secondary-button ${signUpModal && "active-btn"}`}
           >
             S'inscrire
           </li>
           <li
             onClick={handleModals}
             id="login"
-            className={signInModal ? "active-btn" : "btn"}
+            className={`secondary-button ${signInModal && "active-btn"}`}
           >
             Se connecter
           </li>

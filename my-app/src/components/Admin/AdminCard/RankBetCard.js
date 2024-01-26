@@ -309,7 +309,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             </>
           ) : TournamentState === "before" ? (
             <>
-              <p>Tournoi à venir</p>
+              <p className="tournament-to-come">Tournoi à venir</p>
               <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
             </>
           ) : null}

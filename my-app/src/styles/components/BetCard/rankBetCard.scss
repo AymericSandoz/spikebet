@@ -1,5 +1,4 @@
-.rank-bet-card,
-.img {
+.rank-bet-card {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -33,15 +32,11 @@
 
     }
 
-    .competition-img {
-        position: absolute;
-        top: 0;
-        right: 0;
-        border-radius: 50%;
-        width: 100px;
-        /* Ajustez la taille de l'image comme vous le souhaitez */
-        height: 100px;
+    .tournament-to-come {
+        text-align: center;
+        font-size: 25px;
     }
+
 
     h1 {
         font-size: 1.5rem;
@@ -53,6 +48,13 @@
             padding: 0 24px;
         }
 
+    }
+
+    .connect-to-bet {
+        padding: 15px;
+        text-align: center;
+        font-size: 1.5em;
+        color: $gold-color;
     }
 
     .bar-chart-container {
@@ -68,7 +70,9 @@
         align-items: center;
 
         .select-player-item {
-            width: 100%;
+            @include mobile-only {
+                width: 100%;
+            }
         }
 
         .flex-centered {
@@ -120,7 +124,7 @@
         }
 
         option {
-            width: 400px;
+            width: 200px;
             padding: 4px;
             cursor: pointer;
             font-weight: normal;

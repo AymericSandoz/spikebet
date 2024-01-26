@@ -5,8 +5,9 @@ import { UidContext } from "../../AppContext";
 import { FaTimes } from "react-icons/fa";
 import TeamList from "./TeamsList";
 import { MdAdd } from "react-icons/md";
-import { Select } from "antd";
+import Select from "react-select";
 import ReactiveButton from "reactive-button";
+import moment from "moment";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -166,8 +167,17 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           <div className="competition-type">
             {rankBet.competition_type.toUpperCase()}
           </div>
-          {/* && rankBet.live === "open" */}
-          {TournamentState === "before" && uid.uid ? (
+          {rankBet.teams.length === 0 && (
+            <>
+              <p className="tournament-to-come">Tournoi à venir</p>
+              <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
+            </>
+          )}
+
+          {TournamentState === "before" &&
+          rankBet.teams.length > 0 &&
+          rankBet.live === "open" &&
+          uid.uid ? (
             <>
               {!rankBet.userIdArray.includes(uid.uid) ? (
                 <h1>QUEL EST TON PRONOSTIC ?</h1>
@@ -310,15 +320,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                   </div>
                 ))}
               </div>
-              {/* <ReactiveButton
-                idleText="Valider"
-                loadingText="Chargement..."
-                successText="Succès"
-                errorText="Erreur"
-                state={state}
-                onClick={() => bet()}
-              />
-              state: {state} */}
               {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
                 <button
                   className={`primary-button ${buttonState}`}
@@ -340,7 +341,9 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           ) : TournamentState === "after" ? (
             <p>Tournoi terminé</p>
           ) : null}
-          {!uid.uid && <p> Connecte toi pour parier !</p>}
+          {!uid.uid && rankBet.teams.length > 0 && (
+            <p className="connect-to-bet"> Connecte toi pour parier !</p>
+          )}
 
           {error && <p className="bet-error">{error}</p>}
           {rankBet.teamScores && (

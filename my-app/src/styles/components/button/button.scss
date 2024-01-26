@@ -23,17 +23,12 @@
     font-weight: bold;
     font-size: 24px;
     transition: all 0.3s ease;
+    cursor: pointer;
 
     &:hover {
         opacity: 0.9;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
-
-    // &.loading {
-    //     background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2));
-    //     background-size: 200% 100%;
-    //     animation: loading 2s infinite;
-    // }
 
     &.error {
         animation: error 0.5s;
@@ -50,7 +45,27 @@
 }
 
 
-.secondary-button {}
+.secondary-button {
+    color: $gold-color;
+    border-radius: 16px;
+    padding: 16px;
+    margin: auto;
+    font-weight: bold;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    width: 200px;
+
+    &.active-btn {
+        background-color: black;
+    }
+
+    &:hover {
+        opacity: 0.9;
+        background-color: black;
+    }
+}
 
 .display-more-button {
     color: white;
@@ -60,9 +75,7 @@
     margin-right: auto;
 
     &:hover {
-        // opacity: 0.9;
-        // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-        // changer couleur ocapcity
+        opacity: 0.9;
 
     }
 

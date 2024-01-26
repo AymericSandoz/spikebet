@@ -28,6 +28,7 @@ const userSchema = mongoose.Schema(
     miseArray: [(type = Number)],
     scoreIdArray: [(type = String)],
     imgUrl: { type: String },
+    club: { type: String },
 
     // betsArray: { type: Array, default: [] },
     betsArray: [

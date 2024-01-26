@@ -27,6 +27,9 @@ export default function Navbar() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const toggleAdminMode = () => {
     setIsAdminMode(!isAdminMode);
+    console.log(uid.isAdminMode);
+    uid.setAdminMode(!uid.isAdminMode);
+    console.log(uid.isAdminMode);
     if (isAdminMode) {
       navigate("/rankBets");
     } else {

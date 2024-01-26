@@ -143,11 +143,7 @@ const Profil = () => {
         />
         <div className="password-confirm error"></div>
         <br /> */}
-          <input
-            className="btn btn-update"
-            type="submit"
-            value="Valider modification"
-          />
+          <input className="btn btn-update" type="submit" value="Modifier" />
         </form>
       )}
     </>

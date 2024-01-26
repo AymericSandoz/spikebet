@@ -9,6 +9,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [controlPassword, setControlPassword] = useState("");
+  const [club, setClub] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -66,6 +67,7 @@ const SignUpForm = () => {
         email,
         password,
         name,
+        club,
       },
     })
       .then((res) => {
@@ -91,7 +93,7 @@ const SignUpForm = () => {
         </>
       ) : (
         <form action="" onSubmit={handleRegister} id="sign-up-form">
-          <label htmlFor="pseudo">Pseudo</label>
+          <label htmlFor="pseudo">Pseudo*</label>
           <br />
           <input
             type="text"
@@ -102,7 +104,7 @@ const SignUpForm = () => {
           />
           <div className="pseudo error"></div>
           <br />
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email*</label>
           <br />
           <input
             type="text"
@@ -113,7 +115,7 @@ const SignUpForm = () => {
           />
           <div className="email error"></div>
           <br />
-          <label htmlFor="name">name</label>
+          <label htmlFor="name">Prénom et Nom*</label>
           <br />
           <input
             type="text"
@@ -124,7 +126,32 @@ const SignUpForm = () => {
           />
           <div className="name error"></div>
           <br />
-          <label htmlFor="password">Mot de passe</label>
+          <label htmlFor="club">Club*</label>
+          <br />
+          <select
+            id="club"
+            name="club"
+            value={club}
+            onChange={(e) => setClub(e.target.value)}
+          >
+            <option value="Montpellier">Choisir un club</option>
+            <option value="Montpellier">Montpellier</option>
+            <option value="Lyon">Lyon</option>
+            <option value="Paris">Paris</option>
+            <option value="Marseille">Marseille</option>
+            <option value="Toulouse">Toulouse</option>
+            <option value="Gif">Gif</option>
+            <option value="Annecy">Annecy</option>
+            <option value="Rennes">Rennes</option>
+            <option value="Nantes">Nantes</option>
+            <option value="Abbeville">Abbeville</option>
+            <option value="Mulhouse">Mulhouse</option>
+            <option value="Clermont">Clermont</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <br />
+          <br />
+          <label htmlFor="password">Mot de passe*</label>
           <br />
           <input
             type="password"
@@ -135,7 +162,7 @@ const SignUpForm = () => {
           />
           <div className="password error"></div>
           <br />
-          <label htmlFor="password-conf">Confirmer mot de passe</label>
+          <label htmlFor="password-conf">Confirmer mot de passe*</label>
           <br />
           <input
             type="password"
@@ -146,20 +173,7 @@ const SignUpForm = () => {
           />
           <div className="password-confirm error"></div>
           <br />
-          {/* <input type="checkbox" id="terms" />
-          <label htmlFor="terms">
-            J'accepte les{" "}
-            <a href="/" target="_blank" rel="noopener noreferrer">
-              conditions générales
-            </a>
-          </label>
-          <div className="terms error"> </div>
-          <br /> */}
-          <input
-            className="btn btn-inscription"
-            type="submit"
-            value="Valider inscription"
-          />
+          <input className="btn primary-button" type="submit" value="Valider" />
         </form>
       )}
     </>
