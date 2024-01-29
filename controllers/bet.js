@@ -4,7 +4,7 @@ const User = require("../models/user");
 const UserBet = require("../models/userBet");
 
 const RankBet = require("../models/othersTypeOfBets/rankBets");
-const UserRankBet = require("../models/othersTypeOfBets/userrankbet");
+const UserRankBet = require("../models/othersTypeOfBets/userRankBet");
 
 const { getRankBetGain } = require("../utils/shemaFunction");
 
