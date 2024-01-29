@@ -5,8 +5,6 @@ import { UidContext } from "../../AppContext";
 import { FaTimes } from "react-icons/fa";
 import TeamList from "./TeamsList";
 import { MdAdd } from "react-icons/md";
-import Select from "react-select";
-import ReactiveButton from "reactive-button";
 import moment from "moment";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
@@ -162,132 +160,54 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   return (
     <>
-      {(uid.uid || rankBet.teamScores) && (
-        <li className="rank-bet-card" key={rankBet._id}>
-          <div className="competition-type">
-            {rankBet.competition_type.toUpperCase()}
-          </div>
-          {rankBet.teams.length === 0 && (
-            <>
-              <p className="tournament-to-come">Tournoi à venir</p>
-              <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
-            </>
-          )}
+      <li className="rank-bet-card" key={rankBet._id}>
+        <div className="competition-type">
+          {rankBet.competition_type.toUpperCase()}
+        </div>
+        {rankBet.teams.length === 0 && (
+          <>
+            <p className="tournament-to-come">Tournoi à venir</p>
+            <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
+          </>
+        )}
 
-          {TournamentState === "before" &&
-          rankBet.teams.length > 0 &&
-          rankBet.live === "open" &&
-          uid.uid ? (
-            <>
-              {!rankBet.userIdArray.includes(uid.uid) ? (
-                <h1>QUEL EST TON PRONOSTIC ?</h1>
-              ) : (
-                <h1>TON PARI</h1>
-              )}
-              <div className="select-player-container">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="teams">
-                    <span className="index">#{i + 1}</span>
-                    <div className="black-background">
-                      <div className="no-mobile">
-                        <div className="flex-centered">
-                          <select
-                            id={`select-player-${i}`}
-                            className="select-player-item"
-                            onChange={(event) => handleTeamSelect(event, i)}
-                          >
-                            <option value="">
-                              {ranking &&
-                              ranking.find(
-                                (team) => team && team.position === i + 1
-                              )
-                                ? `${
-                                    ranking.find(
-                                      (team) => team && team.position === i + 1
-                                    ).name
-                                  }`
-                                : "Sélectionner une équipe"}
-                            </option>
-
-                            {rankBet.teams && rankBet.teams.length > 0
-                              ? rankBet.teams
-                                  .filter(
-                                    (team) =>
-                                      !ranking.find(
-                                        (rankedTeam) =>
-                                          rankedTeam &&
-                                          rankedTeam.name === team.name
-                                      )
-                                  )
-                                  .sort(
-                                    (a, b) =>
-                                      (b.aymeric_cote || 0) -
-                                      (a.aymeric_cote || 0)
-                                  )
-                                  .map((team) => {
-                                    return (
-                                      <>
-                                        <option
-                                          key={team.name}
-                                          value={team.name}
-                                        >
-                                          {team.name} - ({team.joueur1} et{" "}
-                                          {team.joueur2})
-                                        </option>
-                                      </>
-                                    );
-                                  })
-                              : null}
-                          </select>
-
-                          <div
-                            className="delete-team flex-centered"
-                            onClick={() => handleDeleteTeam(i)}
-                          >
-                            <FaTimes />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mobile-only" style={{ width: "100%" }}>
-                        <div className="select-player">
-                          <div
-                            id={`select-player-${i}`}
-                            className="select-player-item"
-                            onClick={() => toggleTeamListVisibility(i)}
-                            style={{ cursor: "pointer" }}
-                          >
+        {TournamentState === "before" &&
+        rankBet.teams.length > 0 &&
+        rankBet.live === "open" &&
+        uid.uid ? (
+          <>
+            {!rankBet.userIdArray.includes(uid.uid) ? (
+              <h1>QUEL EST TON PRONOSTIC ?</h1>
+            ) : (
+              <h1>TON PARI</h1>
+            )}
+            <div className="select-player-container">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="teams">
+                  <span className="index">#{i + 1}</span>
+                  <div className="black-background">
+                    <div className="no-mobile">
+                      <div className="flex-centered">
+                        <select
+                          id={`select-player-${i}`}
+                          className="select-player-item"
+                          onChange={(event) => handleTeamSelect(event, i)}
+                        >
+                          <option value="">
                             {ranking &&
                             ranking.find(
                               (team) => team && team.position === i + 1
-                            ) ? (
-                              <div className="flex-centered">
-                                {" "}
-                                <div className="icon-add">
-                                  <MdAdd />
-                                </div>{" "}
-                                {
+                            )
+                              ? `${
                                   ranking.find(
                                     (team) => team && team.position === i + 1
                                   ).name
-                                }
-                              </div>
-                            ) : (
-                              <div className="flex-centered">
-                                {" "}
-                                <div className="icon-add">
-                                  <MdAdd />
-                                </div>{" "}
-                                <span class="small-mobile-only">Équipe</span>
-                                <span class="not-small-visible">
-                                  Sélectionner une équipe
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                          {teamListVisibility[i] && (
-                            <TeamList
-                              teams={rankBet.teams
+                                }`
+                              : "Sélectionner une équipe"}
+                          </option>
+
+                          {rankBet.teams && rankBet.teams.length > 0
+                            ? rankBet.teams
                                 .filter(
                                   (team) =>
                                     !ranking.find(
@@ -300,66 +220,136 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                   (a, b) =>
                                     (b.aymeric_cote || 0) -
                                     (a.aymeric_cote || 0)
-                                )}
-                              handleTeamSelect={handleTeamSelect}
-                              toggleTeamListVisibility={
-                                toggleTeamListVisibility
+                                )
+                                .map((team) => {
+                                  return (
+                                    <>
+                                      <option key={team.name} value={team.name}>
+                                        {team.name} - ({team.joueur1} et{" "}
+                                        {team.joueur2})
+                                      </option>
+                                    </>
+                                  );
+                                })
+                            : null}
+                        </select>
+
+                        <div
+                          className="delete-team flex-centered"
+                          onClick={() => handleDeleteTeam(i)}
+                        >
+                          <FaTimes />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mobile-only" style={{ width: "100%" }}>
+                      <div className="select-player">
+                        <div
+                          id={`select-player-${i}`}
+                          className="select-player-item"
+                          onClick={() => toggleTeamListVisibility(i)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {ranking &&
+                          ranking.find(
+                            (team) => team && team.position === i + 1
+                          ) ? (
+                            <div className="flex-centered">
+                              {" "}
+                              <div className="icon-add">
+                                <MdAdd />
+                              </div>{" "}
+                              {
+                                ranking.find(
+                                  (team) => team && team.position === i + 1
+                                ).name
                               }
-                              index={i}
-                            />
+                            </div>
+                          ) : (
+                            <div className="flex-centered">
+                              {" "}
+                              <div className="icon-add">
+                                <MdAdd />
+                              </div>{" "}
+                              <span class="small-mobile-only">Équipe</span>
+                              <span class="not-small-visible">
+                                Sélectionner une équipe
+                              </span>
+                            </div>
                           )}
-                          <div
-                            className="delete-team flex-centered"
-                            onClick={() => handleDeleteTeam(i)}
-                          >
-                            <FaTimes />
-                          </div>
+                        </div>
+                        {teamListVisibility[i] && (
+                          <TeamList
+                            teams={rankBet.teams
+                              .filter(
+                                (team) =>
+                                  !ranking.find(
+                                    (rankedTeam) =>
+                                      rankedTeam &&
+                                      rankedTeam.name === team.name
+                                  )
+                              )
+                              .sort(
+                                (a, b) =>
+                                  (b.aymeric_cote || 0) - (a.aymeric_cote || 0)
+                              )}
+                            handleTeamSelect={handleTeamSelect}
+                            toggleTeamListVisibility={toggleTeamListVisibility}
+                            index={i}
+                          />
+                        )}
+                        <div
+                          className="delete-team flex-centered"
+                          onClick={() => handleDeleteTeam(i)}
+                        >
+                          <FaTimes />
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-              {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
-                <button
-                  className={`primary-button ${buttonState}`}
-                  onClick={() => bet()}
-                >
-                  MODIFIER
-                </button>
-              ) : (
-                <button
-                  className={`primary-button ${buttonState}`}
-                  onClick={() => bet()}
-                >
-                  VALIDER
-                </button>
-              )}
-            </>
-          ) : TournamentState === "ongoing" ? (
-            <p>Tournoi en cours</p>
-          ) : TournamentState === "after" ? (
-            <p>Tournoi terminé</p>
-          ) : null}
-          {!uid.uid && rankBet.teams.length > 0 && (
-            <p className="connect-to-bet"> Connecte toi pour parier !</p>
-          )}
-
-          {error && <p className="bet-error">{error}</p>}
-          {rankBet.teamScores && (
-            <div className="bar-chart-container">
-              <h1>Ceux que les autres ont parié</h1>
-              <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
-              <button
-                className="display-more-button"
-                onClick={() => setShowAllTeams(!showAllTeams)}
-              >
-                {showAllTeams ? "Afficher moins" : "Afficher plus"}
-              </button>
+                </div>
+              ))}
             </div>
-          )}
-        </li>
-      )}
+            {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
+              <button
+                className={`primary-button ${buttonState}`}
+                onClick={() => bet()}
+              >
+                MODIFIER
+              </button>
+            ) : (
+              <button
+                className={`primary-button ${buttonState}`}
+                onClick={() => bet()}
+              >
+                VALIDER
+              </button>
+            )}
+          </>
+        ) : TournamentState === "ongoing" ? (
+          <p>Tournoi en cours</p>
+        ) : TournamentState === "after" ? (
+          <p>Tournoi terminé</p>
+        ) : null}
+        {!uid.uid && rankBet.teams.length > 0 && (
+          <p className="connect-to-bet"> Connecte toi pour parier !</p>
+        )}
+
+        {error && <p className="bet-error">{error}</p>}
+        {rankBet.teamScores && (
+          <div className="bar-chart-container">
+            <h1>Ceux que les autres ont parié</h1>
+            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
+            <button
+              className="display-more-button"
+              onClick={() => setShowAllTeams(!showAllTeams)}
+            >
+              {showAllTeams ? "Afficher moins" : "Afficher plus"}
+            </button>
+          </div>
+        )}
+      </li>
     </>
   );
 };
