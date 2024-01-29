@@ -19,9 +19,9 @@ const RankBets = () => {
   }
 
   const calculateTeamScores = (bets) => {
-    const teamScores = {};
     // Vérifier si 'bets' est défini et non vide
     bets?.forEach((bet) => {
+      const teamScores = {};
       // Vérifier si 'usersBets' est défini et non vide pour chaque pari
       bet.usersBets?.forEach((userBet) => {
         const teamsRanked = userBet.userRanking; // Assurez-vous que c'est la bonne façon d'accéder aux équipes classées dans vos données

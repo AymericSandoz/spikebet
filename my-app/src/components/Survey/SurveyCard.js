@@ -42,6 +42,7 @@ const SurveyCard = ({ survey, getSurveys }) => {
       .then((res) => {
         getSurveys();
         setButtonState("success");
+        setError("");
       })
       .catch((err) => {
         console.log(err);
