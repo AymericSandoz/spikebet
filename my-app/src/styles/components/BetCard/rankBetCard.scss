@@ -17,6 +17,10 @@
         opacity: 1;
     }
 
+    @include small-mobile-only {
+        padding: 24px 16px;
+    }
+
     .competition-type {
         position: absolute;
         top: 60px;
@@ -35,6 +39,10 @@
     .tournament-to-come {
         text-align: center;
         font-size: 25px;
+
+        @include mobile-only {
+            padding: 24px 32px 0 32px;
+        }
     }
 
 
@@ -45,7 +53,7 @@
 
         @include mobile-only {
             font-size: 1.2rem;
-            padding: 0 24px;
+            padding: 0 40px;
         }
 
     }
@@ -90,7 +98,7 @@
             background: black;
 
             @include mobile-only {
-                background: none;
+                // background: none;
                 box-shadow: black 0px 0px 5px;
             }
         }

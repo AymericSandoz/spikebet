@@ -28,8 +28,14 @@ $gold-color: gold;
 
 
 ///breakpooints
-$breakpoints: ("small-mobile":400px, "mobile":750px, "tablette":950px);
+$breakpoints: ("small-mobile":450px, "mobile":750px, "tablette":950px);
 /*RESPONSIVE : Mixines utilisées pour les media queries*/
+
+@mixin small-mobile-only {
+    @media screen and (max-width: map-get($breakpoints, small-mobile)) {
+        @content
+    }
+}
 
 @mixin mobile-only {
     @media screen and (max-width: map-get($breakpoints, mobile)) {

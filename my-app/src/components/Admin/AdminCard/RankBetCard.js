@@ -6,11 +6,12 @@ import { FaTimes } from "react-icons/fa";
 import moment from "moment";
 import TeamList from "../../Bets/BetCard/TeamsList";
 import { MdAdd } from "react-icons/md";
-import { Select } from "antd";
+import Select from "react-select";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
   const uid = useContext(UidContext);
+  const [search, setSearch] = useState("");
 
   const [ranking, setRanking] = useState([]);
   const [showAllTeams, setShowAllTeams] = useState(false);
@@ -25,7 +26,12 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
   const handleTeamSelect = (event, index, mobile = false) => {
     let teamName;
     if (!mobile) {
-      teamName = event.target.value;
+      if (!event) {
+        // If selectedOption is null, remove the team from the ranking
+        setRanking(ranking.filter((team) => team.position !== index + 1));
+        return;
+      }
+      teamName = event.value;
     } else if (mobile) {
       teamName = event.name;
     }
@@ -71,6 +77,22 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     newRanking.sort((a, b) => a.position - b.position);
     setRanking(newRanking);
   };
+
+  const options =
+    rankBet.teams && rankBet.teams.length > 0
+      ? rankBet.teams
+          .filter(
+            (team) =>
+              !ranking.find(
+                (rankedTeam) => rankedTeam && rankedTeam.name === team.name
+              )
+          )
+          .sort((a, b) => (b.aymeric_cote || 0) - (a.aymeric_cote || 0))
+          .map((team) => ({
+            value: team.name,
+            label: `${team.name} - (${team.joueur1} et ${team.joueur2})`,
+          }))
+      : [];
 
   useEffect(() => {
     if (loadsUserRankBet) {
@@ -156,7 +178,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           <div className="competition-type">
             {rankBet.competition_type.toUpperCase()}
           </div>
-          {TournamentState === "after" && rankBet.live === "open" ? (
+          {/* {TournamentState === "after" && rankBet.live === "open" ? ( */}
+          {rankBet.live === "open" ? (
             <>
               <h1> ! Rentre les résultats !</h1>
 
@@ -164,66 +187,65 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 {[...Array(5)].map((_, i) => (
                   <div key={i} className="teams">
                     <span className="index">#{i + 1}</span>
-                    <div className="black-background">
-                      <div className="no-mobile">
-                        <div className="flex-centered">
-                          <select
-                            id={`select-player-${i}`}
-                            onChange={(event) => handleTeamSelect(event, i)}
-                          >
-                            <option value="">
-                              {ranking &&
-                              ranking.find(
-                                (team) => team && team.position === i + 1
+
+                    <div className="no-mobile">
+                      <div className="flex-centered">
+                        <Select
+                          id={`select-player-${i}`}
+                          className="select-player-item"
+                          options={options.filter(
+                            (option) =>
+                              !ranking.find(
+                                (rank) => rank.name === option.value
                               )
-                                ? `${
-                                    ranking.find(
-                                      (team) => team && team.position === i + 1
-                                    ).name
-                                  }`
-                                : "Sélectionner une équipe"}
-                            </option>
-
-                            {rankBet.teams && rankBet.teams.length > 0
-                              ? rankBet.teams
-                                  .filter(
-                                    (team) =>
-                                      !ranking.find(
-                                        (rankedTeam) =>
-                                          rankedTeam &&
-                                          rankedTeam.name === team.name
-                                      )
-                                  )
-                                  .sort(
-                                    (a, b) =>
-                                      (b.aymeric_cote || 0) -
-                                      (a.aymeric_cote || 0)
-                                  )
-                                  .map((team) => {
-                                    return (
-                                      <>
-                                        <option
-                                          key={team.name}
-                                          value={team.name}
-                                        >
-                                          {team.name} - ({team.joueur1} et{" "}
-                                          {team.joueur2})
-                                        </option>
-                                      </>
-                                    );
-                                  })
-                              : null}
-                          </select>
-
-                          <div
-                            className="delete-team flex-centered"
-                            onClick={() => handleDeleteTeam(i)}
-                          >
-                            <FaTimes />
-                          </div>
-                        </div>
+                          )}
+                          isSearchable
+                          isClearable
+                          onChange={(event) => handleTeamSelect(event, i)}
+                          placeholder={
+                            ranking &&
+                            ranking.find(
+                              (team) => team && team.position === i + 1
+                            )
+                              ? `${
+                                  ranking.find(
+                                    (team) => team && team.position === i + 1
+                                  ).name
+                                }`
+                              : "Sélectionner une équipe"
+                          }
+                          styles={{
+                            control: (provided) => ({
+                              ...provided,
+                              backgroundColor: "black",
+                              color: "white",
+                              width: "400px",
+                            }),
+                            singleValue: (provided) => ({
+                              ...provided,
+                              color: "white",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              backgroundColor: "black",
+                              color: "white",
+                            }),
+                            option: (provided, state) => ({
+                              ...provided,
+                              backgroundColor: state.isFocused
+                                ? "grey"
+                                : "black",
+                              color: "white",
+                            }),
+                            input: (provided) => ({
+                              ...provided,
+                              color: "white",
+                            }),
+                          }}
+                        />
                       </div>
-
+                    </div>
+                    <div className="black-background">
                       <div className="mobile-only" style={{ width: "100%" }}>
                         <div className="select-player">
                           <div

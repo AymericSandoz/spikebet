@@ -78,7 +78,7 @@ const rankBet = [
         joueur2: "Alexandre Thiollière",
       },
       {
-        name: "TBD",
+        name: "TBD1",
         joueur1: "Olivier Saunier",
         joueur2: "Tristan Prouteau",
         aymeric_cote: 4,
@@ -120,7 +120,7 @@ const rankBet = [
         aymeric_cote: 6.5,
       },
       {
-        name: "TBD",
+        name: "TBD2",
         joueur1: "Olivier Hui Bon Hoa",
         joueur2: "Paul Halphen",
         aymeric_cote: 6,
@@ -1128,7 +1128,7 @@ const data = [
         joueur2: "Alexandre Thiollière",
       },
       {
-        name: "TBD",
+        name: "TBD1",
         joueur1: "Olivier Saunier",
         joueur2: "Tristan Prouteau",
       },
@@ -1168,7 +1168,7 @@ const data = [
         joueur2: "Lucas Cornut",
       },
       {
-        name: "TBD",
+        name: "TBD2",
         joueur1: "Olivier Hui Bon Hoa",
         joueur2: "Paul Halphen",
       },

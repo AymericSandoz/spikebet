@@ -21,6 +21,10 @@
         opacity: 0.9;
         border-radius: 8px;
 
+        @include small-mobile-only {
+            font-size: 12px;
+        }
+
         thead {
             th {
                 padding: 12px;
@@ -83,11 +87,11 @@
                 rgba(0, 0, 0, 0.35)),
             url("../../../images/RP_backgroundImage (2).jpg");
         color: white;
-        padding: 60px 20px;
+        padding: 120px 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px #1a1a1a;
         overflow-y: auto;
-        max-height: 90vh;
+        height: 100%;
         width: 100%;
 
         .background {
@@ -96,6 +100,22 @@
             padding: 16px;
             padding-top: 40px;
             position: relative;
+        }
+
+        input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            cursor: pointer;
+            border: 1px solid #404040;
+            justify-content: space-between;
+            width: 100%;
+            opacity: 0.9;
+            background: none;
+            color: white;
+            margin-bottom: 8px;
+            border-radius: 4px;
         }
 
         h2 {

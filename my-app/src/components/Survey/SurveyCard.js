@@ -27,7 +27,6 @@ const SurveyCard = ({ survey, getSurveys }) => {
   const [error, setError] = useState("");
 
   const sendSurvey = () => {
-    console.log(userChoice);
     if (!userChoice) {
       setButtonState("error");
       setError("Veuillez choisir une réponse");

@@ -26,19 +26,15 @@ const RankBets = () => {
       const teamScores = {};
       // Vérifier si 'usersBets' est défini et non vide pour chaque pari
       bet.usersBets?.forEach((userBet) => {
-        console.log("bet, userBet", bet.usersBets);
         const teamsRanked = userBet.userRanking; // Assurez-vous que c'est la bonne façon d'accéder aux équipes classées dans vos données
         teamsRanked?.forEach((team) => {
-          console.log(team);
           const score = 6 - team.position; // 5 points pour la 1ère place, 1 point pour la 5ème, etc...
           if (!teamScores[team.name]) {
             teamScores[team.name] = 0;
           }
           teamScores[team.name] += score;
         });
-        console.log("teamScores", teamScores);
         bet.teamScores = teamScores;
-        console.log(bet.teamScores);
       });
     });
 

@@ -280,7 +280,7 @@ exports.closeRankBet = (req, res, next) => {
             gain: getRankBetGain(result, element.userRanking, element.prize),
           }
         )
-          .then(() => console.log("youhou"))
+          .then(() => console.log("success"))
           .catch((error) => console.log(error));
       });
     } else res.send("Erreur :" + err);
