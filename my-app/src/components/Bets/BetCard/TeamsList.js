@@ -1,6 +1,8 @@
 import React from "react";
 import { MdAdd, MdClose } from "react-icons/md";
 import { useState } from "react";
+import { UidContext } from "../../../components/AppContext";
+import { useContext } from "react";
 const TeamList = ({
   teams,
   handleTeamSelect,
@@ -8,6 +10,7 @@ const TeamList = ({
   index,
 }) => {
   const [search, setSearch] = useState("");
+  const uid = useContext(UidContext);
   return (
     <div className="team-list-overlay">
       <div className="team-list-container">
@@ -17,6 +20,8 @@ const TeamList = ({
           <input
             type="text"
             value={search}
+            onFocus={() => uid.setDisplayMobileNavBar(false)}
+            onBlur={() => uid.setDisplayMobileNavBar(true)}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Entre une équipe"
           />

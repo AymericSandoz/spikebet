@@ -9,7 +9,10 @@ import {
   faObjectGroup,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { UidContext } from "../AppContext";
+import { useContext } from "react";
 const AdminLeftNav = () => {
+  const uid = useContext(UidContext);
   return (
     <>
       <div className="left-nav-container admin">
@@ -48,24 +51,26 @@ const AdminLeftNav = () => {
           </NavLink>
         </section>
       </div>
-      <div className="left-nav-container left-nav-small-screen">
-        <NavLink
-          className={"sidebar-item lefnav-level-2 hovered"}
-          to="/admin/tournamentSelection"
-        >
-          <span>Paris</span>
-          <FontAwesomeIcon icon={faTrophy} className="icon" />
-        </NavLink>
-        <section>
+      {uid.displayMobileNavBar && (
+        <div className="left-nav-container left-nav-small-screen">
           <NavLink
-            className={"sidebar-item lefnav-level-1 hovered"}
-            to="/ranking"
+            className={"sidebar-item lefnav-level-2 hovered"}
+            to="/admin/tournamentSelection"
           >
-            <span>Classement</span>
-            <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
+            <span>Paris</span>
+            <FontAwesomeIcon icon={faTrophy} className="icon" />
           </NavLink>
-        </section>
-      </div>
+          <section>
+            <NavLink
+              className={"sidebar-item lefnav-level-1 hovered"}
+              to="/ranking"
+            >
+              <span>Classement</span>
+              <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
+            </NavLink>
+          </section>
+        </div>
+      )}
     </>
   );
 };

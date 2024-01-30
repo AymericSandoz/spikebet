@@ -9,6 +9,7 @@ const App = () => {
   const [uid, setUid] = useState(null);
   const [coins, setCoins] = useState(null);
   const [isAdminMode, setAdminMode] = useState(false);
+  const [displayMobileNavBar, setDisplayMobileNavBar] = useState(true);
 
   const fetchToken = async () => {
     await axios({
@@ -75,6 +76,8 @@ const App = () => {
         destroyToken,
         isAdminMode,
         setAdminMode,
+        displayMobileNavBar,
+        setDisplayMobileNavBar,
       }}
     >
       <Routes />
