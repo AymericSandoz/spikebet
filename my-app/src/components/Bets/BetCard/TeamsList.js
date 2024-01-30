@@ -49,7 +49,7 @@ const TeamList = ({
                     <span className="team-name">{team.name.toLowerCase()}</span>{" "}
                     -{" "}
                     <span className="team-players">
-                      {team.joueur1.toLowerCase()} et
+                      {team.joueur1.toLowerCase()} et{" "}
                       {team.joueur2.toLowerCase()}
                     </span>
                   </div>{" "}
