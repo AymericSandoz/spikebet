@@ -1,3 +1,7 @@
+.ranking-container {
+    margin-bottom: 80px;
+}
+
 .ranking {
     margin: 100px 10px 100px 240px;
     display: flex;
@@ -34,6 +38,7 @@
                 color: $gold-color;
                 border-left: 1px solid gold;
                 border-right: 1px solid gold;
+                text-align: center;
 
             }
         }
@@ -54,6 +59,7 @@
                 td {
                     padding: 10px;
                     border-bottom: 1px solid #ddd;
+                    text-align: center;
                 }
             }
         }
