@@ -78,7 +78,7 @@ const getRankBetGain = (tournamentResults, userRanking, prize) => {
   if (tournamentResults[1].name === userRanking[2].name) {
     totalPoints += 0.5;
   }
-  if (tournamentResults[1].name === userRanking[2].name) {
+  if (tournamentResults[2].name === userRanking[1].name) {
     totalPoints += 0.5;
   }
   return totalPoints * prize;
