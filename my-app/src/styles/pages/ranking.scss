@@ -29,6 +29,24 @@
             font-size: 12px;
         }
 
+        .sortable {
+            cursor: pointer;
+        }
+
+        input {
+            background: none;
+            width: 100%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 4px;
+
+            &::placeholder {
+                color: white;
+                font-size: 12px;
+
+            }
+        }
+
         thead {
             th {
                 padding: 12px;

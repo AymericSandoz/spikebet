@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import axios from "axios";
 import { calculNbClosedBets, calculScore } from "../../utils/Utils";
@@ -128,11 +128,22 @@ const Ranking = () => {
         console.log(err);
       });
   };
-
+  const inputRef = useRef();
   useEffect(() => {
     if (loadUsers) {
       getUsers();
     }
+
+    function handleClickOutside(event) {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setIsSearchVisible(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [loadUsers, users]);
 
   return (
@@ -146,17 +157,22 @@ const Ranking = () => {
                   <tr>
                     <th className="sortable" onClick={sortUsers}>
                       Classement{" "}
-                      <span className="sortable">
+                      <span>
                         <FontAwesomeIcon icon={faSort} />
                       </span>
                     </th>
                     <th className="sortable">
-                      Nom{" "}
-                      <span className="sortable" onClick={toggleSearch}>
-                        <FontAwesomeIcon icon={faFilter} />
-                      </span>
+                      {!isSearchVisible && (
+                        <div onClick={toggleSearch}>
+                          Nom{" "}
+                          <span onClick={toggleSearch}>
+                            <FontAwesomeIcon icon={faFilter} />
+                          </span>
+                        </div>
+                      )}
                       {isSearchVisible && (
                         <input
+                          ref={inputRef}
                           type="text"
                           value={searchTerm}
                           placeholder="Rechercher"
