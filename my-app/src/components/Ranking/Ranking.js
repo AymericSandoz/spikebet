@@ -73,34 +73,6 @@ const Ranking = () => {
     })
       .then((res) => {
         let newArray = returnScoreArray(res.data);
-        // let multipliedUsers = [];
-        // for (let user of newArray) {
-        //   for (let i = 0; i < 10; i++) {
-        //     let clonedUser = { ...user, name: user.name + " " + (i + 1) };
-        //     multipliedUsers.push(clonedUser);
-        //   }
-        // }
-        // multipliedUsers.sort((a, b) => {
-        //   if (a.score < b.score) {
-        //     return 1;
-        //   }
-        //   if (a.score > b.score) {
-        //     return -1;
-        //   }
-        //   // scores are equal, sort by name
-        //   if (a.name < b.name) {
-        //     return -1;
-        //   }
-        //   if (a.name > b.name) {
-        //     return 1;
-        //   }
-        //   return 0;
-        // });
-        // multipliedUsers = multipliedUsers.map((user, index) => {
-        //   return { ...user, rank: index + 1 };
-        // });
-        // setUsers(multipliedUsers);
-        // setFilteredUsers(multipliedUsers);
         newArray.sort((a, b) => {
           if (a.score < b.score) {
             return 1;
