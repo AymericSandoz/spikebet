@@ -22,6 +22,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     Array(5).fill(false)
   );
   const [buttonState, setButtonState] = useState("waiting");
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
 
   const handleTeamSelect = (event, index, mobile = false) => {
     let teamName;
@@ -69,6 +70,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     const updatedVisibility = [...teamListVisibility];
     updatedVisibility[index] = !updatedVisibility[index];
     setTeamListVisibility(updatedVisibility);
+    setSelectedOptionIndex(index);
   };
 
   const handleDeleteTeam = (index) => {
@@ -281,29 +283,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                               </div>
                             )}
                           </div>
-                          {teamListVisibility[i] && (
-                            <TeamList
-                              teams={rankBet.teams
-                                .filter(
-                                  (team) =>
-                                    !ranking.find(
-                                      (rankedTeam) =>
-                                        rankedTeam &&
-                                        rankedTeam.name === team.name
-                                    )
-                                )
-                                .sort(
-                                  (a, b) =>
-                                    (b.aymeric_cote || 0) -
-                                    (a.aymeric_cote || 0)
-                                )}
-                              handleTeamSelect={handleTeamSelect}
-                              toggleTeamListVisibility={
-                                toggleTeamListVisibility
-                              }
-                              index={i}
-                            />
-                          )}
                           <div
                             className="delete-team flex-centered"
                             onClick={() => handleDeleteTeam(i)}
@@ -368,6 +347,21 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             </div>
           )}
         </li>
+      )}
+      {teamListVisibility[selectedOptionIndex] && (
+        <TeamList
+          teams={rankBet.teams
+            .filter(
+              (team) =>
+                !ranking.find(
+                  (rankedTeam) => rankedTeam && rankedTeam.name === team.name
+                )
+            )
+            .sort((a, b) => (b.aymeric_cote || 0) - (a.aymeric_cote || 0))}
+          handleTeamSelect={handleTeamSelect}
+          toggleTeamListVisibility={toggleTeamListVisibility}
+          index={selectedOptionIndex}
+        />
       )}
     </>
   );

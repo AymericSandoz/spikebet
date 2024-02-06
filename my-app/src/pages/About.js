@@ -5,8 +5,20 @@ const About = () => {
       <div className="about-container">
         <h1>Roundnet Actus</h1>
         <p>
-          Je te propose ici de faire une page pour décrire ce site, son but
-          etc...
+          Salut c’est RAF, bienvenue dans Spikebet, le site réalisé par Aymeric
+          pour nous permettre d’avoir une plateforme de paris sur le roundnet
+          français. Bien entendu nous ne parions pas d’argent mais il y a aura
+          un système de points et une coupe du meilleur parieur sera donnée à la
+          fin de la saison 🎖️ Le principe de Spikebet : Dans l’onglet
+          compétition, vous cliquez sur la compétition du moment, ce qui vous
+          emmène sur la page de paris. Sur cette page vous sélectionnez votre
+          top 5 par division. Une fois la deadline passée, vous ne pourrez plus
+          modifier ce pari. Système de points : +2 points si vous trouvez le
+          gagnant, +1 point par autre place juste. Si vous inversez le 2ème et
+          le 3ème, +0,5 points. Système de coefficients : les tournois open
+          seront coefficient 1, les TS coefficient 2 et les CDF coefficient 3.
+          Amusez-vous bien, n’hésitez pas à nous faire vos retours via notre
+          instagram et que le meilleur gagne !
         </p>
       </div>
     </div>

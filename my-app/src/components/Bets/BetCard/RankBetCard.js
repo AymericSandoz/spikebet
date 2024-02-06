@@ -369,27 +369,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                             </div>
                           )}
                         </div>
-                        {/* {teamListVisibility[i] && (
-                          <TeamList
-                            teams={rankBet.teams
-                              .filter(
-                                (team) =>
-                                  !ranking.find(
-                                    (rankedTeam) =>
-                                      rankedTeam &&
-                                      rankedTeam.name === team.name
-                                  )
-                              )
-                              .sort(
-                                (a, b) =>
-                                  (b.aymeric_cote || 0) - (a.aymeric_cote || 0)
-                              )}
-                            handleTeamSelect={handleTeamSelect}
-                            toggleTeamListVisibility={toggleTeamListVisibility}
-                            index={i}
-                            key={i}
-                          />
-                        )} */}
                         <div
                           className="delete-team flex-centered"
                           onClick={() => handleDeleteTeam(i)}
