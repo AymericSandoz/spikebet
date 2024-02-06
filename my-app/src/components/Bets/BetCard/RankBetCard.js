@@ -415,7 +415,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
               className="display-more-button"
               onClick={() => setShowAllTeams(!showAllTeams)}
             >
-              {showAllTeams ? "Afficher moins" : "Afficher plus"}
+              {rankBet.teamScores.length > 5
+                ? showAllTeams
+                  ? "Afficher moins"
+                  : "Afficher plus"
+                : null}
             </button>
           </div>
         )}
