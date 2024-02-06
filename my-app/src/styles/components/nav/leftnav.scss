@@ -121,6 +121,7 @@
 
         @include mobile-only {
             // display: none;
+            padding-left: 0;
         }
     }
 }
