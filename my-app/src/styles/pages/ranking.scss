@@ -103,7 +103,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 5;
+    z-index: 20;
     font-weight: normal;
 
     .team-list-container {
@@ -118,6 +118,10 @@
         overflow-y: auto;
         height: 100%;
         width: 100%;
+
+        &:focus {
+            outline: red auto 5px;
+        }
 
         .background {
             background-color: #202020;
@@ -175,7 +179,6 @@
             }
 
             :hover {
-                color: $gold-color;
                 border-bottom: 1px solid #404040;
             }
         }
