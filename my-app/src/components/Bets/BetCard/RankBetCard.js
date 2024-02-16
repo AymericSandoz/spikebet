@@ -7,6 +7,7 @@ import TeamList from "./TeamsList";
 import { MdAdd } from "react-icons/md";
 import moment from "moment";
 import Select from "react-select";
+import { set } from "lodash";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -107,13 +108,14 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     let oneHourBefore = new Date(competitionDate.getTime() - 60 * 60 * 1000);
     let oneDayAfter = new Date(competitionDate.getTime() + 24 * 60 * 60 * 1000);
 
-    if (now < oneHourBefore) {
-      setTournamentState("before");
-    } else if (now < competitionDate) {
-      setTournamentState("ongoing");
-    } else if (now < oneDayAfter) {
-      setTournamentState("after");
-    }
+    // if (now < oneHourBefore) {
+    //   setTournamentState("before");
+    // } else if (now < competitionDate) {
+    //   setTournamentState("ongoing");
+    // } else if (now < oneDayAfter) {
+    //   setTournamentState("after");
+    // }
+    setTournamentState("after");
   }, []);
 
   // get user rank bet if exists
@@ -206,12 +208,10 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             ) : (
               <h1>TON PARI</h1>
             )}
-
             <div className="select-player-container">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="teams">
                   <span className="index">#{i + 1}</span>
-
                   <div className="no-mobile">
                     <div className="flex-centered">
                       <Select
@@ -263,73 +263,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                           }),
                         }}
                       />
-                      {/* <input
-                          type="text"
-                          value={search}
-                          onChange={(e) => setSearch(e.target.value)}
-                          placeholder="Sélectionner une équipe"
-                        />
-                        <select
-                          id={`select-player-${i}`}
-                          className="select-player-item"
-                          onChange={(event) => handleTeamSelect(event, i)}
-                        >
-                          <option value="">
-                            {ranking &&
-                            ranking.find(
-                              (team) => team && team.position === i + 1
-                            )
-                              ? `${
-                                  ranking.find(
-                                    (team) => team && team.position === i + 1
-                                  ).name
-                                }`
-                              : "Sélectionner une équipe"}
-                          </option>
-
-                          {rankBet.teams && rankBet.teams.length > 0
-                            ? rankBet.teams
-                                .filter(
-                                  (team) =>
-                                    !ranking.find(
-                                      (rankedTeam) =>
-                                        rankedTeam &&
-                                        rankedTeam.name === team.name
-                                    ) &&
-                                    (team.name
-                                      .toLowerCase()
-                                      .includes(search.toLowerCase()) ||
-                                      team.joueur1
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()) ||
-                                      team.joueur2
-                                        .toLowerCase()
-                                        .includes(search.toLowerCase()))
-                                )
-                                .sort(
-                                  (a, b) =>
-                                    (b.aymeric_cote || 0) -
-                                    (a.aymeric_cote || 0)
-                                )
-                                .map((team) => {
-                                  return (
-                                    <>
-                                      <option key={team.name} value={team.name}>
-                                        {team.name} - ({team.joueur1} et{" "}
-                                        {team.joueur2})
-                                      </option>
-                                    </>
-                                  );
-                                })
-                            : null}
-                        </select> */}
-
-                      {/* <div
-                          className="delete-team flex-centered"
-                          onClick={() => handleDeleteTeam(i)}
-                        >
-                          <FaTimes />
-                        </div>*/}
                     </div>
                   </div>
                   <div className="black-background">
@@ -362,8 +295,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                               <div className="icon-add">
                                 <MdAdd />
                               </div>{" "}
-                              <span class="small-mobile-only">Équipe</span>
-                              <span class="not-small-visible">
+                              <span className="small-mobile-only">Équipe</span>
+                              <span className="not-small-visible">
                                 Sélectionner une équipe
                               </span>
                             </div>
@@ -398,9 +331,81 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             )}
           </>
         ) : TournamentState === "ongoing" ? (
-          <p>Tournoi en cours</p>
-        ) : TournamentState === "after" ? (
-          <p>Tournoi terminé</p>
+          <p className="tournament-state">Tournoi en cours</p>
+        ) : TournamentState === "after" &&
+          userRankBet &&
+          userRankBet.live !== "closed" ? (
+          <p className="tournament-state">
+            Tournoi terminé. En attente des résultats
+          </p>
+        ) : TournamentState === "after" &&
+          userRankBet &&
+          userRankBet.live === "closed" &&
+          userRankBet.gain ? (
+          <>
+            <p className="tournament-state">Tournoi terminé.</p>
+            {userRankBet.gain > 0 && (
+              <p className="text-center">
+                {" "}
+                Bravo, tu as gagné {userRankBet.gain} points !
+              </p>
+            )}
+            {userRankBet.gain === 0 && (
+              <p> Pas ouf, tu as gagné {userRankBet.gain} points !</p>
+            )}
+
+            <div className="classement">
+              {userRankBet.userRanking.map((team, i) => {
+                let className = "team-name";
+                let points = 0;
+                const positionInResult = userRankBet.resultRanking.findIndex(
+                  (t) => t.name === team.name
+                );
+                if (positionInResult === i) {
+                  className += " good-prediction";
+                  if (i === 0) {
+                    points = 2; // 2 points pour la première équipe bien placée
+                  } else if (i < 5) {
+                    points = 1; // 1 point pour les 4 autres équipes bien placées
+                  }
+                } else {
+                  className += " false-prediction";
+                  if (
+                    (i === 1 || i === 2) &&
+                    (positionInResult === 1 || positionInResult === 2)
+                  ) {
+                    points = 0.5; // 0.5 point pour le 2ème et 3ème placés inversés
+                  }
+                }
+                points *= rankBet.prize; // multiplier les points par le prix
+                return (
+                  <div key={i} className="prediction">
+                    <div className="index"># {i + 1}</div>
+                    <div className={className}>
+                      {team.name} (+{points})
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* <div className="classement">
+              {userRankBet.userRanking.map((team, i) => {
+                let className = "team-name";
+                if (team.name === userRankBet.resultRanking[i].name) {
+                  className += " good-prediction";
+                } else {
+                  className += " false-prediction";
+                }
+                return (
+                  <div key={i} className="prediction">
+                    <div className="index"># {i + 1}</div>
+                    <div className={className}>{team.name}</div>
+                  </div>
+                );
+              })}
+            </div> */}
+          </>
         ) : null}
         {!uid.uid && rankBet.teams.length > 0 && (
           <p className="connect-to-bet"> Connecte toi pour parier !</p>
