@@ -186,231 +186,239 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
   return (
     <>
-      <li className="rank-bet-card" key={rankBet._id}>
-        <div className="competition-type">
-          {rankBet.competition_type.toUpperCase()}
-        </div>
-        {rankBet.teams.length === 0 && (
-          <>
-            <p className="tournament-to-come">Tournoi à venir</p>
-            <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
-          </>
-        )}
+      {TournamentState && (
+        <li className="rank-bet-card" key={rankBet._id}>
+          <div className="competition-type">
+            {rankBet.competition_type.toUpperCase()}
+          </div>
+          {rankBet.teams.length === 0 && (
+            <>
+              <p className="tournament-to-come">Tournoi à venir</p>
+              <h1>{moment(rankBet.competition_date).format("DD/MM/YYYY")}</h1>
+            </>
+          )}
 
-        {TournamentState === "before" &&
-        rankBet.teams.length > 0 &&
-        rankBet.live === "open" &&
-        uid.uid ? (
-          <>
-            {!rankBet.userIdArray.includes(uid.uid) ? (
-              <h1>QUEL EST TON PRONOSTIC ?</h1>
-            ) : (
-              <h1>TON PARI</h1>
-            )}
-            <div className="select-player-container">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="teams">
-                  <span className="index">#{i + 1}</span>
-                  <div className="no-mobile">
-                    <div className="flex-centered">
-                      <Select
-                        id={`select-player-${i}`}
-                        className="select-player-item"
-                        options={options.filter(
-                          (option) =>
-                            !ranking.find((rank) => rank.name === option.value)
-                        )}
-                        isSearchable
-                        isClearable
-                        onChange={(event) => handleTeamSelect(event, i)}
-                        placeholder={
-                          ranking &&
-                          ranking.find(
-                            (team) => team && team.position === i + 1
-                          )
-                            ? `${
-                                ranking.find(
-                                  (team) => team && team.position === i + 1
-                                ).name
-                              }`
-                            : "Sélectionner une équipe"
-                        }
-                        styles={{
-                          control: (provided) => ({
-                            ...provided,
-                            backgroundColor: "black",
-                            color: "white",
-                            width: "400px",
-                          }),
-                          singleValue: (provided) => ({
-                            ...provided,
-                            color: "white",
-                          }),
-                          menu: (provided) => ({
-                            ...provided,
-                            backgroundColor: "black",
-                            color: "white",
-                          }),
-                          option: (provided, state) => ({
-                            ...provided,
-                            backgroundColor: state.isFocused ? "grey" : "black",
-                            color: "white",
-                          }),
-                          input: (provided) => ({
-                            ...provided,
-                            color: "white",
-                          }),
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div className="black-background">
-                    <div className="mobile-only" style={{ width: "100%" }}>
-                      <div className="select-player">
-                        <div
+          {TournamentState === "before" &&
+          rankBet.teams.length > 0 &&
+          rankBet.live === "open" &&
+          uid.uid ? (
+            <>
+              {!rankBet.userIdArray.includes(uid.uid) ? (
+                <h1>QUEL EST TON PRONOSTIC ?</h1>
+              ) : (
+                <h1>TON PARI</h1>
+              )}
+              <div className="select-player-container">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="teams">
+                    <span className="index">#{i + 1}</span>
+                    <div className="no-mobile">
+                      <div className="flex-centered">
+                        <Select
                           id={`select-player-${i}`}
                           className="select-player-item"
-                          onClick={() => toggleTeamListVisibility(i)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {ranking &&
-                          ranking.find(
-                            (team) => team && team.position === i + 1
-                          ) ? (
-                            <div className="flex-centered">
-                              {" "}
-                              <div className="icon-add">
-                                <MdAdd />
-                              </div>{" "}
-                              {
-                                ranking.find(
-                                  (team) => team && team.position === i + 1
-                                ).name
-                              }
-                            </div>
-                          ) : (
-                            <div className="flex-centered">
-                              {" "}
-                              <div className="icon-add">
-                                <MdAdd />
-                              </div>{" "}
-                              <span className="small-mobile-only">Équipe</span>
-                              <span className="not-small-visible">
-                                Sélectionner une équipe
-                              </span>
-                            </div>
+                          options={options.filter(
+                            (option) =>
+                              !ranking.find(
+                                (rank) => rank.name === option.value
+                              )
                           )}
-                        </div>
-                        <div
-                          className="delete-team flex-centered"
-                          onClick={() => handleDeleteTeam(i)}
-                        >
-                          <FaTimes />
+                          isSearchable
+                          isClearable
+                          onChange={(event) => handleTeamSelect(event, i)}
+                          placeholder={
+                            ranking &&
+                            ranking.find(
+                              (team) => team && team.position === i + 1
+                            )
+                              ? `${
+                                  ranking.find(
+                                    (team) => team && team.position === i + 1
+                                  ).name
+                                }`
+                              : "Sélectionner une équipe"
+                          }
+                          styles={{
+                            control: (provided) => ({
+                              ...provided,
+                              backgroundColor: "black",
+                              color: "white",
+                              width: "400px",
+                            }),
+                            singleValue: (provided) => ({
+                              ...provided,
+                              color: "white",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              backgroundColor: "black",
+                              color: "white",
+                            }),
+                            option: (provided, state) => ({
+                              ...provided,
+                              backgroundColor: state.isFocused
+                                ? "grey"
+                                : "black",
+                              color: "white",
+                            }),
+                            input: (provided) => ({
+                              ...provided,
+                              color: "white",
+                            }),
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="black-background">
+                      <div className="mobile-only" style={{ width: "100%" }}>
+                        <div className="select-player">
+                          <div
+                            id={`select-player-${i}`}
+                            className="select-player-item"
+                            onClick={() => toggleTeamListVisibility(i)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {ranking &&
+                            ranking.find(
+                              (team) => team && team.position === i + 1
+                            ) ? (
+                              <div className="flex-centered">
+                                {" "}
+                                <div className="icon-add">
+                                  <MdAdd />
+                                </div>{" "}
+                                {
+                                  ranking.find(
+                                    (team) => team && team.position === i + 1
+                                  ).name
+                                }
+                              </div>
+                            ) : (
+                              <div className="flex-centered">
+                                {" "}
+                                <div className="icon-add">
+                                  <MdAdd />
+                                </div>{" "}
+                                <span className="small-mobile-only">
+                                  Équipe
+                                </span>
+                                <span className="not-small-visible">
+                                  Sélectionner une équipe
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          <div
+                            className="delete-team flex-centered"
+                            onClick={() => handleDeleteTeam(i)}
+                          >
+                            <FaTimes />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
-              <button
-                className={`primary-button ${buttonState}`}
-                onClick={() => bet()}
-              >
-                MODIFIER
-              </button>
-            ) : (
-              <button
-                className={`primary-button ${buttonState}`}
-                onClick={() => bet()}
-              >
-                VALIDER
-              </button>
-            )}
-          </>
-        ) : TournamentState === "ongoing" ? (
-          <p className="tournament-state">Tournoi en cours</p>
-        ) : TournamentState === "after" &&
-          userRankBet &&
-          userRankBet.live !== "closed" ? (
-          <p className="tournament-state">
-            Tournoi terminé. En attente des résultats
-          </p>
-        ) : TournamentState === "after" &&
-          userRankBet &&
-          userRankBet.live === "closed" &&
-          userRankBet.gain ? (
-          <>
-            <p className="tournament-state">Tournoi terminé.</p>
-            {userRankBet.gain > 0 && (
-              <p className="text-center">
-                {" "}
-                Bravo, tu as gagné {userRankBet.gain} points !
-              </p>
-            )}
-            {userRankBet.gain === 0 && (
-              <p> Pas ouf, tu as gagné {userRankBet.gain} points !</p>
-            )}
+                ))}
+              </div>
+              {uid.uid && rankBet.userIdArray.includes(uid.uid) ? (
+                <button
+                  className={`primary-button ${buttonState}`}
+                  onClick={() => bet()}
+                >
+                  MODIFIER
+                </button>
+              ) : (
+                <button
+                  className={`primary-button ${buttonState}`}
+                  onClick={() => bet()}
+                >
+                  VALIDER
+                </button>
+              )}
+            </>
+          ) : TournamentState === "ongoing" ? (
+            <p className="tournament-state">Tournoi en cours</p>
+          ) : TournamentState === "after" &&
+            userRankBet &&
+            userRankBet.live !== "closed" ? (
+            <p className="tournament-state">
+              Tournoi terminé. En attente des résultats
+            </p>
+          ) : TournamentState === "after" &&
+            userRankBet &&
+            userRankBet.live === "closed" &&
+            userRankBet.gain ? (
+            <>
+              <p className="tournament-state">Tournoi terminé.</p>
+              {userRankBet.gain > 0 && (
+                <p className="text-center">
+                  {" "}
+                  Bravo, tu as gagné {userRankBet.gain} points !
+                </p>
+              )}
+              {userRankBet.gain === 0 && (
+                <p> Pas ouf, tu as gagné {userRankBet.gain} points !</p>
+              )}
 
-            <div className="classement">
-              {userRankBet.userRanking.map((team, i) => {
-                let className = "team-name";
-                let points = 0;
-                const positionInResult = userRankBet.resultRanking.findIndex(
-                  (t) => t.name === team.name
-                );
-                if (positionInResult === i) {
-                  className += " good-prediction";
-                  if (i === 0) {
-                    points = 2; // 2 points pour la première équipe bien placée
-                  } else if (i < 5) {
-                    points = 1; // 1 point pour les 4 autres équipes bien placées
+              <div className="classement">
+                {userRankBet.userRanking.map((team, i) => {
+                  let className = "team-name";
+                  let points = 0;
+                  const positionInResult = userRankBet.resultRanking.findIndex(
+                    (t) => t.name === team.name
+                  );
+                  if (positionInResult === i) {
+                    className += " good-prediction";
+                    if (i === 0) {
+                      points = 2; // 2 points pour la première équipe bien placée
+                    } else if (i < 5) {
+                      points = 1; // 1 point pour les 4 autres équipes bien placées
+                    }
+                  } else {
+                    className += " false-prediction";
+                    if (
+                      (i === 1 || i === 2) &&
+                      (positionInResult === 1 || positionInResult === 2)
+                    ) {
+                      points = 0.5; // 0.5 point pour le 2ème et 3ème placés inversés
+                    }
                   }
-                } else {
-                  className += " false-prediction";
-                  if (
-                    (i === 1 || i === 2) &&
-                    (positionInResult === 1 || positionInResult === 2)
-                  ) {
-                    points = 0.5; // 0.5 point pour le 2ème et 3ème placés inversés
-                  }
-                }
-                points *= rankBet.prize; // multiplier les points par le prix
-                return (
-                  <div key={i} className="prediction">
-                    <div className="index">#{i + 1}</div>
-                    <div className={className}>
-                      {team.name} (+{points})
+                  points *= rankBet.prize; // multiplier les points par le prix
+                  return (
+                    <div key={i} className="prediction">
+                      <div className="index">#{i + 1}</div>
+                      <div className={className}>
+                        {team.name} (+{points})
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        ) : null}
-        {!uid.uid && rankBet.teams.length > 0 && (
-          <p className="connect-to-bet"> Connecte toi pour parier !</p>
-        )}
+                  );
+                })}
+              </div>
+            </>
+          ) : null}
+          {!uid.uid && rankBet.teams.length > 0 && (
+            <p className="connect-to-bet"> Connecte toi pour parier !</p>
+          )}
 
-        {error && <p className="bet-error">{error}</p>}
-        {rankBet.teamScores && (
-          <div className="bar-chart-container">
-            <h1>Ceux que les autres ont parié</h1>
-            <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
-            <button
-              className="display-more-button"
-              onClick={() => setShowAllTeams(!showAllTeams)}
-            >
-              {rankBet.teamScores.length > 5
-                ? showAllTeams
-                  ? "Afficher moins"
-                  : "Afficher plus"
-                : null}
-            </button>
-          </div>
-        )}
-      </li>
+          {error && <p className="bet-error">{error}</p>}
+          {rankBet.teamScores && TournamentState && (
+            <div className="bar-chart-container">
+              <h1>Ceux que les autres ont parié</h1>
+              <BarChart data={rankBet.teamScores} showAllTeams={showAllTeams} />
+              <button
+                className="display-more-button"
+                onClick={() => setShowAllTeams(!showAllTeams)}
+              >
+                {rankBet.teamScores.length > 5
+                  ? showAllTeams
+                    ? "Afficher moins"
+                    : "Afficher plus"
+                  : null}
+              </button>
+            </div>
+          )}
+        </li>
+      )}
       {teamListVisibility[selectedOptionIndex] && (
         <TeamList
           teams={rankBet.teams
