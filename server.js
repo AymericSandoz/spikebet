@@ -2,23 +2,22 @@ const express = require("express"); //framework qui permet de coder plus rapidem
 require("dotenv").config({ path: "./config/.env" });
 const userRoutes = require("./routes/user");
 const betRoutes = require("./routes/bet");
-// const test = require("./my-app/public/ind")
-const path = require("path"); //accéder au path de notre serveur :
+const path = require("path");
 
 const requireAuth = require("./middleware/requireAuth");
 require("./config/db");
 const app = express();
 var bodyParser = require("body-parser");
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 // app.use(express.static("./my-app/public"));
 // app.get("/", (req, res) => {
 //   res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
 // });
 app.use(express.static(path.join(__dirname, "my-app/build")));
 
-app.get("/", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + "/my-app/build/index.html"));
 });
 
