@@ -138,7 +138,9 @@
         align-items: center;
 
         .select-player-item {
-            width: 100%;
+            @include mobile-only {
+                width: 100%;
+            }
         }
 
         .flex-centered {
@@ -146,7 +148,7 @@
             align-items: center;
             gap: 4px;
             padding: 4px;
-            width: 100%;
+            width: max-content;
         }
 
         .black-background {
@@ -171,7 +173,6 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            width: 100%;
         }
 
         .index {
