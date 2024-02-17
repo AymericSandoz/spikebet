@@ -11,7 +11,6 @@ const RankBets = () => {
   const [loadRankBets, setLoadRankBets] = useState(true);
   const [betsToDisplay, setBetsToDisplay] = useState([]);
   const [competitionName, setCompetitionName] = useState("");
-  // const [displayBets, setDisplayBets] = useState(false);
 
   const query = useQuery();
   let competition = query.get("competition");
@@ -54,7 +53,6 @@ const RankBets = () => {
       .then((res) => {
         let bets = calculateTeamScores(res.data);
         setRankBets(bets);
-        // setBetsToDisplay(bets);
         setLoadRankBets(false);
       })
       .catch((err) => {
@@ -85,7 +83,9 @@ const RankBets = () => {
   return (
     <>
       <div className="rank-bets-container">
-        {competitionName && <h1 className="no-mobile"> {competitionName}</h1>}
+        {competitionName && (
+          <h1 className="no-mobile competition-name"> {competitionName}</h1>
+        )}
         <div className="rank-bets">
           {betsToDisplay.length === 3 &&
             betsToDisplay.map((rankBet) => {

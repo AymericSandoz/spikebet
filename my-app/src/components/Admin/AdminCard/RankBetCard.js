@@ -319,7 +319,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             <>
               <h1> Paris Closed </h1>
               <h2> Les résultats </h2>
-              <div className="ranking-container">
+              <div>
                 {rankBet.resultRanking.map((team) => {
                   return (
                     <>
