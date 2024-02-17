@@ -36,6 +36,61 @@
 
     }
 
+    .tournament-state {
+        padding: 0 24px;
+        text-align: center;
+        font-size: 25px;
+
+        @include mobile-only {
+            padding: 0 48px;
+        }
+    }
+
+    .classement {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .index {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .prediction {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .team-name {
+            font-size: 16px;
+            border: 1px solid rgb(204, 204, 204);
+            padding: 8px;
+            background-color: black;
+            border-radius: 4px;
+            word-break: break-word;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .good-prediction {
+
+            &::after {
+                content: "✔"; // symbole de validation
+                margin-left: 5px;
+                color: #90ee90;
+            }
+        }
+
+        .false-prediction {
+            &::after {
+                content: "✖"; // symbole de croix
+                margin-left: 5px;
+                color: red;
+            }
+        }
+    }
+
     .tournament-to-come {
         text-align: center;
         font-size: 25px;
