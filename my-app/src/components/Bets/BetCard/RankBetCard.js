@@ -380,7 +380,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 points *= rankBet.prize; // multiplier les points par le prix
                 return (
                   <div key={i} className="prediction">
-                    <div className="index"># {i + 1}</div>
+                    <div className="index">#{i + 1}</div>
                     <div className={className}>
                       {team.name} (+{points})
                     </div>
