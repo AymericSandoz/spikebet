@@ -212,64 +212,61 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 {[...Array(5)].map((_, i) => (
                   <div key={i} className="teams">
                     <span className="index">#{i + 1}</span>
-                    <div className="no-mobile">
-                      <div className="flex-centered">
-                        <Select
-                          id={`select-player-${i}`}
-                          className="select-player-item"
-                          options={options.filter(
-                            (option) =>
-                              !ranking.find(
-                                (rank) => rank.name === option.value
-                              )
-                          )}
-                          isSearchable
-                          isClearable
-                          onChange={(event) => handleTeamSelect(event, i)}
-                          placeholder={
-                            ranking &&
-                            ranking.find(
-                              (team) => team && team.position === i + 1
-                            )
-                              ? `${
-                                  ranking.find(
-                                    (team) => team && team.position === i + 1
-                                  ).name
-                                }`
-                              : "Sélectionner une équipe"
-                          }
-                          styles={{
-                            control: (provided) => ({
-                              ...provided,
-                              backgroundColor: "black",
-                              color: "white",
-                              width: "400px",
-                            }),
-                            singleValue: (provided) => ({
-                              ...provided,
-                              color: "white",
-                            }),
-                            menu: (provided) => ({
-                              ...provided,
-                              backgroundColor: "black",
-                              color: "white",
-                            }),
-                            option: (provided, state) => ({
-                              ...provided,
-                              backgroundColor: state.isFocused
-                                ? "grey"
-                                : "black",
-                              color: "white",
-                            }),
-                            input: (provided) => ({
-                              ...provided,
-                              color: "white",
-                            }),
-                          }}
-                        />
-                      </div>
+                    {/* <div className="no-mobile"> */}
+                    <div className="flex-centered">
+                      <Select
+                        id={`select-player-${i}`}
+                        className="select-player-item"
+                        options={options.filter(
+                          (option) =>
+                            !ranking.find((rank) => rank.name === option.value)
+                        )}
+                        isSearchable
+                        isClearable
+                        onChange={(event) => handleTeamSelect(event, i)}
+                        placeholder={
+                          ranking &&
+                          ranking.find(
+                            (team) => team && team.position === i + 1
+                          )
+                            ? `${
+                                ranking.find(
+                                  (team) => team && team.position === i + 1
+                                ).name
+                              }`
+                            : "Sélectionner une équipe"
+                        }
+                        styles={{
+                          control: (provided) => ({
+                            ...provided,
+                            backgroundColor: "black",
+                            color: "white",
+                            // width: "400px",
+                            width: "100%",
+                          }),
+                          singleValue: (provided) => ({
+                            ...provided,
+                            color: "white",
+                          }),
+                          menu: (provided) => ({
+                            ...provided,
+                            backgroundColor: "black",
+                            color: "white",
+                          }),
+                          option: (provided, state) => ({
+                            ...provided,
+                            backgroundColor: state.isFocused ? "grey" : "black",
+                            color: "white",
+                          }),
+                          input: (provided) => ({
+                            ...provided,
+                            color: "white",
+                          }),
+                        }}
+                      />
                     </div>
-                    <div className="black-background">
+                    {/* </div> */}
+                    {/* <div className="black-background">
                       <div className="mobile-only" style={{ width: "100%" }}>
                         <div className="select-player">
                           <div
@@ -316,7 +313,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 ))}
               </div>
