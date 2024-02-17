@@ -46,7 +46,7 @@ const App = () => {
         setCoins(CalculTotalCoins(res.data.betsArray, res.data.coins));
       })
       .catch((err) => {
-        console.log("No coins ");
+        console.log(err);
       });
   };
   useEffect(() => {
