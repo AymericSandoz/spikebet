@@ -24,7 +24,6 @@ const App = () => {
     })
       .then((res) => {
         if (res.message != "jwt malformed") {
-          console.log("!jwt malformed", res);
           setUid(res.data);
         }
       })

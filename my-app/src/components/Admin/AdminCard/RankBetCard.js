@@ -180,6 +180,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           <div className="competition-type">
             {rankBet.competition_type.toUpperCase()}
           </div>
+          {/* Pour modifier le tournoi en mode debug il enlever par TournamentState === "after" */}
           {/* {TournamentState === "after" && rankBet.live === "open" ? ( */}
           {rankBet.live === "open" ? (
             <>
@@ -276,8 +277,10 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                 <div className="icon-add">
                                   <MdAdd />
                                 </div>{" "}
-                                <span class="small-mobile-only">Équipe</span>
-                                <span class="not-small-visible">
+                                <span className="small-mobile-only">
+                                  Équipe
+                                </span>
+                                <span className="not-small-visible">
                                   Sélectionner une équipe
                                 </span>
                               </div>

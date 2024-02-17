@@ -19,9 +19,7 @@ import AdminRanking from "../Admin/otherTypeOfBets/AdminRanking";
 import React, { useContext } from "react";
 import { UidContext } from "../AppContext";
 const Index = () => {
-  // import isAdminMode from context
   const uid = useContext(UidContext);
-  console.log(uid);
 
   return (
     <BrowserRouter>

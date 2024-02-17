@@ -1,13 +1,5 @@
 const survey = [
   {
-    survey: "Erwan va t'il lacher un sourire en 2024 ? ",
-    choices: ["Oui", "Non", "Peut-être"],
-  },
-  {
-    survey: "Aymeric met un ace en 2024 ? ",
-    choices: ["Oui", "Non", "Peut-être"],
-  },
-  {
     survey: "Qui sera champion de france 2024 ? ",
     choices: [
       "Louis M. et Dorian A.",
@@ -28,11 +20,15 @@ const survey = [
     ],
   },
   {
-    survey: "Quelle âge a Olivier ? ",
+    survey: "Quelle âge a Olivier de bordeaux ? ",
     choices: ["29 ans", "32 ans", "37 ans ", "54 ans"],
   },
   {
     survey: "Chez qui Hélène choyez dort elle le plus souvent ? ",
     choices: ["Erwan", "Clément", "Jérôme", "Aymeric"],
+  },
+  {
+    survey: "Erwan va t'il lacher un sourire en 2024 ? ",
+    choices: ["Oui", "Non", "Peut-être"],
   },
 ];

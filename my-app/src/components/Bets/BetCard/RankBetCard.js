@@ -108,14 +108,13 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
     let oneHourBefore = new Date(competitionDate.getTime() - 60 * 60 * 1000);
     let oneDayAfter = new Date(competitionDate.getTime() + 24 * 60 * 60 * 1000);
 
-    // if (now < oneHourBefore) {
-    //   setTournamentState("before");
-    // } else if (now < competitionDate) {
-    //   setTournamentState("ongoing");
-    // } else if (now < oneDayAfter) {
-    //   setTournamentState("after");
-    // }
-    setTournamentState("after");
+    if (now < oneHourBefore) {
+      setTournamentState("before");
+    } else if (now < competitionDate) {
+      setTournamentState("ongoing");
+    } else if (now < oneDayAfter) {
+      setTournamentState("after");
+    }
   }, []);
 
   // get user rank bet if exists
@@ -388,23 +387,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                 );
               })}
             </div>
-
-            {/* <div className="classement">
-              {userRankBet.userRanking.map((team, i) => {
-                let className = "team-name";
-                if (team.name === userRankBet.resultRanking[i].name) {
-                  className += " good-prediction";
-                } else {
-                  className += " false-prediction";
-                }
-                return (
-                  <div key={i} className="prediction">
-                    <div className="index"># {i + 1}</div>
-                    <div className={className}>{team.name}</div>
-                  </div>
-                );
-              })}
-            </div> */}
           </>
         ) : null}
         {!uid.uid && rankBet.teams.length > 0 && (

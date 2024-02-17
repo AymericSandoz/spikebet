@@ -138,7 +138,7 @@ const SurveyCard = ({ survey, getSurveys }) => {
           )
         ) : null}
 
-        <p class="survey-error">{error}</p>
+        <p className="survey-error">{error}</p>
       </li>
     </>
   );
