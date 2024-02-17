@@ -7,6 +7,8 @@ const survey = [
       "Hugo et Samy",
       "Marius et Théo",
       "Pierre feuille victor",
+      "Olivier et Ryan",
+      "Autre",
     ],
   },
   {
