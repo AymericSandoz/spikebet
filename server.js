@@ -25,10 +25,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("./my-app/public"));
-// app.get("/*", (req, res) => {
+// app.get("/", (req, res) => {
 //   res.sendFile("index.html", { root: path.join(__dirname, "./my-app/public") });
 // });
-// app.use(express.static(path.join(__dirname, "my-app/build")));
+app.use(express.static(path.join(__dirname, "my-app/build")));
 
 app.use("/api/user", userRoutes);
 app.use("/api/bet", betRoutes);
