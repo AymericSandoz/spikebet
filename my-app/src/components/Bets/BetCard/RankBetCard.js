@@ -287,11 +287,13 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                 <div className="icon-add">
                                   <MdAdd />
                                 </div>{" "}
-                                {
-                                  ranking.find(
-                                    (team) => team && team.position === i + 1
-                                  ).name
-                                }
+                                <div>
+                                  {
+                                    ranking.find(
+                                      (team) => team && team.position === i + 1
+                                    ).name
+                                  }
+                                </div>
                               </div>
                             ) : (
                               <div className="flex-centered">

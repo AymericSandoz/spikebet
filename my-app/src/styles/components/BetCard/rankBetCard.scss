@@ -173,6 +173,11 @@
             display: flex;
             gap: 8px;
             align-items: center;
+
+            @include mobile-only {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
 
         .index {
