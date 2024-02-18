@@ -182,7 +182,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           </div>
           {/* Pour modifier le tournoi en mode debug il enlever par TournamentState === "after" */}
           {/* {TournamentState === "after" && rankBet.live === "open" ? ( */}
-          {rankBet.live === "open" ? (
+          {TournamentState === "after" && rankBet.live === "open" ? (
             <>
               <h1> ! Rentre les résultats !</h1>
 
