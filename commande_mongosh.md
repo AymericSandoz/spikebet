@@ -685,7 +685,7 @@ competition_type: "Féminin",
 {
 teams: [],
 competition: "TS Montpellier - Mixte",
-competition_date: "2024-04-s21T09:00:00.000Z",
+competition_date: "2024-04-21T09:00:00.000Z",
 competition_name: "TS_Montpellier_2024",
 competition_global_name: "TS Montpellier",
 competition_type: "Mixte",
