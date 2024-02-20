@@ -33,7 +33,9 @@ const BarChart = ({ data, showAllTeams }) => {
   const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"];
 
   const chartData = {
-    labels: topTeams.map((item) => item.team),
+    labels: topTeams.map((item) =>
+      item.team === "Maréziane" ? "Pour Sophie" : item.team
+    ),
     datasets: [
       {
         label: "Score",

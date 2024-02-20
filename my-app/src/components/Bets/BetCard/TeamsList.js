@@ -46,7 +46,11 @@ const TeamList = ({
                   onClick={() => handleTeamSelect(team, index, true)}
                 >
                   <div>
-                    <span className="team-name">{team.name.toLowerCase()}</span>{" "}
+                    <span className="team-name">
+                      {team.name.toLowerCase() === "maréziane"
+                        ? "pour sophie"
+                        : team.name.toLowerCase()}
+                    </span>{" "}
                     -{" "}
                     <span className="team-players">
                       {team.joueur1.toLowerCase()} et{" "}
