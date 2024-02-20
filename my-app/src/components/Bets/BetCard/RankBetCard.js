@@ -7,7 +7,6 @@ import TeamList from "./TeamsList";
 import { MdAdd } from "react-icons/md";
 import moment from "moment";
 import Select from "react-select";
-import { set } from "lodash";
 
 const RankBetCard = ({ rankBet, getRankBets }) => {
   const [error, setError] = useState();
@@ -94,7 +93,9 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           .sort((a, b) => (b.aymeric_cote || 0) - (a.aymeric_cote || 0))
           .map((team) => ({
             value: team.name,
-            label: `${team.name} - (${team.joueur1} et ${team.joueur2})`,
+            label: `${
+              team.name === "Maréziane" ? "Pour Sophie" : team.name
+            } - (${team.joueur1} et ${team.joueur2})`,
           }))
       : [];
 
@@ -231,11 +232,11 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                             ranking.find(
                               (team) => team && team.position === i + 1
                             )
-                              ? `${
-                                  ranking.find(
+                              ? `${ranking
+                                  .find(
                                     (team) => team && team.position === i + 1
-                                  ).name
-                                }`
+                                  )
+                                  .name.replace("Maréziane", "Pour Sophie")}`
                               : "Sélectionner une équipe"
                           }
                           styles={{
@@ -390,7 +391,8 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                     <div key={i} className="prediction">
                       <div className="index">#{i + 1}</div>
                       <div className={className}>
-                        {team.name} (+{points})
+                        {team.name === "Maréziane" ? "Pour Sophie" : team.name}{" "}
+                        (+{points})
                       </div>
                     </div>
                   );
