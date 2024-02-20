@@ -21,6 +21,7 @@ const SignUpForm = () => {
     const passwordConfirmError = document.querySelector(
       ".password-confirm.error"
     );
+    const clubError = document.querySelector(".club.error");
     pseudoError.innerHTML = "";
     emailError.innerHTML = "";
     nameError.innerHTML = "";
@@ -57,6 +58,11 @@ const SignUpForm = () => {
     if (pseudo.length < 4) {
       pseudoError.innerHTML = "Le pseudo doit contenir au moins 4 caractères";
       return "Le pseudo doit contenir au moins 4 caractères";
+    }
+
+    if (club === "") {
+      clubError.innerHTML = "Veuillez choisir un club";
+      return "Veuillez choisir un club";
     }
 
     await axios({
@@ -134,7 +140,7 @@ const SignUpForm = () => {
             value={club}
             onChange={(e) => setClub(e.target.value)}
           >
-            <option value="Montpellier">Choisir un club</option>
+            <option value="">Choisir un club</option>
             <option value="Montpellier">Montpellier</option>
             <option value="Lyon">Lyon</option>
             <option value="Paris">Paris</option>
@@ -147,9 +153,11 @@ const SignUpForm = () => {
             <option value="Abbeville">Abbeville</option>
             <option value="Mulhouse">Mulhouse</option>
             <option value="Clermont">Clermont</option>
+            <option value="Alpes Roundnet">Alpes Roundnet</option>
             <option value="Autre">Autre</option>
           </select>
           <br />
+          <div className="club error"></div>
           <br />
           <label htmlFor="password">Mot de passe*</label>
           <br />
