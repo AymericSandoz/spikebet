@@ -289,11 +289,14 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
                                   <MdAdd />
                                 </div>{" "}
                                 <div>
-                                  {
-                                    ranking.find(
-                                      (team) => team && team.position === i + 1
-                                    ).name
-                                  }
+                                  {ranking.find(
+                                    (team) => team && team.position === i + 1
+                                  ).name === "Maréziane"
+                                    ? "Pour Sophie"
+                                    : ranking.find(
+                                        (team) =>
+                                          team && team.position === i + 1
+                                      ).name}
                                 </div>
                               </div>
                             ) : (
