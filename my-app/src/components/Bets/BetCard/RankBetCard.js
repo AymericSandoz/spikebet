@@ -111,9 +111,9 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
 
     if (now < oneHourBefore) {
       setTournamentState("before");
-    } else if (now < competitionDate) {
+    } else if (now >= oneHourBefore && now < oneDayAfter) {
       setTournamentState("ongoing");
-    } else if (now < oneDayAfter) {
+    } else if (now >= oneDayAfter) {
       setTournamentState("after");
     }
   }, []);
