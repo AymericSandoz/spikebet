@@ -97,7 +97,7 @@ exports.voteSurvey = (req, res, next) => {
   )
     .then((survey) => {
       if (survey.arrayVotersId.includes(req.auth.userId)) {
-        console.log("Vote added !");
+        console.log("Vote added with success!");
       } else {
         console.log("L'utilisateur a déjà voté !");
       }
