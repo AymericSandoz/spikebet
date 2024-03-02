@@ -19,7 +19,7 @@ const RankBets = () => {
   }
 
   const calculateTeamScores = (bets) => {
-    console.logs("bets", bets);
+    console.log("bets", bets);
     bets?.forEach((bet) => {
       const teamScores = {};
       bet.usersBets?.forEach((userBet) => {
