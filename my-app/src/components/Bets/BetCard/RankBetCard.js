@@ -352,8 +352,7 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
             </p>
           ) : TournamentState === "after" &&
             userRankBet &&
-            userRankBet.live === "closed" &&
-            userRankBet.gain ? (
+            userRankBet.live === "closed" ? (
             <>
               <p className="tournament-state">Tournoi terminé.</p>
               {userRankBet.gain > 0 && (
@@ -406,7 +405,6 @@ const RankBetCard = ({ rankBet, getRankBets }) => {
           {!uid.uid && rankBet.teams.length > 0 && (
             <p className="connect-to-bet"> Connecte toi pour parier !</p>
           )}
-
           {error && <p className="bet-error">{error}</p>}
           {rankBet.teamScores && TournamentState && (
             <div className="bar-chart-container">

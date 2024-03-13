@@ -87,7 +87,7 @@ const RankBets = () => {
           <h1 className="no-mobile competition-name"> {competitionName}</h1>
         )}
         <div className="rank-bets">
-          {betsToDisplay.length === 3 &&
+          {betsToDisplay &&
             betsToDisplay.map((rankBet) => {
               return (
                 <>
