@@ -4,10 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
   faRankingStar,
-  faMoneyBill1Wave,
   faSquarePollVertical,
-  faObjectGroup,
-  faStar,
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import { UidContext } from "../AppContext";
 import { useContext } from "react";
@@ -48,6 +46,15 @@ const AdminLeftNav = () => {
           >
             <span></span>Classement{" "}
             <FontAwesomeIcon icon={faRankingStar} className={"icon"} />
+          </NavLink>
+        </section>
+        <section>
+          <NavLink
+            className={"sidebar-item lefnav-level-1 hovered"}
+            to="/admin/stats"
+          >
+            <span>Stats</span>
+            <FontAwesomeIcon icon={faChartLine} className={"icon"} />
           </NavLink>
         </section>
       </div>

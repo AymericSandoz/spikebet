@@ -1,0 +1,16 @@
+.stats {
+    .stat-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        background-color: $color-1;
+        border-radius: 8px;
+        padding: 24px 96px;
+        margin-bottom: 20px;
+        color: white;
+        opacity: 0.85;
+        overflow: hidden;
+        position: relative;
+    }
+}

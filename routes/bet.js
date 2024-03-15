@@ -17,4 +17,7 @@ router.get("/getMyRankedBets", auth, stuffCtrl.getMyRankedBets);
 router.get("/getUserRankBet/:id", auth, stuffCtrl.getUserRankBet);
 
 router.put("/closeRankBet/:id", auth, stuffCtrl.closeRankBet);
+
+router.get("/stats/competition_type", stuffCtrl.getCompetitionsType);
+router.get("/stats/rankbets", stuffCtrl.getRankBetsStats);
 module.exports = router; //exportations de notre routeur

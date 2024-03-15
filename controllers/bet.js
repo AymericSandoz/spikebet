@@ -286,3 +286,80 @@ exports.closeRankBet = (req, res, next) => {
     } else res.send("Erreur :" + err);
   });
 };
+
+// Stats
+exports.getCompetitionsType = (req, res, next) => {
+  RankBet.find({}, (err, docs) => {
+    if (!err) {
+      let competitionType = [];
+      docs.forEach((doc) => {
+        competitionType.push(doc.competition);
+      });
+      res.send(competitionType);
+    } else res.send("Erreur :" + err);
+  });
+};
+
+exports.getRankBetsStats = (req, res, next) => {
+  UserRankBet.find({}, (err, docs) => {
+    if (!err) {
+      let stats = [];
+      docs.forEach((doc) => {
+        User.findOne({ _id: doc.userId }, (err, user) => {
+          if (!err) {
+            RankBet.findOne({ _id: doc.rankBetId }, (err, rankBet) => {
+              if (!err) {
+                stats.push({
+                  user: user,
+                  userRankBet: doc,
+                  rankBet: rankBet,
+                });
+                if (stats.length === docs.length) {
+                  res.send(stats);
+                }
+              } else {
+                res.send("Erreur :" + err);
+              }
+            });
+          } else {
+            res.send("Erreur :" + err);
+          }
+        });
+      });
+    } else {
+      res.send("Erreur :" + err);
+    }
+  });
+};
+
+// exports.getRankBetsStats = (req, res, next) => {
+//   UserRankBet.find({}, (err, docs) => {
+//     if (!err) {
+//       let stats = [];
+//       docs.forEach((doc) => {
+//         User.findOne({ _id: doc.userId }, (err, user) => {
+//           if (!err) {
+//             RankBet.findOne({ _id: doc.rankBetId }, (err, rankBet) => {
+//               if (!err) {
+//                 stats.push({
+//                   user: user,
+//                   userRankBet: doc,
+//                   rankBet: rankBet,
+//                 });
+//                 if (stats.length === docs.length) {
+//                   res.send(stats);
+//                 }
+//               } else {
+//                 res.send("Erreur :" + err);
+//               }
+//             });
+//           } else {
+//             res.send("Erreur :" + err);
+//           }
+//         });
+//       });
+//     } else {
+//       res.send("Erreur :" + err);
+//     }
+//   });
+// };
