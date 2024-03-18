@@ -14,9 +14,6 @@ const StatsTable = ({ stats }) => {
       moment(a.userRankBet.createdAt).unix()
   );
 
-  //   const competitionNames = [
-  //     ...new Set(sortedStats.map((item) => item.rankBet.competition_name)),
-  //   ];
   const competitions = [
     ...new Set(sortedStats.map((item) => item.rankBet.competition)),
   ];
@@ -24,14 +21,6 @@ const StatsTable = ({ stats }) => {
   const usernames = [...new Set(sortedStats.map((item) => item.user.name))];
 
   const columns = [
-    // {
-    //   title: "Compétition",
-    //   dataIndex: ["rankBet", "competition_name"],
-    //   key: "name",
-    //   filters: competitionNames.map((name) => ({ text: name, value: name })),
-    //   onFilter: (value, record) =>
-    //     record.rankBet.competition_name.includes(value),
-    // },
     {
       title: "Division",
       dataIndex: ["rankBet", "competition"],
@@ -92,6 +81,7 @@ const StatsTable = ({ stats }) => {
       title: "Date du pari",
       dataIndex: ["userRankBet", "createdAt"],
       key: "createdAt",
+      responsive: ["md"],
       render: (date) => moment(date).format("DD/MM/YYYY HH:mm"),
       sorter: (a, b) =>
         moment(a.userRankBet.createdAt).unix() -
@@ -101,6 +91,7 @@ const StatsTable = ({ stats }) => {
       title: "Gain",
       dataIndex: ["userRankBet", "gain"],
       key: "gain",
+      responsive: ["md"],
     },
     {
       title: "Type de compétition",
