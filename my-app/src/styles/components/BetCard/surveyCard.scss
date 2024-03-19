@@ -1,4 +1,5 @@
 .survey-card {
+    overflow: hidden;
     margin: 50px;
     display: flex;
     flex-direction: column;
@@ -43,6 +44,16 @@
         margin-top: 10px;
         overflow: hidden;
         gap: 8px;
+        cursor: pointer;
+
+
+        &:hover {
+            color: darkgoldenrod !important;
+
+            .choice {
+                background-color: darkgoldenrod !important;
+            }
+        }
 
 
         .choice-survey-stat {
@@ -52,13 +63,8 @@
             .choice {
 
                 padding-left: 5px;
-                cursor: pointer;
                 height: 20px;
                 width: 20px;
-
-                &:hover {
-                    background-color: darkgoldenrod !important;
-                }
             }
 
 
@@ -73,10 +79,6 @@
         .label {
             text-align: right;
             cursor: pointer;
-
-            &:hover {
-                color: darkgoldenrod;
-            }
         }
 
     }
