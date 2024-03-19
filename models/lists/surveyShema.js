@@ -34,3 +34,78 @@ const survey = [
     choices: ["Oui", "Non", "Peut-être"],
   },
 ];
+
+// V 18/03/2024
+const survey2 = [
+  {
+    survey: "Qui est le meilleur serveur français ? ",
+    choices: [],
+    type: "search",
+    categ: "Men",
+  },
+  {
+    survey: "Qui est le meilleur attaquant français ?",
+    choices: [],
+    type: "search",
+    categ: "men",
+  },
+  {
+    survey: "Qui est le meilleur défenseur français ?",
+    choices: [],
+    type: "search",
+    categ: "men",
+  },
+  {
+    survey: "Qui est le meilleur passeur français ?",
+    choices: [],
+    type: "search",
+    categ: "men",
+  },
+  {
+    survey: "Qui est le meilleur réceptionneur français ?",
+    choices: [],
+    type: "search",
+    categ: "men",
+  },
+  {
+    survey: "Qui est le pire observeur français lol ?",
+    choices: [],
+    type: "search",
+    categ: "men",
+  },
+  {
+    survey: "Quel est le compte instagram préféré des français ?",
+    choices: [
+      "Roundnet Actu",
+      "Coach Clément Official",
+      "Ulysse Roundnet",
+      "Mimoon galactics",
+    ],
+  },
+];
+
+const survey3 = [
+  {
+    survey: "Qui est le meilleur passeur français ? ",
+    choices: [],
+    type: "search",
+    categ: "Men",
+  },
+];
+
+const survey4 = [
+  {
+    survey: "Qui est le meilleur défenseur français ?",
+    choices: [],
+    type: "search",
+    categ: "Men",
+  },
+];
+
+const survey6 = [
+  {
+    survey: "Qui est le meilleur réceptionneur français ?",
+    choices: [],
+    type: "rank",
+  },
+];
